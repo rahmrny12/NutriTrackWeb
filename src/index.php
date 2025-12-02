@@ -89,8 +89,10 @@
     <header id="sticky-header" class="fixed z-50 w-full transition-all duration-300 ease-in-out py-6">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <nav class="flex mx-auto justify-between items-center px-4">
-                <div class="flex items-center">
-                    <h1 class="text-2xl font-bold">Logo</h1>
+                <div class="flex items-center gap-4">
+                    <!-- <h1 class="text-2xl font-bold">Logo</h1> -->
+                    <img src="./img/logo-only.png" alt="NutriTrack logo" class="w-12 h-12 object-contain" />
+                    <img src="./img/logo-text-only.png" alt="NutriTrack logo" class="h-6 object-contain" />
                 </div>
                 <ul class="hidden md:flex items-center space-x-8">
                     <li><a href="index.php" class="transition duration-200 transform text-hover-light">Home</a>
@@ -160,8 +162,7 @@
                         </p>
                     </div>
                     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <div
-                            class="mt-12 max-w-6xl mx-auto h-[550px] rounded-lg shadow-md card hover:border-[#0F9E99]">
+                        <div class="mt-12 max-w-6xl mx-auto h-[550px] rounded-lg shadow-md card hover:border-[#0F9E99]">
                         </div>
                     </div>
                 </div>
@@ -187,14 +188,11 @@
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <div
-                            class="h-[500px] rounded-lg shadow-md card hover:border-[#0F9E99]">
+                        <div class="h-[500px] rounded-lg shadow-md card hover:border-[#0F9E99]">
                         </div>
-                        <div
-                            class="h-[500px] rounded-lg shadow-md card hover:border-[#0F9E99]">
+                        <div class="h-[500px] rounded-lg shadow-md card hover:border-[#0F9E99]">
                         </div>
-                        <div
-                            class="h-[500px] rounded-lg shadow-md card hover:border-[#0F9E99]">
+                        <div class="h-[500px] rounded-lg shadow-md card hover:border-[#0F9E99]">
                         </div>
                     </div>
                 </div>
@@ -219,8 +217,7 @@
                             <!-- 1 -->
                             <div class="marquee-col h-full overflow-y-hidden">
                                 <div class="marquee-track reverse px-2 py-4">
-                                    <div
-                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
+                                    <div class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
                                         <div class="flex items-center gap-3 mb-2">
                                             <img src="https://placehold.co/40x40/34373b/ffffff?text=A"
                                                 class="w-10 h-10 rounded-full" />
@@ -232,8 +229,7 @@
                                         <p class="text-sm">NutriTrack changed my life!
                                             So easy to track meals.</p>
                                     </div>
-                                    <div
-                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
+                                    <div class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
                                         <div class="flex items-center gap-3 mb-2">
                                             <img src="https://placehold.co/40x40/f87171/ffffff?text=B"
                                                 class="w-10 h-10 rounded-full" />
@@ -245,8 +241,7 @@
                                         <p class="text-sm">Best nutrition app I've
                                             ever used. Highly recommend!</p>
                                     </div>
-                                    <div
-                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
+                                    <div class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
                                         <div class="flex items-center gap-3 mb-2">
                                             <img src="https://placehold.co/40x40/34d399/ffffff?text=C"
                                                 class="w-10 h-10 rounded-full" />
@@ -258,8 +253,7 @@
                                         <p class="text-sm">Love the personalized meal
                                             plans. So accurate!</p>
                                     </div>
-                                    <div
-                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
+                                    <div class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
                                         <div class="flex items-center gap-3 mb-2">
                                             <img src="https://placehold.co/40x40/a78bfa/ffffff?text=D"
                                                 class="w-10 h-10 rounded-full" />
@@ -272,8 +266,7 @@
                                             journey. Thank you!</p>
                                     </div>
                                     <!-- Duplikat -->
-                                    <div
-                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
+                                    <div class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
                                         <div class="flex items-center gap-3 mb-2">
                                             <img src="https://placehold.co/40x40/34373b/ffffff?text=A"
                                                 class="w-10 h-10 rounded-full" />
@@ -285,8 +278,7 @@
                                         <p class="text-sm">NutriTrack changed my life!
                                             So easy to track meals.</p>
                                     </div>
-                                    <div
-                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
+                                    <div class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
                                         <div class="flex items-center gap-3 mb-2">
                                             <img src="https://placehold.co/40x40/f87171/ffffff?text=B"
                                                 class="w-10 h-10 rounded-full" />
@@ -298,8 +290,7 @@
                                         <p class="text-sm">Best nutrition app I've
                                             ever used. Highly recommend!</p>
                                     </div>
-                                    <div
-                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
+                                    <div class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
                                         <div class="flex items-center gap-3 mb-2">
                                             <img src="https://placehold.co/40x40/34d399/ffffff?text=C"
                                                 class="w-10 h-10 rounded-full" />
@@ -311,8 +302,7 @@
                                         <p class="text-sm">Love the personalized meal
                                             plans. So accurate!</p>
                                     </div>
-                                    <div
-                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
+                                    <div class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
                                         <div class="flex items-center gap-3 mb-2">
                                             <img src="https://placehold.co/40x40/a78bfa/ffffff?text=D"
                                                 class="w-10 h-10 rounded-full" />
@@ -330,8 +320,7 @@
                             <!-- 2 -->
                             <div class="marquee-col h-full overflow-y-hidden">
                                 <div class="marquee-track px-2 py-4">
-                                    <div
-                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
+                                    <div class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
                                         <div class="flex items-center gap-3 mb-2">
                                             <img src="https://placehold.co/40x40/60a5fa/ffffff?text=E"
                                                 class="w-10 h-10 rounded-full" />
@@ -343,8 +332,7 @@
                                         <p class="text-sm">So intuitive and beautiful
                                             UI. Love it!</p>
                                     </div>
-                                    <div
-                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
+                                    <div class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
                                         <div class="flex items-center gap-3 mb-2">
                                             <img src="https://placehold.co/40x40/fbbf24/ffffff?text=F"
                                                 class="w-10 h-10 rounded-full" />
@@ -356,8 +344,7 @@
                                         <p class="text-sm">Helped me lose 10kg in 3
                                             months. Amazing!</p>
                                     </div>
-                                    <div
-                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
+                                    <div class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
                                         <div class="flex items-center gap-3 mb-2">
                                             <img src="https://placehold.co/40x40/ec4899/ffffff?text=G"
                                                 class="w-10 h-10 rounded-full" />
@@ -369,8 +356,7 @@
                                         <p class="text-sm">The calorie tracker is spot
                                             on. Great job!</p>
                                     </div>
-                                    <div
-                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
+                                    <div class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
                                         <div class="flex items-center gap-3 mb-2">
                                             <img src="https://placehold.co/40x40/8b5cf6/ffffff?text=H"
                                                 class="w-10 h-10 rounded-full" />
@@ -383,8 +369,7 @@
                                             health app ever.</p>
                                     </div>
                                     <!-- Duplikat -->
-                                    <div
-                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
+                                    <div class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
                                         <div class="flex items-center gap-3 mb-2">
                                             <img src="https://placehold.co/40x40/60a5fa/ffffff?text=E"
                                                 class="w-10 h-10 rounded-full" />
@@ -396,8 +381,7 @@
                                         <p class="text-sm">So intuitive and beautiful
                                             UI. Love it!</p>
                                     </div>
-                                    <div
-                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
+                                    <div class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
                                         <div class="flex items-center gap-3 mb-2">
                                             <img src="https://placehold.co/40x40/fbbf24/ffffff?text=F"
                                                 class="w-10 h-10 rounded-full" />
@@ -409,8 +393,7 @@
                                         <p class="text-sm">Helped me lose 10kg in 3
                                             months. Amazing!</p>
                                     </div>
-                                    <div
-                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
+                                    <div class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
                                         <div class="flex items-center gap-3 mb-2">
                                             <img src="https://placehold.co/40x40/ec4899/ffffff?text=G"
                                                 class="w-10 h-10 rounded-full" />
@@ -422,8 +405,7 @@
                                         <p class="text-sm">The calorie tracker is spot
                                             on. Great job!</p>
                                     </div>
-                                    <div
-                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
+                                    <div class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
                                         <div class="flex items-center gap-3 mb-2">
                                             <img src="https://placehold.co/40x40/8b5cf6/ffffff?text=H"
                                                 class="w-10 h-10 rounded-full" />
@@ -441,8 +423,7 @@
                             <!-- 3 -->
                             <div class="marquee-col h-full overflow-y-hidden hidden md:block">
                                 <div class="marquee-track reverse px-2 py-4">
-                                    <div
-                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
+                                    <div class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
                                         <div class="flex items-center gap-3 mb-2">
                                             <img src="https://placehold.co/40x40/10b981/ffffff?text=I"
                                                 class="w-10 h-10 rounded-full" />
@@ -454,8 +435,7 @@
                                         <p class="text-sm">Game changer for my diet.
                                             Thank you!</p>
                                     </div>
-                                    <div
-                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
+                                    <div class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
                                         <div class="flex items-center gap-3 mb-2">
                                             <img src="https://placehold.co/40x40/f43f5e/ffffff?text=J"
                                                 class="w-10 h-10 rounded-full" />
@@ -467,8 +447,7 @@
                                         <p class="text-sm">So easy to use. I track
                                             everything now.</p>
                                     </div>
-                                    <div
-                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
+                                    <div class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
                                         <div class="flex items-center gap-3 mb-2">
                                             <img src="https://placehold.co/40x40/10b981/ffffff?text=I"
                                                 class="w-10 h-10 rounded-full" />
@@ -480,8 +459,7 @@
                                         <p class="text-sm">Game changer for my diet.
                                             Thank you!</p>
                                     </div>
-                                    <div
-                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
+                                    <div class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
                                         <div class="flex items-center gap-3 mb-2">
                                             <img src="https://placehold.co/40x40/f43f5e/ffffff?text=J"
                                                 class="w-10 h-10 rounded-full" />
@@ -494,8 +472,7 @@
                                             everything now.</p>
                                     </div>
                                     <!-- Duplikat -->
-                                    <div
-                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
+                                    <div class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
                                         <div class="flex items-center gap-3 mb-2">
                                             <img src="https://placehold.co/40x40/34373b/ffffff?text=A"
                                                 class="w-10 h-10 rounded-full" />
@@ -507,8 +484,7 @@
                                         <p class="text-sm">NutriTrack changed my life!
                                             So easy to track meals.</p>
                                     </div>
-                                    <div
-                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
+                                    <div class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
                                         <div class="flex items-center gap-3 mb-2">
                                             <img src="https://placehold.co/40x40/f87171/ffffff?text=B"
                                                 class="w-10 h-10 rounded-full" />
@@ -520,8 +496,7 @@
                                         <p class="text-sm">Best nutrition app I've
                                             ever used. Highly recommend!</p>
                                     </div>
-                                    <div
-                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
+                                    <div class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
                                         <div class="flex items-center gap-3 mb-2">
                                             <img src="https://placehold.co/40x40/34d399/ffffff?text=C"
                                                 class="w-10 h-10 rounded-full" />
@@ -533,8 +508,7 @@
                                         <p class="text-sm">Love the personalized meal
                                             plans. So accurate!</p>
                                     </div>
-                                    <div
-                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
+                                    <div class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
                                         <div class="flex items-center gap-3 mb-2">
                                             <img src="https://placehold.co/40x40/a78bfa/ffffff?text=D"
                                                 class="w-10 h-10 rounded-full" />
@@ -552,8 +526,7 @@
                             <!-- 4 -->
                             <div class="marquee-col h-full overflow-y-hidden hidden md:block">
                                 <div class="marquee-track px-2 py-4">
-                                    <div
-                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
+                                    <div class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
                                         <div class="flex items-center gap-3 mb-2">
                                             <img src="https://placehold.co/40x40/0ea5e9/ffffff?text=K"
                                                 class="w-10 h-10 rounded-full" />
@@ -565,8 +538,7 @@
                                         <p class="text-sm">Perfect for busy people
                                             like me!</p>
                                     </div>
-                                    <div
-                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
+                                    <div class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
                                         <div class="flex items-center gap-3 mb-2">
                                             <img src="https://placehold.co/40x40/84cc16/ffffff?text=L"
                                                 class="w-10 h-10 rounded-full" />
@@ -578,8 +550,7 @@
                                         <p class="text-sm">Love the clean design and
                                             accuracy.</p>
                                     </div>
-                                    <div
-                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
+                                    <div class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
                                         <div class="flex items-center gap-3 mb-2">
                                             <img src="https://placehold.co/40x40/0ea5e9/ffffff?text=K"
                                                 class="w-10 h-10 rounded-full" />
@@ -591,8 +562,7 @@
                                         <p class="text-sm">Perfect for busy people
                                             like me!</p>
                                     </div>
-                                    <div
-                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
+                                    <div class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
                                         <div class="flex items-center gap-3 mb-2">
                                             <img src="https://placehold.co/40x40/84cc16/ffffff?text=L"
                                                 class="w-10 h-10 rounded-full" />
@@ -605,8 +575,7 @@
                                             accuracy.</p>
                                     </div>
                                     <!-- Duplikat -->
-                                    <div
-                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
+                                    <div class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
                                         <div class="flex items-center gap-3 mb-2">
                                             <img src="https://placehold.co/40x40/60a5fa/ffffff?text=E"
                                                 class="w-10 h-10 rounded-full" />
@@ -618,8 +587,7 @@
                                         <p class="text-sm">So intuitive and beautiful
                                             UI. Love it!</p>
                                     </div>
-                                    <div
-                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
+                                    <div class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
                                         <div class="flex items-center gap-3 mb-2">
                                             <img src="https://placehold.co/40x40/fbbf24/ffffff?text=F"
                                                 class="w-10 h-10 rounded-full" />
@@ -631,8 +599,7 @@
                                         <p class="text-sm">Helped me lose 10kg in 3
                                             months. Amazing!</p>
                                     </div>
-                                    <div
-                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
+                                    <div class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
                                         <div class="flex items-center gap-3 mb-2">
                                             <img src="https://placehold.co/40x40/ec4899/ffffff?text=G"
                                                 class="w-10 h-10 rounded-full" />
@@ -644,8 +611,7 @@
                                         <p class="text-sm">The calorie tracker is spot
                                             on. Great job!</p>
                                     </div>
-                                    <div
-                                        class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
+                                    <div class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
                                         <div class="flex items-center gap-3 mb-2">
                                             <img src="https://placehold.co/40x40/8b5cf6/ffffff?text=H"
                                                 class="w-10 h-10 rounded-full" />
@@ -671,8 +637,7 @@
         <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-2 md:grid-cols-5 gap-8 items-start">
                 <div class="space-y-4">
-                    <a href="mailto:hi@nutritrack.com"
-                        class="text-lg hover:underline block">hi@nutritrack.com</a>
+                    <a href="mailto:hi@nutritrack.com" class="text-lg hover:underline block">hi@nutritrack.com</a>
                     <div class="flex space-x-4">
                         <a href="#" class="">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"

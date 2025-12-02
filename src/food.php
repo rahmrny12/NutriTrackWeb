@@ -21,7 +21,7 @@ if (isset($_GET['delete'])) {
     if ($deleteId > 0) {
         // Try delete with user verification first
         $result = deleteFood($deleteId, $username);
-        
+
         if ($result['status'] == 204) {
             $message = 'Food item deleted successfully!';
         } else if ($result['status'] == 200) {
@@ -30,10 +30,10 @@ if (isset($_GET['delete'])) {
         } else {
             // Show detailed error
             $error = 'Failed to delete item (Status: ' . $result['status'] . '). ';
-            
+
             // Try to delete without username check (for debugging)
             $result2 = supabaseRequest('DELETE', '/rest/v1/food?id=eq.' . $deleteId);
-            
+
             if ($result2['status'] == 204 || $result2['status'] == 200) {
                 $message = 'Food item deleted (without user check)!';
                 $error = ''; // Clear error
@@ -64,15 +64,49 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_food'])) {
             'username' => $username // Associate food with user
             // Removed created_at - let Supabase use default now()
         ];
-        
+
         $result = createFood($foodData);
-        
+
         // DEBUG: Show the result
         if ($result['status'] == 201) {
             $message = 'Food item added successfully!';
         } else {
             // Show detailed error for debugging
             $error = 'Failed to add item. Status: ' . $result['status'];
+            if (!empty($result['data'])) {
+                $error .= ' | Details: ' . json_encode($result['data']);
+            }
+        }
+    }
+}
+
+// Handle edit
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_food'])) {
+    $foodId = isset($_POST['food_id']) ? intval($_POST['food_id']) : 0;
+    $foodName = trim($_POST['edit_name'] ?? '');
+    $calories = isset($_POST['edit_calories']) ? trim((string) $_POST['edit_calories']) : '0';
+    $protein = isset($_POST['edit_protein']) ? trim((string) $_POST['edit_protein']) : '0';
+    $carbs = isset($_POST['edit_carbs']) ? trim((string) $_POST['edit_carbs']) : '0';
+    $fat = isset($_POST['edit_fat']) ? trim((string) $_POST['edit_fat']) : '0';
+
+    if ($foodId <= 0) {
+        $error = 'Invalid food item selected for editing.';
+    } elseif ($foodName === '') {
+        $error = 'Food name is required.';
+    } else {
+        $foodData = [
+            'name' => $foodName,
+            'calories' => $calories,
+            'protein' => $protein,
+            'carbs' => $carbs,
+            'fat' => $fat
+        ];
+
+        $result = updateFood($foodId, $username, $foodData);
+        if ($result['status'] == 200) {
+            $message = 'Food item updated successfully!';
+        } else {
+            $error = 'Failed to update item. Status: ' . $result['status'];
             if (!empty($result['data'])) {
                 $error .= ' | Details: ' . json_encode($result['data']);
             }
@@ -114,6 +148,50 @@ $foods = getFoodsByUser($username);
                 transform: translateY(0);
             }
         }
+
+        .mobile-menu-panel {
+            transform-origin: top right;
+        }
+
+        .mobile-menu-panel.animate-open {
+            animation: mobileMenuIn 0.25s ease forwards;
+        }
+
+        .mobile-menu-panel.animate-close {
+            animation: mobileMenuOut 0.2s ease forwards;
+        }
+
+        @keyframes mobileMenuIn {
+            from {
+                opacity: 0;
+                transform: translateY(-12px) scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @keyframes mobileMenuOut {
+            from {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+
+            to {
+                opacity: 0;
+                transform: translateY(-8px) scale(0.95);
+            }
+        }
+
+        #menu-toggle-btn svg {
+            transition: transform 0.2s ease;
+        }
+
+        #menu-toggle-btn[aria-expanded="true"] svg {
+            transform: rotate(90deg);
+        }
     </style>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -129,25 +207,30 @@ $foods = getFoodsByUser($username);
     <!-- Header -->
     <header id="sticky-header" class="fixed z-50 w-full transition-all duration-300 ease-in-out py-6">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <nav class="flex mx-auto justify-between items-center px-4">
+            <nav class="relative flex justify-between items-center">
                 <div class="flex items-center">
-                    <h1 class="text-2xl font-bold">Logo</h1>
+                    <h1 class="text-2xl font-bold">NutriTrack+</h1>
                 </div>
                 <ul class="hidden md:flex items-center space-x-8">
                     <li><a href="dashboard.php" class="transition duration-200 transform text-hover-light">Dashboard</a>
                     </li>
-                    <li><a href="food.php" class="transition duration-200 transform hover:scale-105">Food</a></li>
                     <li><a href="user.php" class="transition duration-200 transform hover:scale-105">User</a></li>
+                    <li><a href="food.php" class="transition duration-200 transform hover:scale-105">Food</a></li>
+                    <li><a href="meal.php" class="transition duration-200 transform hover:scale-105">Meal</a></li>
+                    <li><a href="staple.php" class="transition duration-200 transform hover:scale-105">Staple</a></li>
+                    <li><a href="daily.php" class="transition duration-200 transform hover:scale-105">Daily</a></li>
                 </ul>
                 <div class="hidden md:flex items-center space-x-3">
                     <span class="dark:text-dark-text whitespace-nowrap">Hello,
                         <?php echo htmlspecialchars($_SESSION['username']); ?></span>
                     <a href="logout.php"
-                        class="inline-flex justify-center gap-2 text-white dark:hover:bg-[#08D2CB] dark:dark:bg-[#07bab4] px-4 py-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 w-full">Logout</a>
+                        class="inline-flex justify-center gap-2 text-white bg-[#3dccc7] hover:bg-[#68d8d6] px-4 py-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 w-full">Logout</a>
                 </div>
                 <div class="md:hidden">
-                    <button class="text-gray-800 dark:text-gray-200">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    <button id="menu-toggle-btn" type="button" aria-expanded="false" aria-controls="mobile-menu"
+                        aria-label="Toggle navigation"
+                        class="p-2 rounded-lg transition text-gray-800 dark:text-gray-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#3dccc7]">
+                        <svg id="menu-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                             xmlns="http://www.w3.org/2000/svg">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M4 6h16M4 12h16m-7 6h7"></path>
@@ -155,6 +238,23 @@ $foods = getFoodsByUser($username);
                     </button>
                 </div>
             </nav>
+            <div id="mobile-menu" class="md:hidden hidden mt-3">
+                <div class="mobile-menu-panel card shadow-lg rounded-xl p-6 space-y-4">
+                    <div class="flex flex-col space-y-3">
+                        <a href="dashboard.php" class="block text-base font-medium transition-colors duration-200 hover:text-[#3dccc7]">Dashboard</a>
+                        <a href="user.php" class="block text-base font-medium transition-colors duration-200 hover:text-[#3dccc7]">User</a>
+                        <a href="food.php" class="block text-base font-medium transition-colors duration-200 hover:text-[#3dccc7]">Food</a>
+                        <a href="meal.php" class="block text-base font-medium transition-colors duration-200 hover:text-[#3dccc7]">Meal</a>
+                        <a href="staple.php" class="block text-base font-medium transition-colors duration-200 hover:text-[#3dccc7]">Staple</a>
+                        <a href="daily.php" class="block text-base font-medium transition-colors duration-200 hover:text-[#3dccc7]">Daily</a>
+                    </div>
+                    <div class="flex flex-col gap-3 py-3 border-t border-neutral-200 dark:border-neutral-700">
+                        <span class="text-sm opacity-70">Hello, <?php echo htmlspecialchars($_SESSION['username']); ?></span>
+                        <a href="logout.php"
+                            class="inline-flex justify-center items-center gap-2 text-sm font-medium rounded-md py-2 px-4 text-white bg-[#3dccc7] hover:bg-[#68d8d6] transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#3dccc7]">Logout</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </header>
 
@@ -162,11 +262,11 @@ $foods = getFoodsByUser($username);
     <main>
         <section class="pt-28 pb-12 md:pt-36 min-h-[60vh]">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="mb-8">
-					<h1 class="text-3xl sm:text-4xl font-bold tracking-tight">Food Management</h1>
-					<p class="mt-2 text-lg dark:opacity-80">Welcome back, <span
-							class="font-semibold"><?php echo htmlspecialchars($fullname); ?></span>.</p>
-				</div>
+                <div class="mb-8">
+                    <h1 class="text-3xl sm:text-4xl font-bold tracking-tight">Food Management</h1>
+                    <p class="mt-2 text-lg dark:opacity-80">Welcome back, <span
+                            class="font-semibold"><?php echo htmlspecialchars($fullname); ?></span>.</p>
+                </div>
 
                 <?php if (!empty($message)) { ?>
                     <div class="mb-6 text-sm text-green-700 bg-green-100 dark:bg-green-900/20 dark:text-green-400 rounded-md px-4 py-3">
@@ -218,7 +318,7 @@ $foods = getFoodsByUser($username);
                             </div>
                             <div>
                                 <button type="submit"
-                                    class="inline-flex justify-center gap-2 text-white dark:hover:bg-[#08D2CB] dark:dark:bg-[#07bab4] px-4 py-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2">
+                                    class="inline-flex justify-center gap-2 text-white bg-[#3dccc7] hover:bg-[#68d8d6] px-4 py-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2">
                                     Add Food
                                 </button>
                             </div>
@@ -246,7 +346,7 @@ $foods = getFoodsByUser($username);
                                         </tr>
                                         <?php } else {
                                         foreach ($foods as $f) { ?>
-                                            <tr class="border-t border-gray-200/50 dark:border-gray-700/50">
+                                            <tr class="border-t border-neutral-200 dark:border-neutral-700">
                                                 <td class="py-2 pr-4"><?php echo htmlspecialchars($f['name']); ?></td>
                                                 <td class="py-2 pr-4"><?php echo htmlspecialchars((string) $f['calories']); ?>
                                                 </td>
@@ -254,7 +354,17 @@ $foods = getFoodsByUser($username);
                                                 </td>
                                                 <td class="py-2 pr-4"><?php echo htmlspecialchars((string) $f['carbs']); ?></td>
                                                 <td class="py-2 pr-4"><?php echo htmlspecialchars((string) $f['fat']); ?></td>
-                                                <td class="py-2 pr-4">
+                                                <td class="py-2 pr-4 space-x-3">
+                                                    <button type="button"
+                                                        class="text-cyan-600 hover:underline dark:text-cyan-300 edit-food-btn"
+                                                        data-id="<?php echo (int) $f['id']; ?>"
+                                                        data-name="<?php echo htmlspecialchars($f['name']); ?>"
+                                                        data-calories="<?php echo htmlspecialchars((string) $f['calories']); ?>"
+                                                        data-protein="<?php echo htmlspecialchars((string) $f['protein']); ?>"
+                                                        data-carbs="<?php echo htmlspecialchars((string) $f['carbs']); ?>"
+                                                        data-fat="<?php echo htmlspecialchars((string) $f['fat']); ?>">
+                                                        Edit
+                                                    </button>
                                                     <a href="food.php?delete=<?php echo (int) $f['id']; ?>"
                                                         class="text-red-600 hover:underline dark:text-red-400"
                                                         onclick="return confirm('Delete this item?');">Delete</a>
@@ -270,6 +380,56 @@ $foods = getFoodsByUser($username);
             </div>
         </section>
     </main>
+
+    <!-- Edit Food Modal -->
+    <div id="edit-food-modal" class="fixed inset-0 z-50 hidden items-center justify-center px-4">
+        <div class="absolute inset-0 bg-black/40 backdrop-blur-sm"></div>
+        <div class="relative w-full max-w-lg mx-auto card rounded-xl shadow-2xl p-6 fade-in">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-xl font-semibold">Edit Food</h3>
+                <button type="button" id="close-edit-modal" class="opacity-80">✕</button>
+            </div>
+            <form id="edit-food-form" class="space-y-4" method="POST" action="food.php">
+                <input type="hidden" name="edit_food" value="1">
+                <input type="hidden" name="food_id" id="edit-food-id">
+                <div>
+                    <label for="edit-name" class="block text-sm font-medium mb-2">Name</label>
+                    <input id="edit-name" name="edit_name" type="text" required
+                        class="block w-full px-3 py-2 card rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-500">
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div>
+                        <label for="edit-calories" class="block text-sm font-medium mb-2">Calories</label>
+                        <input id="edit-calories" name="edit_calories" type="number" step="0.01" min="0"
+                            class="block w-full px-3 py-2 card rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-500">
+                    </div>
+                    <div>
+                        <label for="edit-protein" class="block text-sm font-medium mb-2">Protein (g)</label>
+                        <input id="edit-protein" name="edit_protein" type="number" step="0.01" min="0"
+                            class="block w-full px-3 py-2 card rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-500">
+                    </div>
+                    <div>
+                        <label for="edit-carbs" class="block text-sm font-medium mb-2">Carbs (g)</label>
+                        <input id="edit-carbs" name="edit_carbs" type="number" step="0.01" min="0"
+                            class="block w-full px-3 py-2 card rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-500">
+                    </div>
+                    <div>
+                        <label for="edit-fat" class="block text-sm font-medium mb-2">Fat (g)</label>
+                        <input id="edit-fat" name="edit_fat" type="number" step="0.01" min="0"
+                            class="block w-full px-3 py-2 card rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-500">
+                    </div>
+                </div>
+                <div class="flex justify-end gap-3">
+                    <button type="button" id="cancel-edit-modal"
+                        class="px-4 py-2 rounded-md border border-gray-300 hover:bg-white/10">Cancel</button>
+                    <button type="submit"
+                        class="inline-flex justify-center gap-2 text-white bg-[#3dccc7] hover:bg-[#68d8d6] px-4 py-3 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2">
+                        Save Changes
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
 
     <div class="fixed bottom-6 right-6 z-50 flex flex-col items-center space-y-4">
         <div class="p-1 rounded-full card shadow-md transition-all duration-300">
@@ -314,6 +474,90 @@ $foods = getFoodsByUser($username);
     </div>
 
     <script>
+        // === Mobile Menu Logic ===
+        const menuToggleBtn = document.getElementById('menu-toggle-btn');
+        const menuIconPath = document.querySelector('#menu-icon path');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuPanel = mobileMenu ? mobileMenu.querySelector('.mobile-menu-panel') : null;
+
+        if (menuToggleBtn && menuIconPath && mobileMenu && mobileMenuPanel) {
+            const MOBILE_MENU_ICONS = {
+                open: 'M4 6h16M4 12h16m-7 6h7',
+                close: 'M6 18L18 6M6 6l12 12'
+            };
+
+            const setMenuIcon = (state) => {
+                menuIconPath.setAttribute('d', state === 'open' ? MOBILE_MENU_ICONS.close : MOBILE_MENU_ICONS.open);
+            };
+
+            const openMobileMenu = () => {
+                mobileMenu.classList.remove('hidden');
+                mobileMenuPanel.classList.remove('animate-close');
+                mobileMenuPanel.classList.remove('animate-open');
+                void mobileMenuPanel.offsetWidth;
+                mobileMenuPanel.classList.add('animate-open');
+                menuToggleBtn.setAttribute('aria-expanded', 'true');
+                setMenuIcon('open');
+                document.body.style.overflow = 'hidden';
+            };
+
+            const closeMobileMenu = ({
+                focusToggle = false
+            } = {}) => {
+                mobileMenuPanel.classList.remove('animate-open');
+                mobileMenuPanel.classList.add('animate-close');
+                menuToggleBtn.setAttribute('aria-expanded', 'false');
+                setMenuIcon('close');
+                document.body.style.overflow = '';
+                if (focusToggle) {
+                    menuToggleBtn.focus();
+                }
+            };
+
+            mobileMenuPanel.addEventListener('animationend', (event) => {
+                if (event.animationName === 'mobileMenuOut') {
+                    mobileMenu.classList.add('hidden');
+                    mobileMenuPanel.classList.remove('animate-close');
+                }
+            });
+
+            menuToggleBtn.addEventListener('click', () => {
+                const isExpanded = menuToggleBtn.getAttribute('aria-expanded') === 'true';
+                if (isExpanded) {
+                    closeMobileMenu();
+                } else {
+                    openMobileMenu();
+                }
+            });
+
+            mobileMenu.querySelectorAll('a').forEach((link) => {
+                link.addEventListener('click', () => closeMobileMenu());
+            });
+
+            document.addEventListener('click', (event) => {
+                const isClickInsideMenu = mobileMenu.contains(event.target) || menuToggleBtn.contains(event.target);
+                if (!isClickInsideMenu && menuToggleBtn.getAttribute('aria-expanded') === 'true') {
+                    closeMobileMenu();
+                }
+            });
+
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape' && menuToggleBtn.getAttribute('aria-expanded') === 'true') {
+                    closeMobileMenu({
+                        focusToggle: true
+                    });
+                }
+            });
+
+            window.addEventListener('resize', () => {
+                if (window.innerWidth >= 768 && menuToggleBtn.getAttribute('aria-expanded') === 'true') {
+                    closeMobileMenu();
+                    mobileMenu.classList.add('hidden');
+                    mobileMenuPanel.classList.remove('animate-close');
+                }
+            });
+        }
+
         // === Dropdown Menu Logic ===
         const dropdownButton = document.getElementById('dropdownButton');
         const dropdownMenu = document.getElementById('dropdownMenu');
@@ -400,6 +644,68 @@ $foods = getFoodsByUser($username);
             } else {
                 header.classList.remove('bg-light-bg', 'dark:bg-dark-bg', 'shadow-lg', 'backdrop-blur-sm', 'bg-opacity-80', 'py-4');
                 header.classList.add('py-6');
+            }
+        });
+
+        // === Edit Food Modal Logic ===
+        const editModal = document.getElementById('edit-food-modal');
+        const editButtons = document.querySelectorAll('.edit-food-btn');
+        const closeEditModalBtn = document.getElementById('close-edit-modal');
+        const cancelEditModalBtn = document.getElementById('cancel-edit-modal');
+        const editFoodIdInput = document.getElementById('edit-food-id');
+        const editNameInput = document.getElementById('edit-name');
+        const editCaloriesInput = document.getElementById('edit-calories');
+        const editProteinInput = document.getElementById('edit-protein');
+        const editCarbsInput = document.getElementById('edit-carbs');
+        const editFatInput = document.getElementById('edit-fat');
+
+        const setBodyScroll = (locked) => {
+            document.body.style.overflow = locked ? 'hidden' : '';
+        };
+
+        const openEditModal = () => {
+            if (!editModal) return;
+            editModal.classList.remove('hidden');
+            editModal.classList.add('flex');
+            setBodyScroll(true);
+        };
+
+        const closeEditModal = () => {
+            if (!editModal) return;
+            editModal.classList.add('hidden');
+            editModal.classList.remove('flex');
+            setBodyScroll(false);
+        };
+
+        editButtons.forEach((btn) => {
+            btn.addEventListener('click', () => {
+                const {
+                    id,
+                    name,
+                    calories,
+                    protein,
+                    carbs,
+                    fat
+                } = btn.dataset;
+                editFoodIdInput.value = id || '';
+                editNameInput.value = name || '';
+                editCaloriesInput.value = calories || 0;
+                editProteinInput.value = protein || 0;
+                editCarbsInput.value = carbs || 0;
+                editFatInput.value = fat || 0;
+                openEditModal();
+            });
+        });
+
+        closeEditModalBtn && closeEditModalBtn.addEventListener('click', closeEditModal);
+        cancelEditModalBtn && cancelEditModalBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            closeEditModal();
+        });
+
+        editModal && editModal.addEventListener('click', (event) => {
+            if (event.target === editModal) {
+                closeEditModal();
             }
         });
     </script>

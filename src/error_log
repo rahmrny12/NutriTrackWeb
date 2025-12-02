@@ -1,0 +1,24 @@
+[18-Nov-2025 23:16:21 Asia/Jakarta] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: NO) in /home/desx7782/public_html/nutritrack.web.id/db.php:8
+Stack trace:
+#0 /home/desx7782/public_html/nutritrack.web.id/db.php(8): mysqli->__construct()
+#1 /home/desx7782/public_html/nutritrack.web.id/api/food.php(2): include('/home/desx7782/...')
+#2 {main}
+  thrown in /home/desx7782/public_html/nutritrack.web.id/db.php on line 8
+[18-Nov-2025 23:16:27 Asia/Jakarta] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: NO) in /home/desx7782/public_html/nutritrack.web.id/db.php:8
+Stack trace:
+#0 /home/desx7782/public_html/nutritrack.web.id/db.php(8): mysqli->__construct()
+#1 /home/desx7782/public_html/nutritrack.web.id/api/food.php(2): include('/home/desx7782/...')
+#2 {main}
+  thrown in /home/desx7782/public_html/nutritrack.web.id/db.php on line 8
+[18-Nov-2025 23:16:42 Asia/Jakarta] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: NO) in /home/desx7782/public_html/nutritrack.web.id/db.php:8
+Stack trace:
+#0 /home/desx7782/public_html/nutritrack.web.id/db.php(8): mysqli->__construct()
+#1 /home/desx7782/public_html/nutritrack.web.id/api/food.php(2): include('/home/desx7782/...')
+#2 {main}
+  thrown in /home/desx7782/public_html/nutritrack.web.id/db.php on line 8
+[18-Nov-2025 23:16:44 Asia/Jakarta] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'root'@'localhost' (using password: NO) in /home/desx7782/public_html/nutritrack.web.id/db.php:8
+Stack trace:
+#0 /home/desx7782/public_html/nutritrack.web.id/db.php(8): mysqli->__construct()
+#1 /home/desx7782/public_html/nutritrack.web.id/api/food.php(2): include('/home/desx7782/...')
+#2 {main}
+  thrown in /home/desx7782/public_html/nutritrack.web.id/db.php on line 8
