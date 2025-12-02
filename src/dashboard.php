@@ -1,15 +1,95 @@
 <?php
 session_start();
 if (!isset($_SESSION['username'])) {
-	header("Location: signin.php");
-	exit;
+    header("Location: signin.php");
+    exit;
 }
 
 $username = $_SESSION['username'];
+// Pastikan Anda sudah menyertakan file koneksi database
 include 'config.php';
+// WAJIB: Sertakan file fungsi database
+include 'db-functions.php'; 
 
-$user = getUserByUsername($username);
-$fullname = $user['fullname'] ?? $username
+// Check if user is admin (Asumsi fungsi ini sudah didefinisikan)
+requireAdmin($username);
+
+// 1. Get User Data
+$user = getUserByUsername($username); // (Asumsi ini mengambil id, fullname, dll. dari tabel users)
+$id_user = $user['id'] ?? 0;
+$fullname = $user['fullname'] ?? $username;
+
+// Calculate statistics for today
+$today = date('Y-m-d');
+
+$totalCalories = 0;
+$foodsCount = 0;
+$mealsCount = 0;
+
+if ($id_user > 0) {
+    // 2. Query untuk mendapatkan semua log diary hari ini (meal dan food)
+    
+    $safe_id_user = escape($id_user);
+    $safe_today = escape($today);
+
+    // Ambil log diary, lakukan JOIN ke meals dan foods untuk mendapatkan kalori
+    $sql_today_logs = "
+        SELECT 
+            d.id_meals,
+            d.id_foods,
+            m.calories AS meal_calories, 
+            f.calories_per_unit AS food_calories
+        FROM 
+            diary d
+        LEFT JOIN 
+            meals m ON d.id_meals = m.id
+        LEFT JOIN 
+            foods f ON d.id_foods = f.id
+        WHERE 
+            d.id_user = '$safe_id_user' 
+            AND d.date = '$safe_today'
+    ";
+
+    $result_today_logs = dbQuery($sql_today_logs);
+    
+    if ($result_today_logs) {
+        while ($log = mysqli_fetch_assoc($result_today_logs)) {
+            // Log Makanan Jadi (Meal)
+            // Cek apakah id_meals tidak kosong dan kalori berhasil diambil dari tabel meals
+            if (!empty($log['id_meals']) && $log['meal_calories'] !== null) {
+                $totalCalories += floatval($log['meal_calories']);
+                $mealsCount++;
+            }
+            
+            // Log Bahan Makanan (Food)
+            // Cek apakah id_foods tidak kosong dan kalori berhasil diambil dari tabel foods
+            if (!empty($log['id_foods']) && $log['food_calories'] !== null) {
+                // Catatan: Karena tidak ada kolom serving size di tabel diary, 
+                // kami mengasumsikan satu entri food di diary mewakili 1 unit/serving dari foods.
+                $totalCalories += floatval($log['food_calories']); 
+                $foodsCount++;
+            }
+        }
+        mysqli_free_result($result_today_logs);
+    }
+}
+
+// Total items logged today
+$totalItemsLogged = $mealsCount + $foodsCount; 
+
+// 3. Get total foods count (all time) - Menghitung semua makanan yang tersedia di sistem
+$totalFoodsCount = 0;
+$sql_total_foods = "SELECT COUNT(id) AS total_count FROM foods";
+$result_total_foods = dbQuery($sql_total_foods);
+
+if ($result_total_foods && mysqli_num_rows($result_total_foods) > 0) {
+    $data = mysqli_fetch_assoc($result_total_foods);
+    $totalFoodsCount = intval($data['total_count']);
+    mysqli_free_result($result_total_foods);
+}
+
+// Variabel-variabel ($fullname, $totalCalories, $totalItemsLogged, $mealsCount, $foodsCount, $totalFoodsCount)
+// sekarang siap digunakan di bagian HTML di bawahnya.
 ?>
 
 <!DOCTYPE html>
@@ -42,6 +122,50 @@ $fullname = $user['fullname'] ?? $username
 				transform: translateY(0);
 			}
 		}
+
+		.mobile-menu-panel {
+			transform-origin: top right;
+		}
+
+		.mobile-menu-panel.animate-open {
+			animation: mobileMenuIn 0.25s ease forwards;
+		}
+
+		.mobile-menu-panel.animate-close {
+			animation: mobileMenuOut 0.2s ease forwards;
+		}
+
+		@keyframes mobileMenuIn {
+			from {
+				opacity: 0;
+				transform: translateY(-12px) scale(0.95);
+			}
+
+			to {
+				opacity: 1;
+				transform: translateY(0) scale(1);
+			}
+		}
+
+		@keyframes mobileMenuOut {
+			from {
+				opacity: 1;
+				transform: translateY(0) scale(1);
+			}
+
+			to {
+				opacity: 0;
+				transform: translateY(-8px) scale(0.95);
+			}
+		}
+
+		#menu-toggle-btn svg {
+			transition: transform 0.2s ease;
+		}
+
+		#menu-toggle-btn[aria-expanded="true"] svg {
+			transform: rotate(90deg);
+		}
 	</style>
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -57,25 +181,30 @@ $fullname = $user['fullname'] ?? $username
 	<!-- Header -->
 	<header id="sticky-header" class="fixed z-50 w-full transition-all duration-300 ease-in-out py-6">
 		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-			<nav class="flex mx-auto justify-between items-center px-4">
+			<nav class="relative flex justify-between items-center">
 				<div class="flex items-center">
-					<h1 class="text-2xl font-bold">Logo</h1>
+					<h1 class="text-2xl font-bold">NutriTrack+</h1>
 				</div>
 				<ul class="hidden md:flex items-center space-x-8">
-					<li><a href="dashboard.php" class="transition duration-200 transform text-hover-light">Dashboard</a>
+					<li><a href="dashboard.php" class="font-semibold text-[#3dccc7]">Dashboard</a>
 					</li>
-					<li><a href="food.php" class="transition duration-200 transform hover:scale-105">Food</a></li>
-					<li><a href="user.php" class="transition duration-200 transform hover:scale-105">User</a></li>
+					<li><a href="user.php" class="transition duration-200 hover:scale-105">User</a></li>
+					<li><a href="season.php" class="transition duration-200 hover:scale-105">Season</a></li>
+					<li><a href="meal.php" class="transition duration-200 hover:scale-105">Meal</a></li>
+					<li><a href="food.php" class="transition duration-200 hover:scale-105">Food</a></li>
+					<li><a href="daily.php" class="transition duration-200 hover:scale-105">Daily</a></li>
 				</ul>
 				<div class="hidden md:flex items-center space-x-3">
 					<span class="dark:text-dark-text whitespace-nowrap">Hello,
 						<?php echo htmlspecialchars($_SESSION['username']); ?></span>
 					<a href="logout.php"
-						class="inline-flex justify-center gap-2 text-white dark:hover:bg-[#08D2CB] dark:dark:bg-[#07bab4] px-4 py-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 w-full">Logout</a>
+						class="inline-flex justify-center gap-2 text-white bg-[#3dccc7] hover:bg-[#68d8d6] px-4 py-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 w-full">Logout</a>
 				</div>
 				<div class="md:hidden">
-					<button class="text-gray-800 dark:text-gray-200">
-						<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+					<button id="menu-toggle-btn" type="button" aria-expanded="false" aria-controls="mobile-menu"
+						aria-label="Toggle navigation"
+						class="p-2 rounded-lg transition text-gray-800 dark:text-gray-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#3dccc7]">
+						<svg id="menu-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
 							xmlns="http://www.w3.org/2000/svg">
 							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
 								d="M4 6h16M4 12h16m-7 6h7"></path>
@@ -83,6 +212,23 @@ $fullname = $user['fullname'] ?? $username
 					</button>
 				</div>
 			</nav>
+			<div id="mobile-menu" class="md:hidden hidden mt-3">
+				<div class="mobile-menu-panel card shadow-lg rounded-xl p-6 space-y-4">
+					<div class="flex flex-col space-y-3">
+						<a href="dashboard.php" class="block text-base font-medium transition-colors duration-200 hover:text-[#3dccc7]">Dashboard</a>
+						<a href="user.php" class="block text-base font-medium transition-colors duration-200 hover:text-[#3dccc7]">User</a>
+						<a href="food.php" class="block text-base font-medium transition-colors duration-200 hover:text-[#3dccc7]">Food</a>
+						<a href="meal.php" class="block text-base font-medium transition-colors duration-200 hover:text-[#3dccc7]">Meal</a>
+						<a href="staple.php" class="block text-base font-medium transition-colors duration-200 hover:text-[#3dccc7]">Staple</a>
+						<a href="daily.php" class="block text-base font-medium transition-colors duration-200 hover:text-[#3dccc7]">Daily</a>
+					</div>
+					<div class="flex flex-col gap-3 py-3 border-t border-neutral-200 dark:border-neutral-700">
+						<span class="text-sm opacity-70">Hello, <?php echo htmlspecialchars($_SESSION['username']); ?></span>
+						<a href="logout.php"
+							class="inline-flex justify-center items-center gap-2 text-sm font-medium rounded-md py-2 px-4 text-white bg-[#3dccc7] hover:bg-[#68d8d6] transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#3dccc7]">Logout</a>
+					</div>
+				</div>
+			</div>
 		</div>
 	</header>
 
@@ -97,26 +243,30 @@ $fullname = $user['fullname'] ?? $username
 				</div>
 
 				<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-					<div class="p-6 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
-						<div class="text-sm opacity-80">Calories Today</div>
-						<div class="mt-2 text-3xl font-semibold">0</div>
+					<div class="p-6 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99] transition-all duration-200">
+						<div class="text-sm opacity-80 mb-1">Calories Today</div>
+						<div class="mt-2 text-3xl font-semibold text-[#3dccc7]"><?php echo number_format($totalCalories, 0); ?></div>
+						<div class="text-xs opacity-60 mt-1">kcal</div>
 					</div>
-					<div class="p-6 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
-						<div class="text-sm opacity-80">Meals Logged</div>
-						<div class="mt-2 text-3xl font-semibold">0</div>
+					<div class="p-6 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99] transition-all duration-200">
+						<div class="text-sm opacity-80 mb-1">Items Logged</div>
+						<div class="mt-2 text-3xl font-semibold text-[#3dccc7]"><?php echo $totalItemsLogged; ?></div>
+						<div class="text-xs opacity-60 mt-1"><?php echo $mealsCount; ?> meals, <?php echo $foodsCount; ?> foods</div>
 					</div>
-					<div class="p-6 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99]">
-						<div class="text-sm opacity-80">Water Intake</div>
-						<div class="mt-2 text-3xl font-semibold">0 L</div>
+					<div class="p-6 rounded-lg shadow-md card hover:border-[#0F9E99] dark:hover:border-[#0F9E99] transition-all duration-200">
+						<div class="text-sm opacity-80 mb-1">Total Foods</div>
+						<div class="mt-2 text-3xl font-semibold text-[#3dccc7]"><?php echo $totalFoodsCount; ?></div>
+						<div class="text-xs opacity-60 mt-1">all time</div>
 					</div>
 				</div>
 			</div>
 		</section>
 	</main>
 
+	<!-- Theme Switcher -->
 	<div class="fixed bottom-6 right-6 z-50 flex flex-col items-center space-y-4">
 		<div class="p-1 rounded-full card shadow-md transition-all duration-300">
-			<button id="settings-btn"
+			<a href="setting.php" id="settings-btn"
 				class="flex items-center justify-center p-2 rounded-full transition-colors duration-200">
 				<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
 					stroke="currentColor" class="w-6 h-6">
@@ -124,7 +274,7 @@ $fullname = $user['fullname'] ?? $username
 						d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.591 1.042c1.523-.878 3.25.848 2.372 2.372a1.724 1.724 0 001.042 2.591c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.042 2.591c.878 1.523-.849 3.25-2.372 2.372a1.724 1.724 0 00-2.591 1.042c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.591-1.042c-1.523.878-3.25-.849-2.372-2.372a1.724 1.724 0 00-1.042-2.591c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.042-2.591c-.878-1.524.849-3.25 2.372-2.372a1.724 1.724 0 002.591-1.042z" />
 					<path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
 				</svg>
-			</button>
+			</a>
 		</div>
 
 		<div id="theme-switcher"
@@ -157,6 +307,90 @@ $fullname = $user['fullname'] ?? $username
 	</div>
 
 	<script>
+		// === Mobile Menu Logic ===
+		const menuToggleBtn = document.getElementById('menu-toggle-btn');
+		const menuIconPath = document.querySelector('#menu-icon path');
+		const mobileMenu = document.getElementById('mobile-menu');
+		const mobileMenuPanel = mobileMenu ? mobileMenu.querySelector('.mobile-menu-panel') : null;
+
+		if (menuToggleBtn && menuIconPath && mobileMenu && mobileMenuPanel) {
+			const MOBILE_MENU_ICONS = {
+				open: 'M4 6h16M4 12h16m-7 6h7',
+				close: 'M6 18L18 6M6 6l12 12'
+			};
+
+			const setMenuIcon = (state) => {
+				menuIconPath.setAttribute('d', state === 'open' ? MOBILE_MENU_ICONS.close : MOBILE_MENU_ICONS.open);
+			};
+
+			const openMobileMenu = () => {
+				mobileMenu.classList.remove('hidden');
+				mobileMenuPanel.classList.remove('animate-close');
+				mobileMenuPanel.classList.remove('animate-open');
+				void mobileMenuPanel.offsetWidth;
+				mobileMenuPanel.classList.add('animate-open');
+				menuToggleBtn.setAttribute('aria-expanded', 'true');
+				setMenuIcon('open');
+				document.body.style.overflow = 'hidden';
+			};
+
+			const closeMobileMenu = ({
+				focusToggle = false
+			} = {}) => {
+				mobileMenuPanel.classList.remove('animate-open');
+				mobileMenuPanel.classList.add('animate-close');
+				menuToggleBtn.setAttribute('aria-expanded', 'false');
+				setMenuIcon('close');
+				document.body.style.overflow = '';
+				if (focusToggle) {
+					menuToggleBtn.focus();
+				}
+			};
+
+			mobileMenuPanel.addEventListener('animationend', (event) => {
+				if (event.animationName === 'mobileMenuOut') {
+					mobileMenu.classList.add('hidden');
+					mobileMenuPanel.classList.remove('animate-close');
+				}
+			});
+
+			menuToggleBtn.addEventListener('click', () => {
+				const isExpanded = menuToggleBtn.getAttribute('aria-expanded') === 'true';
+				if (isExpanded) {
+					closeMobileMenu();
+				} else {
+					openMobileMenu();
+				}
+			});
+
+			mobileMenu.querySelectorAll('a').forEach((link) => {
+				link.addEventListener('click', () => closeMobileMenu());
+			});
+
+			document.addEventListener('click', (event) => {
+				const isClickInsideMenu = mobileMenu.contains(event.target) || menuToggleBtn.contains(event.target);
+				if (!isClickInsideMenu && menuToggleBtn.getAttribute('aria-expanded') === 'true') {
+					closeMobileMenu();
+				}
+			});
+
+			document.addEventListener('keydown', (event) => {
+				if (event.key === 'Escape' && menuToggleBtn.getAttribute('aria-expanded') === 'true') {
+					closeMobileMenu({
+						focusToggle: true
+					});
+				}
+			});
+
+			window.addEventListener('resize', () => {
+				if (window.innerWidth >= 768 && menuToggleBtn.getAttribute('aria-expanded') === 'true') {
+					closeMobileMenu();
+					mobileMenu.classList.add('hidden');
+					mobileMenuPanel.classList.remove('animate-close');
+				}
+			});
+		}
+
 		// === Dropdown Menu Logic ===
 		const dropdownButton = document.getElementById('dropdownButton');
 		const dropdownMenu = document.getElementById('dropdownMenu');

@@ -5,16 +5,22 @@ if (isset($_SESSION['username'])) {
     exit;
 }
 
+// Pastikan Anda sudah menyertakan file koneksi database
 include 'config.php';
+// WAJIB: Sertakan file fungsi database
+include 'db-functions.php'; 
+
+$signup_error = ''; // Variabel untuk pesan error
+
 if (isset($_POST['signup'])) {
     $fullname = trim($_POST['fullname']);
     $email = trim($_POST['email']);
     $username = trim($_POST['username']);
     $password = trim($_POST['password']);
     $confirm_password = trim($_POST['confirm_password']);
-    $phone = isset($_POST['phone']) ? trim($_POST['phone']) : '';
+    $phone = isset($_POST['phone']) ? trim($_POST['phone']) : ''; // Variabel ini tidak digunakan di DB, tapi tidak apa-apa disimpan
 
-    // Validation
+    // ========== 1. VALIDASI DATA INPUT ==========
     if ($password !== $confirm_password) {
         $signup_error = "Password and confirm password do not match";
     } elseif (strlen($password) < 6) {
@@ -26,42 +32,57 @@ if (isset($_POST['signup'])) {
     } elseif (strlen($fullname) < 3) {
         $signup_error = "Full name must be at least 3 characters long";
     } else {
-        // Check if username already exists
-        $existingUser = getUserByUsername($username);
-
-        if ($existingUser !== null) {
+        
+        // ========== 2. CEK KEUNIKAN DI DATABASE ==========
+        
+        // A. Cek Username
+        $safe_username = escape($username);
+        $sql_user_check = "SELECT id FROM users WHERE username = '$safe_username' LIMIT 1";
+        $result_user = dbQuery($sql_user_check);
+        
+        if ($result_user && mysqli_num_rows($result_user) > 0) {
             $signup_error = "Username already taken";
         } else {
-            // Check if email already exists
-            $response = supabaseRequest('GET', '/rest/v1/user?email=eq.' . urlencode($email) . '&select=email');
+            // B. Cek Email (Mengganti supabaseRequest)
+            $safe_email = escape($email);
+            $sql_email_check = "SELECT id FROM users WHERE email = '$safe_email' LIMIT 1";
+            $result_email = dbQuery($sql_email_check);
 
-            if ($response['status'] == 200 && !empty($response['data'])) {
+            if ($result_email && mysqli_num_rows($result_email) > 0) {
                 $signup_error = "Email already registered";
             } else {
-                // Create new user
-                // NOTE: In production, use password_hash($password, PASSWORD_DEFAULT) instead of plain text
+                // ========== 3. BUAT PENGGUNA BARU ==========
+                
+                // Siapkan data pengguna. Sertakan nilai default untuk kolom wajib yang tidak ada di formulir.
                 $userData = [
                     'fullname' => $fullname,
                     'email' => $email,
                     'username' => $username,
-                    'password' => $password,
-                    'phone' => $phone
+                    'password' => $password, 
+                    // Nilai default agar insert berhasil (harus dilengkapi user setelah login)
+                    'height' => 0, 
+                    'weight' => 0, 
+                    'age' => 0, 
+                    'gender' => 'Other', 
+                    'daily_calories_target' => 2000, 
+                    'level' => 'user' 
                 ];
 
-                $result = createUser($userData);
+                $result = createUser($userData); // Fungsi ini menangani password_hash
 
                 if ($result['status'] == 201) {
                     $_SESSION['signup_success'] = "Account created successfully! Please sign in.";
                     header("Location: signin.php");
                     exit;
                 } else {
-                    $signup_error = "Failed to create account. Please try again.";
+                    // Tampilkan pesan error database jika gagal
+                    $db_error = $result['data']['error'] ?? 'Unknown error';
+                    $signup_error = "Failed to create account. Database Error: " . $db_error;
                 }
             }
         }
     }
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -98,7 +119,7 @@ if (isset($_POST['signup'])) {
 
         <!-- Header -->
         <div class="text-center">
-            <div class="mx-auto h-12 w-12 bg-[#07bab4] rounded-full flex items-center justify-center shadow-lg">
+            <div class="mx-auto h-12 w-12 bg-[#3dccc7] rounded-full flex items-center justify-center shadow-lg">
                 <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path>
@@ -129,7 +150,7 @@ if (isset($_POST['signup'])) {
                             </svg>
                         </div>
                         <input id="fullname" name="fullname" type="text" required
-                            class="block w-full pl-10 pr-3 py-3 card rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
+                            class="block w-full pl-10 pr-3 py-3 card rounded-lg focus:outline-none focus:ring-2 transition duration-200"
                             placeholder="Enter your full name">
                     </div>
                 </div>
@@ -148,7 +169,7 @@ if (isset($_POST['signup'])) {
                             </svg>
                         </div>
                         <input id="email" name="email" type="email" required
-                            class="block w-full pl-10 pr-3 py-3 card rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
+                            class="block w-full pl-10 pr-3 py-3 card rounded-lg focus:outline-none focus:ring-2 transition duration-200"
                             placeholder="Enter your email address">
                     </div>
                 </div>
@@ -166,7 +187,7 @@ if (isset($_POST['signup'])) {
                             </svg>
                         </div>
                         <input id="username" name="username" type="text" required
-                            class="block w-full pl-10 pr-3 py-3 card rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
+                            class="block w-full pl-10 pr-3 py-3 card rounded-lg focus:outline-none focus:ring-2 transition duration-200"
                             placeholder="Choose a username">
                     </div>
                 </div>
@@ -185,7 +206,7 @@ if (isset($_POST['signup'])) {
                             </svg>
                         </div>
                         <input id="password" name="password" type="password" required
-                            class="block w-full pl-10 pr-3 py-3 card rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
+                            class="block w-full pl-10 pr-3 py-3 card rounded-lg focus:outline-none focus:ring-2 transition duration-200"
                             placeholder="Create a password">
                     </div>
                 </div>
@@ -203,7 +224,7 @@ if (isset($_POST['signup'])) {
                             </svg>
                         </div>
                         <input id="confirm-password" name="confirm_password" type="password" required
-                            class="block w-full pl-10 pr-3 py-3 card rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
+                            class="block w-full pl-10 pr-3 py-3 card rounded-lg focus:outline-none focus:ring-2 transition duration-200"
                             placeholder="Confirm your password">
                     </div>
                 </div>
@@ -222,7 +243,7 @@ if (isset($_POST['signup'])) {
                             </svg>
                         </div>
                         <input id="phone" name="phone" type="tel"
-                            class="block w-full pl-10 pr-3 py-3 card rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
+                            class="block w-full pl-10 pr-3 py-3 card rounded-lg focus:outline-none focus:ring-2 transition duration-200"
                             placeholder="Enter your phone number">
                     </div>
                 </div>
@@ -257,7 +278,7 @@ if (isset($_POST['signup'])) {
                 <!-- Submit Button -->
                 <div>
                     <button type="submit" name="signup"
-                        class="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-[#07bab4] hover:bg-[#08D2CB] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-200 transform hover:scale-105">
+                        class="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-[#3dccc7] hover:bg-[#68d8d6] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-400 transition duration-200 transform hover:scale-105">
                         <span class="absolute left-0 inset-y-0 flex items-center pl-3">
                             <svg class="h-5 w-5 text-white group-hover:text-gray-200" fill="currentColor"
                                 viewBox="0 0 20 20">

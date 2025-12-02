@@ -12,6 +12,66 @@
             font-family: 'Plus Jakarta Sans', sans-serif;
             /* font-family: "Geist", sans-serif; */
         }
+
+        .fade-in {
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .mobile-menu-panel {
+            transform-origin: top right;
+        }
+
+        .mobile-menu-panel.animate-open {
+            animation: mobileMenuIn 0.25s ease forwards;
+        }
+
+        .mobile-menu-panel.animate-close {
+            animation: mobileMenuOut 0.2s ease forwards;
+        }
+
+        @keyframes mobileMenuIn {
+            from {
+                opacity: 0;
+                transform: translateY(-12px) scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @keyframes mobileMenuOut {
+            from {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+
+            to {
+                opacity: 0;
+                transform: translateY(-8px) scale(0.95);
+            }
+        }
+
+        #menu-toggle-btn svg {
+            transition: transform 0.2s ease;
+        }
+
+        #menu-toggle-btn[aria-expanded="true"] svg {
+            transform: rotate(90deg);
+        }
     </style>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -28,36 +88,33 @@
     <!-- Header -->
     <header id="sticky-header" class="fixed z-50 w-full transition-all duration-300 ease-in-out py-6">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <nav class="flex mx-auto justify-between items-center px-4">
+            <nav class="relative flex justify-between items-center">
                 <div class="flex items-center">
-                    <h1 class="text-2xl font-bold">Logo</h1>
+                    <h1 class="text-2xl font-bold">NutriTrack+</h1>
                 </div>
                 <ul class="hidden md:flex items-center space-x-8">
-                    <li><a href="index.php" class="transition duration-200 transform text-hover-light">Home</a>
-                    </li>
-                    <li><a href="about.php" class="transition duration-200 transform hover:scale-105">About
-                            Us</a></li>
+                    <li><a href="index.php" class="transition duration-200 transform">Home</a></li>
+                    <li><a href="about.php" class="transition duration-200 transform">About Us</a></li>
                     <li><a href="features.php"
-                            class="text-gray-600 hover:text-gray-950 dark:text-gray-300 dark:hover:text-white transition duration-200 transform hover:scale-105">Features</a>
+                            class="transition duration-200 transform">Features</a>
                     </li>
-                    <li><a href="riviews.php" class="transition duration-200 transform hover:scale-105">Riviews</a>
-                    </li>
-                    <li><a href="#" class="transition duration-200 transform hover:scale-105">Download</a>
-                    </li>
+                    <li><a href="riviews.php" class="transition duration-200 transform">Riviews</a></li>
+                    <li><a href="#" class="transition duration-200 transform">Download</a></li>
                 </ul>
                 <div class="hidden md:flex items-center space-x-3">
                     <a href="signin.php"
-                        class="dark:text-dark-text whitespace-nowrap transition duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none w-full">
+                        class="whitespace-nowrap transition duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none">
                         Sign In
                     </a>
                     <a href="signup.php"
-                        class="inline-flex justify-center gap-2 text-white dark:bg-[#0a0a0a] dark:hover:bg-[#525252] dark:dark:bg-[#34373b] px-4 py-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 w-full">
+                        class="inline-flex justify-center gap-2 text-white bg-[#3dccc7] hover:bg-[#68d8d6] px-4 py-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50">
                         Sign Up
                     </a>
                 </div>
                 <div class="md:hidden">
-                    <button class="text-gray-800 dark:text-gray-200">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    <button id="menu-toggle-btn" type="button" aria-expanded="false" aria-controls="mobile-menu"
+                        aria-label="Toggle navigation" class="p-2 rounded-lg transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#3dccc7]">
+                        <svg id="menu-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                             xmlns="http://www.w3.org/2000/svg">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M4 6h16M4 12h16m-7 6h7"></path>
@@ -65,22 +122,103 @@
                     </button>
                 </div>
             </nav>
+            <div id="mobile-menu" class="md:hidden hidden mt-3">
+                <div class="mobile-menu-panel card shadow-lg rounded-xl p-6 space-y-4">
+                    <div class="flex flex-col space-y-3">
+                        <a href="index.php" class="block text-base font-medium transition-colors duration-200 hover:text-[#3dccc7]">Home</a>
+                        <a href="about.php" class="block text-base font-medium transition-colors duration-200 hover:text-[#3dccc7]">About Us</a>
+                        <a href="features.php" class="block text-base font-medium transition-colors duration-200 hover:text-[#3dccc7]">Features</a>
+                        <a href="riviews.php" class="block text-base font-medium transition-colors duration-200 hover:text-[#3dccc7]">Riviews</a>
+                        <a href="#" class="block text-base font-medium transition-colors duration-200 hover:text-[#3dccc7]">Download</a>
+                    </div>
+                    <div class="flex flex-col gap-3 py-3 border-t border-neutral-200 dark:border-neutral-700">
+                        <a href="signin.php"
+                            class="inline-flex justify-center items-center gap-2 text-sm font-medium rounded-md py-2 px-4 card transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#3dccc7]">Sign
+                            In</a>
+                        <a href="signup.php"
+                            class="inline-flex justify-center items-center gap-2 text-sm font-medium rounded-md py-2 px-4 text-white bg-[#3dccc7] hover:bg-[#68d8d6] transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#3dccc7]">Sign
+                            Up</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </header>
 
     <!-- Main -->
     <main>
         <!-- Hero / Intro -->
-        <section class="min-h-screen relative overflow-hidden flex items-center shadow-sm">
-            <div class="absolute inset-0 opacity-60"></div>
-            <div class="max-w-7xl mx-auto px-6 relative z-10">
-                <div class="max-w-3xl">
-                    <h1 class="text-4xl md:text-5xl font-bold tracking-tight">User Riviews</h1>
-                    <p class="mt-4 text-lg opacity-80">Stories from users who have experienced the benefits of NutriTrack.</p>
-                    <div class="mt-8 flex gap-3">
-                        <a href="#summary" class="px-5 py-3 rounded-md text-sm font-medium text-white dark:hover:bg-[#08D2CB] dark:dark:bg-[#07bab4]">See Summary</a>
-                        <a href="#list" class="px-5 py-3 rounded-md text-sm font-medium card">Read Riviews</a>
+        <section class="relative w-full min-h-screen flex items-center overflow-hidden px-[5%] py-20">
+
+            <div class="absolute top-1/2 right-0 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[100px] -translate-y-1/2 pointer-events-none"></div>
+
+            <div class="relative z-10 max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
+
+                <div>
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+                        Loved by <span class="text-primary">10,000+</span> <br> Healthy People.
+                    </h1>
+                    <p class="text-lg opacity-80 mb-8 leading-relaxed max-w-md">
+                        Baca cerita inspiratif dari pengguna yang telah berhasil mencapai target kesehatan mereka bersama NutriTrack.
+                    </p>
+
+                    <div class="flex items-center gap-4">
+                        <button class="inline-flex items-center justify-center gap-2 bg-primary text-white px-8 py-3.5 rounded-full font-semibold transition-all duration-300 hover:bg-primary/90 hover:-translate-y-1 hover:shadow-[0_10px_20px_rgba(61,204,199,0.3)]">
+                            Read Success Stories
+                        </button>
+                        <button class="inline-flex items-center justify-center gap-2 card opacity-80 px-6 py-3 rounded-full font-semibold backdrop-blur-sm transition duration-300 hover:bg-white/5">
+                            Share Yours
+                        </button>
                     </div>
+
+                    <div class="mt-10 flex items-center gap-3">
+                        <div class="flex text-yellow-400 text-xl">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <span class="font-semibold">4.9/5</span>
+                        <span class="opacity-70 text-sm border-l border-gray-700 pl-3">Based on App Store & Play Store</span>
+                    </div>
+                </div>
+
+                <div class="relative h-[500px] flex items-center justify-center">
+
+                    <div class="absolute inset-0 border border-white/5 rounded-full scale-75 animate-pulse"></div>
+                    <div class="absolute inset-0 border border-white/5 rounded-full scale-110 opacity-50"></div>
+
+                    <div class="relative z-20 backdrop-blur-xl card p-8 rounded-3xl shadow-2xl max-w-md">
+                        <div class="flex justify-between items-start mb-6">
+                            <div class="flex items-center gap-4">
+                                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah" class="w-12 h-12 rounded-full bg-gray-700">
+                                <div>
+                                    <h4 class="font-bold">Sarah Jenkins</h4>
+                                    <p class="text-primary text-sm">Lost 15kg in 3 months</p>
+                                </div>
+                            </div>
+                            <i class="fas fa-quote-right text-4xl text-white/10"></i>
+                        </div>
+                        <p class="opacity-60 leading-relaxed mb-4">
+                            "Aplikasi ini benar-benar mengubah cara saya melihat makanan. Fitur AI-nya sangat akurat dan resepnya enak-enak!"
+                        </p>
+                        <div class="flex gap-1 text-yellow-400 text-sm">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                    </div>
+
+                    <div class="absolute top-10 right-10 z-10 card p-4 rounded-2xl shadow-xl w-64 transform rotate-6 opacity-60 hover:opacity-100 transition duration-300">
+                        <div class="flex items-center gap-2 mb-2">
+                            <div class="w-8 h-8 rounded-full bg-purple-500/20 flex items-center justify-center text-purple-500 text-xs font-bold">BJ</div>
+                            <div class="flex text-yellow-400 text-xs"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                        </div>
+                        <p class="opacity-60 text-xs">"Tracking makro jadi super gampang."</p>
+                    </div>
+
+                    <div class="absolute bottom-10 left-0 z-10 card p-4 rounded-2xl shadow-xl w-64 transform -rotate-6 opacity-60 hover:opacity-100 transition duration-300">
+                        <div class="flex items-center gap-2 mb-2">
+                            <div class="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-500 text-xs font-bold">AD</div>
+                            <div class="flex text-yellow-400 text-xs"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                        </div>
+                        <p class="opacity-60 text-xs">"UI-nya sangat bersih dan modern!"</p>
+                    </div>
+
                 </div>
             </div>
         </section>
@@ -190,7 +328,7 @@
                     <h3 class="text-2xl sm:text-3xl font-bold">Ready to start?</h3>
                     <p class="mt-3 opacity-80">Download NutriTrack and start your healthy journey today.</p>
                     <div class="mt-6 flex justify-center gap-3">
-                        <a href="#" class="px-5 py-3 rounded-md text-sm font-medium text-white dark:hover:bg-[#08D2CB] dark:dark:bg-[#07bab4]">Download App</a>
+                        <a href="#" class="px-5 py-3 rounded-md text-sm font-medium text-white bg-[#3dccc7] hover:bg-[#68d8d6]">Download App</a>
                         <a href="features.php" class="px-5 py-3 rounded-md text-sm font-medium card">See Features</a>
                     </div>
                 </div>
@@ -234,11 +372,11 @@
                 <div>
                     <h4 class="font-medium">Product</h4>
                     <ul class="mt-4 space-y-4 text-sm">
-                        <li><a href="#" class=" opacity-80">Home</a>
+                        <li><a href="index.php" class="opacity-80">Home</a>
                         </li>
-                        <li><a href="#" class=" opacity-80">Features</a>
+                        <li><a href="features.php" class="opacity-80">Features</a>
                         </li>
-                        <li><a href="#" class=" opacity-80">Download</a>
+                        <li><a href="#" class="opacity-80">Download</a>
                         </li>
                     </ul>
                 </div>
@@ -246,17 +384,17 @@
                 <div>
                     <h4 class="font-medium">Company</h4>
                     <ul class="mt-4 space-y-4 text-sm">
-                        <li><a href="#" class=" opacity-80">4Ever
+                        <li><a href="4ever-young.php" class="opacity-80">4Ever
                                 Young</a></li>
-                        <li><a href="#" class=" opacity-80">Community</a>
+                        <li><a href="#" class="opacity-80">Community</a>
                         </li>
                     </ul>
                 </div>
 
                 <div>
-                    <h4 class="font-medium text-light-text dark:text-dark-text">What Our Users Say</h4>
+                    <h4 class="font-medium">What Our Users Say</h4>
                     <ul class="mt-4 space-y-4 text-sm">
-                        <li><a href="#" class="text-light-text dark:text-dark-text opacity-80">Riviews</a>
+                        <li><a href="riviews.php" class="opacity-80">Riviews</a>
                         </li>
                     </ul>
                 </div>
@@ -327,6 +465,90 @@
     </footer>
 
     <script>
+        // === Mobile Menu Logic ===
+        const menuToggleBtn = document.getElementById('menu-toggle-btn');
+        const menuIconPath = document.querySelector('#menu-icon path');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuPanel = mobileMenu ? mobileMenu.querySelector('.mobile-menu-panel') : null;
+
+        if (menuToggleBtn && menuIconPath && mobileMenu && mobileMenuPanel) {
+            const MOBILE_MENU_ICONS = {
+                open: 'M4 6h16M4 12h16m-7 6h7',
+                close: 'M6 18L18 6M6 6l12 12'
+            };
+
+            const setMenuIcon = (state) => {
+                menuIconPath.setAttribute('d', state === 'open' ? MOBILE_MENU_ICONS.close : MOBILE_MENU_ICONS.open);
+            };
+
+            const openMobileMenu = () => {
+                mobileMenu.classList.remove('hidden');
+                mobileMenuPanel.classList.remove('animate-close');
+                mobileMenuPanel.classList.remove('animate-open');
+                void mobileMenuPanel.offsetWidth;
+                mobileMenuPanel.classList.add('animate-open');
+                menuToggleBtn.setAttribute('aria-expanded', 'true');
+                setMenuIcon('open');
+                document.body.style.overflow = 'hidden';
+            };
+
+            const closeMobileMenu = ({
+                focusToggle = false
+            } = {}) => {
+                mobileMenuPanel.classList.remove('animate-open');
+                mobileMenuPanel.classList.add('animate-close');
+                menuToggleBtn.setAttribute('aria-expanded', 'false');
+                setMenuIcon('close');
+                document.body.style.overflow = '';
+                if (focusToggle) {
+                    menuToggleBtn.focus();
+                }
+            };
+
+            mobileMenuPanel.addEventListener('animationend', (event) => {
+                if (event.animationName === 'mobileMenuOut') {
+                    mobileMenu.classList.add('hidden');
+                    mobileMenuPanel.classList.remove('animate-close');
+                }
+            });
+
+            menuToggleBtn.addEventListener('click', () => {
+                const isExpanded = menuToggleBtn.getAttribute('aria-expanded') === 'true';
+                if (isExpanded) {
+                    closeMobileMenu();
+                } else {
+                    openMobileMenu();
+                }
+            });
+
+            mobileMenu.querySelectorAll('a').forEach((link) => {
+                link.addEventListener('click', () => closeMobileMenu());
+            });
+
+            document.addEventListener('click', (event) => {
+                const isClickInsideMenu = mobileMenu.contains(event.target) || menuToggleBtn.contains(event.target);
+                if (!isClickInsideMenu && menuToggleBtn.getAttribute('aria-expanded') === 'true') {
+                    closeMobileMenu();
+                }
+            });
+
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape' && menuToggleBtn.getAttribute('aria-expanded') === 'true') {
+                    closeMobileMenu({
+                        focusToggle: true
+                    });
+                }
+            });
+
+            window.addEventListener('resize', () => {
+                if (window.innerWidth >= 768 && menuToggleBtn.getAttribute('aria-expanded') === 'true') {
+                    closeMobileMenu();
+                    mobileMenu.classList.add('hidden');
+                    mobileMenuPanel.classList.remove('animate-close');
+                }
+            });
+        }
+
         // === Dropdown Menu Logic ===
         const dropdownButton = document.getElementById('dropdownButton');
         const dropdownMenu = document.getElementById('dropdownMenu');

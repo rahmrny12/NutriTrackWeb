@@ -2,29 +2,41 @@
 session_start();
 
 include 'config.php';
+include 'db-functions.php'; 
+
+$error = ''; 
 
 if (isset($_POST['login'])) {
     $username = trim($_POST['username']);
     $password = trim($_POST['password']);
 
-    // Get user from Supabase
     $user = getUserByUsername($username);
 
     if ($user !== null) {
-        // NOTE: Replace with password_verify if you store hashed passwords
-        // For hashed: if (password_verify($password, $user['password']))
+        
         if ($password === $user['password']) {
+
+            $_SESSION['id'] = $user['id'];
             $_SESSION['username'] = $user['username'];
-            header("Location: dashboard.php");
+            $_SESSION['level'] = $user['level'];
+
+            if ($user['level'] === 'admin') {
+                header("Location: dashboard.php");
+            } 
+            else if ($user['level'] === 'user') {
+                header("Location: index.php");
+            } 
+            else {
+                header("Location: index.php");
+            }
             exit;
         }
     }
 
-    $error = "Username or password is incorrect";
+    $error = "Username atau password salah.";
 }
-
-
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -58,9 +70,8 @@ if (isset($_POST['login'])) {
 <body class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
     <div class="max-w-md w-full space-y-8">
 
-        <!-- Header -->
         <div class="text-center">
-            <div class="mx-auto h-12 w-12 bg-[#07bab4] rounded-full flex items-center justify-center shadow-lg">
+            <div class="mx-auto h-12 w-12 bg-[#3dccc7] rounded-full flex items-center justify-center shadow-lg">
                 <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z">
@@ -75,7 +86,6 @@ if (isset($_POST['login'])) {
             </p>
         </div>
 
-        <!-- Login Form -->
         <div class="card rounded-xl shadow-xl p-8">
             <form class="space-y-4" action="signin.php" method="POST">
                 <div>
@@ -90,8 +100,8 @@ if (isset($_POST['login'])) {
                             </svg>
                         </div>
                         <input id="username" name="username" type="text" required
-                            class="block w-full pl-10 pr-3 py-3 card rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
-                            placeholder="Enter your username">
+                            class="block w-full pl-10 pr-3 py-3 card rounded-lg focus:outline-none focus:ring-2 transition duration-200"
+                            placeholder="Enter your username" value="<?php echo htmlspecialchars($username ?? ''); ?>">
                     </div>
                 </div>
 
@@ -108,7 +118,7 @@ if (isset($_POST['login'])) {
                             </svg>
                         </div>
                         <input id="password" name="password" type="password" required
-                            class="block w-full pl-10 pr-3 py-3 card rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
+                            class="block w-full pl-10 pr-3 py-3 card rounded-lg focus:outline-none focus:ring-2 transition duration-200"
                             placeholder="Enter your password">
                     </div>
                 </div>
@@ -131,7 +141,7 @@ if (isset($_POST['login'])) {
 
                 <div>
                     <button type="submit" name="login"
-                        class="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-[#07bab4] hover:bg-[#08D2CB] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-200 transform hover:scale-105">
+                        class="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-[#3dccc7] hover:bg-[#68d8d6] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-400 transition duration-200 transform hover:scale-105">
                         <span class="absolute left-0 inset-y-0 flex items-center pl-3">
                             <svg class="h-5 w-5 text-white group-hover:text-gray-200" fill="currentColor"
                                 viewBox="0 0 20 20">
@@ -152,7 +162,7 @@ if (isset($_POST['login'])) {
 
                 <div>
                     <a href="index.php"
-                        class="group relative w-full flex justify-center py-3 px-4 card text-sm font-medium rounded-lg text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-200">
+                        class="group relative w-full flex justify-center py-3 px-4 card text-sm font-medium rounded-lg text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 transition duration-200">
                         Kembali ke Beranda
                     </a>
                 </div>
@@ -168,7 +178,6 @@ if (isset($_POST['login'])) {
             </form>
         </div>
 
-        <!-- Footer -->
         <div class="text-center">
             <p class="text-sm text-gray-400">
                 © 2025 NutriTrack. All rights reserved.
@@ -209,7 +218,7 @@ if (isset($_POST['login'])) {
     </div>
 
     <script>
-        // === Theme Switcher Logic ===
+        // === Theme Switcher Logic (Tetap sama) ===
         const body = document.body;
         const systemBtn = document.getElementById('system-btn');
         const lightBtn = document.getElementById('light-btn');
