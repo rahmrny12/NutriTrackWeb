@@ -1,3 +1,12 @@
+<?php
+session_start();
+include 'config.php';
+include 'db-functions.php';
+
+// contoh kalau tidak perlu cek admin:
+$testimonials = getTestimonials();
+?>
+
 <!DOCTYPE html>
 <html lang="en" class="">
 
@@ -253,20 +262,17 @@
     <!-- Header -->
     <header id="sticky-header" class="fixed z-50 w-full transition-all duration-300 ease-in-out py-6">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <nav class="flex mx-auto justify-between items-center px-4">
-                <div class="flex items-center gap-4">
-                    <!-- <h1 class="text-2xl font-bold">Logo</h1> -->
-                    <img src="./img/logo-only.png" alt="NutriTrack logo" class="w-12 h-12 object-contain" />
-                    <img src="./img/logo-text-only.png" alt="NutriTrack logo" class="h-6 object-contain" />
+            <nav class="relative flex justify-between items-center">
+                <div class="flex items-center">
+                    <h1 class="text-2xl font-bold">NutriTrack+</h1>
                 </div>
                 <ul class="hidden md:flex items-center space-x-8">
                     <li><a href="index.php" class="transition duration-200 transform">Home</a></li>
-                    <li><a href="about.php" class="transition duration-200 transform">About Us</a></li>
-                    <li><a href="features.php"
-                            class="transition duration-200 transform">Features</a>
+                    <li><a href="about.php" class="transition duration-200 transform">Tentang Kami</a></li>
+                    <li><a href="features.php" class="transition duration-200 transform">Unggulan</a>
                     </li>
-                    <li><a href="riviews.php" class="transition duration-200 transform">Riviews</a></li>
-                    <li><a href="#" class="transition duration-200 transform">Download</a></li>
+                    <li><a href="reviews.php" class="transition duration-200 transform">Reviews</a></li>
+                    <li><a href="#" class="transition duration-200 transform">Unduh</a></li>
                 </ul>
                 <div class="hidden md:flex items-center space-x-3">
                     <a href="signin.php"
@@ -280,7 +286,8 @@
                 </div>
                 <div class="md:hidden">
                     <button id="menu-toggle-btn" type="button" aria-expanded="false" aria-controls="mobile-menu"
-                        aria-label="Toggle navigation" class="p-2 rounded-lg transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#3dccc7]">
+                        aria-label="Toggle navigation"
+                        class="p-2 rounded-lg transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#3dccc7]">
                         <svg id="menu-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                             xmlns="http://www.w3.org/2000/svg">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -292,11 +299,17 @@
             <div id="mobile-menu" class="md:hidden hidden mt-3">
                 <div class="mobile-menu-panel card shadow-lg rounded-xl p-6 space-y-4">
                     <div class="flex flex-col space-y-3">
-                        <a href="index.php" class="block text-base font-medium transition-colors duration-200 hover:text-[#3dccc7]">Home</a>
-                        <a href="about.php" class="block text-base font-medium transition-colors duration-200 hover:text-[#3dccc7]">About Us</a>
-                        <a href="features.php" class="block text-base font-medium transition-colors duration-200 hover:text-[#3dccc7]">Features</a>
-                        <a href="riviews.php" class="block text-base font-medium transition-colors duration-200 hover:text-[#3dccc7]">Riviews</a>
-                        <a href="#" class="block text-base font-medium transition-colors duration-200 hover:text-[#3dccc7]">Download</a>
+                        <a href="index.php"
+                            class="block text-base font-medium transition-colors duration-200 hover:text-[#3dccc7]">Home</a>
+                        <a href="about.php"
+                            class="block text-base font-medium transition-colors duration-200 hover:text-[#3dccc7]">About
+                            Us</a>
+                        <a href="features.php"
+                            class="block text-base font-medium transition-colors duration-200 hover:text-[#3dccc7]">Features</a>
+                        <a href="reviews.php"
+                            class="block text-base font-medium transition-colors duration-200 hover:text-[#3dccc7]">Reviews</a>
+                        <a href="#"
+                            class="block text-base font-medium transition-colors duration-200 hover:text-[#3dccc7]">Download</a>
                     </div>
                     <div class="flex flex-col gap-3 py-3 border-t border-neutral-200 dark:border-neutral-700">
                         <a href="signin.php"
@@ -314,15 +327,21 @@
     <!-- Main -->
     <main>
         <!-- Hero Section -->
-        <section class="relative min-h-screen flex flex-col lg:flex-row items-center lg:items-center justify-center lg:justify-between px-[5%] overflow-hidden pt-32 pb-20 lg:py-0">
+        <section
+            class="relative min-h-screen flex flex-col lg:flex-row items-center lg:items-center justify-center lg:justify-between px-[5%] overflow-hidden pt-32 pb-20 lg:py-0">
 
-            <div class="hidden md:block absolute top-0 right-0 md:w-[380px] md:h-[380px] lg:w-[600px] lg:h-[600px] bg-primary/10 rounded-full blur-[120px] pointer-events-none"></div>
-            <div class="hidden md:block absolute bottom-0 left-0 md:w-[320px] md:h-[320px] lg:w-[500px] lg:h-[500px] bg-secondary/5 rounded-full blur-[100px] pointer-events-none"></div>
+            <div
+                class="hidden md:block absolute top-0 right-0 md:w-[380px] md:h-[380px] lg:w-[600px] lg:h-[600px] bg-primary/10 rounded-full blur-[120px] pointer-events-none">
+            </div>
+            <div
+                class="hidden md:block absolute bottom-0 left-0 md:w-[320px] md:h-[320px] lg:w-[500px] lg:h-[500px] bg-secondary/5 rounded-full blur-[100px] pointer-events-none">
+            </div>
 
-            <div class="relative z-10 w-full max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-16">
+            <div class="relative py-20 z-10 w-full max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-16">
 
-                <div class="flex-1 text-center lg:text-left">
-                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full card text-sm text-primary mb-6 animate-pulse">
+                <div class="flex-1 text-center lg:text-left py-20">
+                    <div
+                        class="inline-flex items-center gap-2 px-3 py-1 rounded-full card text-sm text-primary mb-6 animate-pulse">
                         <span class="w-2 h-2 rounded-full bg-primary"></span>
                         New Feature: Chat Bot AI
                     </div>
@@ -332,15 +351,18 @@
                     </h1>
 
                     <p class="text-lg md:text-xl opacity-80 leading-relaxed mb-10 max-w-2xl mx-auto lg:mx-0">
-                        Pantau kalori, nutrisi, dan aktivitas harianmu dalam satu aplikasi cerdas. Data akurat untuk hasil yang nyata.
+                        Pantau kalori, nutrisi, dan aktivitas harianmu dalam satu aplikasi cerdas. Data akurat untuk
+                        hasil yang nyata.
                     </p>
 
                     <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-10">
-                        <a href="#" class="inline-flex items-center justify-center gap-2 bg-primary text-white px-6 py-3 rounded-full font-semibold transition-all duration-300 hover:bg-primary-dark hover:-translate-y-1 hover:shadow-[0_10px_20px_rgba(61,204,199,0.3)]">
+                        <a href="#"
+                            class="inline-flex items-center justify-center gap-2 bg-primary text-white px-6 py-3 rounded-full font-semibold transition-all duration-300 hover:bg-primary-dark hover:-translate-y-1 hover:shadow-[0_10px_20px_rgba(61,204,199,0.3)]">
                             <i class="fab fa-google-play"></i>
                             <span>Google Play</span>
                         </a>
-                        <a href="#" class="inline-flex items-center justify-center gap-2 card opacity-80 px-6 py-3 rounded-full font-semibold backdrop-blur-sm transition-all duration-300 hover:border-primary hover:text-primary hover:-translate-y-1">
+                        <a href="#"
+                            class="inline-flex items-center justify-center gap-2 card opacity-80 px-6 py-3 rounded-full font-semibold backdrop-blur-sm transition-all duration-300 hover:border-primary hover:text-primary hover:-translate-y-1">
                             <i class="fab fa-apple"></i>
                             <span>App Store</span>
                         </a>
@@ -349,27 +371,32 @@
 
                 <div class="flex-1 relative flex justify-center items-center perspective-container">
 
-                    <div class="absolute top-[20%] -left-[5%] z-20 glass-card p-4 rounded-2xl animate-float-delayed hidden md:block w-40">
+                    <div
+                        class="absolute top-[20%] -left-[5%] z-20 glass-card p-4 rounded-2xl animate-float-delayed hidden md:block w-40">
                         <div class="flex items-center gap-3 mb-2">
-                            <div class="w-8 h-8 rounded-full bg-orange-500/20 flex items-center justify-center text-orange-500">
+                            <div
+                                class="w-8 h-8 rounded-full bg-orange-500/20 flex items-center justify-center text-orange-500">
                                 <i class="fas fa-fire text-sm"></i>
                             </div>
                             <span class="text-xs opacity-90 font-semibold">Burned</span>
                         </div>
-                        <div class="text-xl font-bold">840 <span class="text-xs font-normal opacity-70">kcal</span></div>
+                        <div class="text-xl font-bold">840 <span class="text-xs font-normal opacity-70">kcal</span>
+                        </div>
                         <div class="w-full h-1.5 bg-gray-700 rounded-full mt-2 overflow-hidden">
                             <div class="h-full bg-orange-500 w-[70%]"></div>
                         </div>
                     </div>
 
-                    <div class="absolute bottom-[25%] -right-[5%] z-20 glass-card p-4 rounded-2xl animate-float hidden md:block w-40">
+                    <div
+                        class="absolute bottom-[25%] -right-[5%] z-20 glass-card p-4 rounded-2xl animate-float hidden md:block w-40">
                         <div class="flex items-center gap-3 mb-2">
-                            <div class="w-8 h-8 rounded-full bg-red-500/20 flex items-center justify-center text-red-500">
+                            <div
+                                class="w-8 h-8 rounded-full bg-red-500/20 flex items-center justify-center text-red-500">
                                 <i class="fas fa-heartbeat text-sm"></i>
                             </div>
-                            <span class="text-xs opacity-90 font-semibold">Heart Rate</span>
+                            <span class="text-xs opacity-90 font-semibold">Body Mass Index</span>
                         </div>
-                        <div class="text-xl font-bold">98 <span class="text-xs font-normal opacity-70">bpm</span></div>
+                        <div class="text-xl font-bold">20 <span class="text-xs font-normal opacity-70">kg/m²</span></div>
                         <div class="mt-2 flex gap-1 items-end h-6 opacity-50">
                             <div class="w-1 bg-red-500 h-[40%] rounded-sm"></div>
                             <div class="w-1 bg-red-500 h-[70%] rounded-sm"></div>
@@ -379,8 +406,11 @@
                         </div>
                     </div>
 
-                    <div class="phone-container relative w-[300px] h-[600px] bg-[#151515] rounded-[45px] shadow-[0_0_0_8px_#252525,0_50px_100px_rgba(0,0,0,0.6)] overflow-hidden">
-                        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[120px] h-[25px] bg-[#252525] rounded-b-2xl z-30"></div>
+                    <div
+                        class="phone-container relative w-[300px] h-[600px] bg-[#151515] rounded-[45px] shadow-[0_0_0_8px_#252525,0_50px_100px_rgba(0,0,0,0.6)] overflow-hidden">
+                        <div
+                            class="absolute top-0 left-1/2 -translate-x-1/2 w-[120px] h-[25px] bg-[#252525] rounded-b-2xl z-30">
+                        </div>
 
                         <div class="w-full h-full bg-gradient p-6 pt-12 flex flex-col relative">
 
@@ -396,18 +426,29 @@
 
                             <div class="p-4 rounded-2xl card mb-4">
                                 <div class="flex justify-between items-end h-[100px] gap-2 mb-2">
-                                    <div class="w-full bg-primary/20 rounded-t-md relative group h-[40%] hover:bg-primary/40 transition-all"></div>
-                                    <div class="w-full bg-primary/20 rounded-t-md relative group h-[60%] hover:bg-primary/40 transition-all"></div>
-                                    <div class="w-full bg-primary rounded-t-md relative group h-[85%] shadow-[0_0_20px_rgba(61,204,199,0.4)]"></div>
-                                    <div class="w-full bg-primary/20 rounded-t-md relative group h-[50%] hover:bg-primary/40 transition-all"></div>
-                                    <div class="w-full bg-primary/20 rounded-t-md relative group h-[70%] hover:bg-primary/40 transition-all"></div>
+                                    <div
+                                        class="w-full bg-primary/20 rounded-t-md relative group h-[40%] hover:bg-primary/40 transition-all">
+                                    </div>
+                                    <div
+                                        class="w-full bg-primary/20 rounded-t-md relative group h-[60%] hover:bg-primary/40 transition-all">
+                                    </div>
+                                    <div
+                                        class="w-full bg-primary rounded-t-md relative group h-[85%] shadow-[0_0_20px_rgba(61,204,199,0.4)]">
+                                    </div>
+                                    <div
+                                        class="w-full bg-primary/20 rounded-t-md relative group h-[50%] hover:bg-primary/40 transition-all">
+                                    </div>
+                                    <div
+                                        class="w-full bg-primary/20 rounded-t-md relative group h-[70%] hover:bg-primary/40 transition-all">
+                                    </div>
                                 </div>
                                 <p class="text-center text-xs text-gray-400 mt-2">Calories Intake vs Goal</p>
                             </div>
 
                             <div class="space-y-3">
                                 <div class="flex items-center gap-3 p-3 rounded-xl card">
-                                    <div class="w-10 h-10 rounded-lg bg-green-500/20 flex items-center justify-center text-green-500">
+                                    <div
+                                        class="w-10 h-10 rounded-lg bg-green-500/20 flex items-center justify-center text-green-500">
                                         <i class="fas fa-apple-alt"></i>
                                     </div>
                                     <div class="flex-1">
@@ -418,7 +459,8 @@
                                 </div>
 
                                 <div class="flex items-center gap-3 p-3 rounded-xl card">
-                                    <div class="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center text-blue-500">
+                                    <div
+                                        class="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center text-blue-500">
                                         <i class="fas fa-glass-whiskey"></i>
                                     </div>
                                     <div class="flex-1">
@@ -429,21 +471,23 @@
                                 </div>
 
                                 <div class="flex items-center gap-3 p-3 rounded-xl card">
-                                    <div class="w-10 h-10 rounded-lg bg-purple-500/20 flex items-center justify-center text-purple-500">
+                                    <div
+                                        class="w-10 h-10 rounded-lg bg-purple-500/20 flex items-center justify-center text-purple-500">
                                         <i class="fas fa-running"></i>
                                     </div>
                                     <div class="flex-1">
-                                        <h4 class="text-sm font-semibold">Evening Run</h4>
-                                        <p class="text-xs opacity-70">Scheduled 6:00 PM</p>
+                                        <h4 class="text-sm font-semibold">AI Analyze</h4>
+                                        <p class="text-xs opacity-70">Recommended</p>
                                     </div>
-                                    <span class="text-xs bg-purple-500/20 text-purple-400 px-2 py-1 rounded">Soon</span>
+                                    <span class="text-xs bg-purple-500/20 text-purple-400 px-2 py-1 rounded">New</span>
                                 </div>
                             </div>
 
                             <div class="mt-auto flex justify-between opacity-70 pt-4 border-t">
                                 <i class="fas fa-home text-primary"></i>
                                 <i class="fas fa-chart-bar hover:text-white transition"></i>
-                                <div class="w-10 h-10 bg-primary rounded-full flex items-center justify-center -mt-8 shadow-lg text-white border-2 border-primary">
+                                <div
+                                    class="w-10 h-10 bg-primary rounded-full flex items-center justify-center -mt-8 shadow-lg text-white border-2 border-primary">
                                     <i class="fas fa-plus"></i>
                                 </div>
                                 <i class="fas fa-book hover:text-white transition"></i>
@@ -470,72 +514,90 @@
                     </div>
 
                     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <div class="mt-12 max-w-6xl mx-auto rounded-lg shadow-md card hover:border-[#0F9E99] overflow-hidden">
+                        <div
+                            class="mt-12 max-w-6xl mx-auto rounded-lg shadow-md card hover:border-[#0F9E99] overflow-hidden">
                             <div class="grid md:grid-cols-2 gap-0">
 
                                 <div class="p-8 md:p-12 flex flex-col justify-center">
                                     <div class="space-y-6">
 
                                         <div class="flex items-start gap-4">
-                                            <div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                                            <div
+                                                class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center flex-shrink-0">
                                                 <i class="fas fa-brain text-primary text-xl"></i>
                                             </div>
                                             <div class="text-left">
-                                                <h3 class="font-semibold text-lg mb-2">Smart AI Recommendations</h3>
-                                                <p class="opacity-80 text-sm">Dapatkan rekomendasi makanan cerdas berdasarkan kebutuhan nutrisi dan preferensi Anda dengan teknologi AI.</p>
+                                                <h3 class="font-semibold text-lg mb-2">Rekomendasi Pintar Terintegrasi
+                                                    AI</h3>
+                                                <p class="opacity-80 text-sm">Dapatkan rekomendasi makanan cerdas
+                                                    berdasarkan kebutuhan nutrisi dan preferensi Anda dengan teknologi
+                                                    AI.</p>
                                             </div>
                                         </div>
 
                                         <div class="flex items-start gap-4">
-                                            <div class="w-12 h-12 bg-secondary/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                                            <div
+                                                class="w-12 h-12 bg-secondary/10 rounded-xl flex items-center justify-center flex-shrink-0">
                                                 <i class="fas fa-chart-pie text-secondary text-xl"></i>
                                             </div>
                                             <div class="text-left">
-                                                <h3 class="font-semibold text-lg mb-2">Detailed Analytics</h3>
-                                                <p class="opacity-80 text-sm">Visualisasi lengkap dari asupan nutrisi harian, mingguan, dan bulanan dalam grafik yang mudah dipahami.</p>
+                                                <h3 class="font-semibold text-lg mb-2">Analisa Mendetail</h3>
+                                                <p class="opacity-80 text-sm">Visualisasi lengkap dari asupan nutrisi
+                                                    harian, mingguan, dan bulanan dalam grafik yang mudah dipahami.</p>
                                             </div>
                                         </div>
 
                                         <div class="flex items-start gap-4">
-                                            <div class="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                                            <div
+                                                class="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center flex-shrink-0">
                                                 <i class="fas fa-users text-accent text-xl"></i>
                                             </div>
                                             <div class="text-left">
-                                                <h3 class="font-semibold text-lg mb-2">Community Support</h3>
-                                                <p class="opacity-80 text-sm">Bergabung dengan komunitas pengguna yang saling mendukung dalam perjalanan hidup sehat mereka.</p>
+                                                <h3 class="font-semibold text-lg mb-2">Dukungan Komunitas</h3>
+                                                <p class="opacity-80 text-sm">Bergabung dengan komunitas pengguna yang
+                                                    saling mendukung dalam perjalanan hidup sehat mereka.</p>
                                             </div>
                                         </div>
 
                                         <div class="flex items-start gap-4">
-                                            <div class="w-12 h-12 bg-[#FFC107]/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                                            <div
+                                                class="w-12 h-12 bg-[#FFC107]/10 rounded-xl flex items-center justify-center flex-shrink-0">
                                                 <i class="fas fa-shield-alt text-[#FFC107] text-xl"></i>
                                             </div>
                                             <div class="text-left">
-                                                <h3 class="font-semibold text-lg mb-2">Data Security</h3>
-                                                <p class="opacity-80 text-sm">Data kesehatan Anda tersimpan aman dengan enkripsi tingkat tinggi dan privasi terjaga.</p>
+                                                <h3 class="font-semibold text-lg mb-2">Keamanan dan Privasi Terpercaya
+                                                </h3>
+                                                <p class="opacity-80 text-sm">Data kesehatan Anda tersimpan aman dengan
+                                                    enkripsi tingkat tinggi dan privasi terjaga.</p>
                                             </div>
                                         </div>
 
                                     </div>
                                 </div>
 
-                                <div class="bg-gradient-to-br from-primary/5 to-secondary/5 p-8 md:p-12 flex items-center justify-center">
+                                <div
+                                    class="bg-gradient-to-br from-primary/5 to-secondary/5 p-8 md:p-12 flex items-center justify-center">
                                     <div class="relative w-full max-w-sm">
-                                        <div class="absolute top-0 right-0 w-32 h-32 bg-primary/20 rounded-full blur-3xl"></div>
-                                        <div class="absolute bottom-0 left-0 w-32 h-32 bg-secondary/20 rounded-full blur-3xl"></div>
+                                        <div
+                                            class="absolute top-0 right-0 w-32 h-32 bg-primary/20 rounded-full blur-3xl">
+                                        </div>
+                                        <div
+                                            class="absolute bottom-0 left-0 w-32 h-32 bg-secondary/20 rounded-full blur-3xl">
+                                        </div>
 
                                         <div class="relative card rounded-2xl p-6 shadow-xl">
                                             <div class="text-center mb-6">
-                                                <div class="inline-flex items-center justify-center w-16 h-16 bg-primary rounded-2xl mb-4">
+                                                <div
+                                                    class="inline-flex items-center justify-center w-16 h-16 bg-primary rounded-2xl mb-4">
                                                     <i class="fas fa-star text-white text-2xl"></i>
                                                 </div>
                                                 <h4 class="font-bold text-2xl mb-2">10,000+</h4>
-                                                <p class="opacity-80">Happy Users</p>
+                                                <p class="opacity-80">Pelanggan Puas</p>
                                             </div>
 
                                             <div class="space-y-3">
                                                 <div class="flex items-center justify-between card p-3 rounded-xl">
-                                                    <span class="text-sm">User Rating</span>
+                                                    <span class="text-sm">Rating Pengguna</span>
                                                     <div class="flex items-center gap-1">
                                                         <i class="fas fa-star text-[#FFC107] text-xs"></i>
                                                         <span class="font-semibold">4.8</span>
@@ -543,12 +605,12 @@
                                                 </div>
 
                                                 <div class="flex items-center justify-between card p-3 rounded-xl">
-                                                    <span class="text-sm">Meals Tracked</span>
+                                                    <span class="text-sm">Menu Terpantau</span>
                                                     <span class="font-semibold">500K+</span>
                                                 </div>
 
                                                 <div class="flex items-center justify-between card p-3 rounded-xl">
-                                                    <span class="text-sm">Success Rate</span>
+                                                    <span class="text-sm">Tingkat Keberhasilan</span>
                                                     <span class="font-semibold text-primary">92%</span>
                                                 </div>
                                             </div>
@@ -570,9 +632,9 @@
                     <div class="flex flex-col md:flex-row items-center justify-between mb-12 sm:mb-16">
                         <div class="text-center md:text-left mb-6 md:mb-0">
                             <h2 class="text-4xl sm:text-5xl font-bold tracking-tight">
-                                See NutriTrack in Action</h2>
-                            <p class="mt-3 text-lg max-w-xl dark:opacity-80">
-                                Dive into our core functionalities tailored for your goals.
+                                Fitur Unggulan NutriTrack</h2>
+                            <p class="mt-3 text-lg max-w-2xl dark:opacity-80">
+                                Jelajahi fitur inti kami yang dirancang khusus untuk mendukung tujuanmu.
                             </p>
                         </div>
                         <a href="#"
@@ -588,8 +650,9 @@
                                 <div class="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-4">
                                     <i class="fas fa-camera text-primary text-3xl"></i>
                                 </div>
-                                <h3 class="text-xl font-bold mb-2">Scan Makanan</h3>
-                                <p class="opacity-80 text-sm mb-4">Foto makananmu dan AI kami akan mengidentifikasi serta menghitung nutrisinya secara otomatis.</p>
+                                <h3 class="text-xl font-bold mb-2"><i>Scan</i> Makanan</h3>
+                                <p class="opacity-80 text-sm mb-4">Foto makananmu dan AI kami akan mengidentifikasi
+                                    serta menghitung nutrisinya secara otomatis.</p>
                             </div>
                             <div class="mt-auto">
                                 <div class="card rounded-lg p-4 bg-gradient-to-br from-primary/5 to-transparent">
@@ -612,11 +675,13 @@
                         <!-- Feature Card 2 -->
                         <div class="rounded-lg shadow-md card hover:border-[#0F9E99] p-6 flex flex-col h-full">
                             <div class="mb-4">
-                                <div class="w-16 h-16 bg-secondary/10 rounded-2xl flex items-center justify-center mb-4">
+                                <div
+                                    class="w-16 h-16 bg-secondary/10 rounded-2xl flex items-center justify-center mb-4">
                                     <i class="fas fa-chart-line text-secondary text-3xl"></i>
                                 </div>
-                                <h3 class="text-xl font-bold mb-2">Progress Tracking</h3>
-                                <p class="opacity-80 text-sm mb-4">Monitor perkembangan berat badan, kalori, dan nutrisi dengan grafik yang detail dan mudah dipahami.</p>
+                                <h3 class="text-xl font-bold mb-2">Pantau <i>Progress</i> Harian</h3>
+                                <p class="opacity-80 text-sm mb-4">Monitor perkembangan berat badan, kalori, dan nutrisi
+                                    dengan grafik yang detail dan mudah dipahami.</p>
                             </div>
                             <div class="mt-auto">
                                 <div class="card rounded-lg p-4 bg-gradient-to-br from-secondary/5 to-transparent">
@@ -653,8 +718,9 @@
                                 <div class="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center mb-4">
                                     <i class="fas fa-book-open text-accent text-3xl"></i>
                                 </div>
-                                <h3 class="text-xl font-bold mb-2">Meal Planning</h3>
-                                <p class="opacity-80 text-sm mb-4">Rencanakan menu makanan mingguan dengan rekomendasi resep sehat yang disesuaikan dengan kebutuhanmu.</p>
+                                <h3 class="text-xl font-bold mb-2">Perencanaan Menu Harian</h3>
+                                <p class="opacity-80 text-sm mb-4">Rencanakan menu makanan mingguan dengan rekomendasi
+                                    resep sehat yang disesuaikan dengan kebutuhanmu.</p>
                             </div>
                             <div class="mt-auto">
                                 <div class="card rounded-lg p-4 bg-gradient-to-br from-accent/5 to-transparent">
@@ -692,432 +758,319 @@
             <section class="py-16 sm:py-24">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="text-center mb-6">
-                        <h2 class="text-4xl sm:text-5xl font-bold tracking-tight">Reviews</h2>
+                        <h2 class="text-4xl sm:text-5xl font-bold tracking-tight">Testimoni Pengguna</h2>
                         <p class="mt-3 text-lg max-w-xl mx-auto dark:opacity-80">
-                            What are they saying about us?
+                            Apa kata mereka?
                         </p>
                     </div>
                     <div class="relative mt-12 max-w-6xl mx-auto overflow-hidden rounded-lg h-[550px]">
-                        <div class="absolute inset-x-0 top-0 h-16 pointer-events-none fade-top z-10">
-                        </div>
-                        <div class="absolute inset-x-0 bottom-0 h-16 pointer-events-none fade-bottom z-10">
-                        </div>
-                        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 h-full">
 
-                            <!-- 1 -->
-                            <div class="marquee-col h-full overflow-y-hidden">
-                                <div class="marquee-track reverse px-2 py-4">
-                                    <div class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
-                                        <div class="flex items-center gap-3 mb-2">
-                                            <img src="https://placehold.co/40x40/34373b/ffffff?text=A"
-                                                class="w-10 h-10 rounded-full" />
-                                            <div>
-                                                <div class="font-medium">Sarah K.</div>
-                                                <div class="text-xs">@sarahk</div>
-                                            </div>
-                                        </div>
-                                        <p class="text-sm">NutriTrack changed my life!
-                                            So easy to track meals.</p>
-                                    </div>
-                                    <div class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
-                                        <div class="flex items-center gap-3 mb-2">
-                                            <img src="https://placehold.co/40x40/f87171/ffffff?text=B"
-                                                class="w-10 h-10 rounded-full" />
-                                            <div>
-                                                <div class="font-medium">Mike T.</div>
-                                                <div class="text-xs">@miket</div>
-                                            </div>
-                                        </div>
-                                        <p class="text-sm">Best nutrition app I've
-                                            ever used. Highly recommend!</p>
-                                    </div>
-                                    <div class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
-                                        <div class="flex items-center gap-3 mb-2">
-                                            <img src="https://placehold.co/40x40/34d399/ffffff?text=C"
-                                                class="w-10 h-10 rounded-full" />
-                                            <div>
-                                                <div class="font-medium">Lina R.</div>
-                                                <div class="text-xs">@linar</div>
-                                            </div>
-                                        </div>
-                                        <p class="text-sm">Love the personalized meal
-                                            plans. So accurate!</p>
-                                    </div>
-                                    <div class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
-                                        <div class="flex items-center gap-3 mb-2">
-                                            <img src="https://placehold.co/40x40/a78bfa/ffffff?text=D"
-                                                class="w-10 h-10 rounded-full" />
-                                            <div>
-                                                <div class="font-medium">James L.</div>
-                                                <div class="text-xs">@jamesl</div>
-                                            </div>
-                                        </div>
-                                        <p class="text-sm">Perfect for my fitness
-                                            journey. Thank you!</p>
-                                    </div>
-                                    <!-- Duplikat -->
-                                    <div class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
-                                        <div class="flex items-center gap-3 mb-2">
-                                            <img src="https://placehold.co/40x40/34373b/ffffff?text=A"
-                                                class="w-10 h-10 rounded-full" />
-                                            <div>
-                                                <div class="font-medium">Sarah K.</div>
-                                                <div class="text-xs">@sarahk</div>
-                                            </div>
-                                        </div>
-                                        <p class="text-sm">NutriTrack changed my life!
-                                            So easy to track meals.</p>
-                                    </div>
-                                    <div class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
-                                        <div class="flex items-center gap-3 mb-2">
-                                            <img src="https://placehold.co/40x40/f87171/ffffff?text=B"
-                                                class="w-10 h-10 rounded-full" />
-                                            <div>
-                                                <div class="font-medium">Mike T.</div>
-                                                <div class="text-xs">@miket</div>
-                                            </div>
-                                        </div>
-                                        <p class="text-sm">Best nutrition app I've
-                                            ever used. Highly recommend!</p>
-                                    </div>
-                                    <div class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
-                                        <div class="flex items-center gap-3 mb-2">
-                                            <img src="https://placehold.co/40x40/34d399/ffffff?text=C"
-                                                class="w-10 h-10 rounded-full" />
-                                            <div>
-                                                <div class="font-medium">Lina R.</div>
-                                                <div class="text-xs">@linar</div>
-                                            </div>
-                                        </div>
-                                        <p class="text-sm">Love the personalized meal
-                                            plans. So accurate!</p>
-                                    </div>
-                                    <div class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
-                                        <div class="flex items-center gap-3 mb-2">
-                                            <img src="https://placehold.co/40x40/a78bfa/ffffff?text=D"
-                                                class="w-10 h-10 rounded-full" />
-                                            <div>
-                                                <div class="font-medium">James L.</div>
-                                                <div class="text-xs">@jamesl</div>
-                                            </div>
-                                        </div>
-                                        <p class="text-sm">Perfect for my fitness
-                                            journey. Thank you!</p>
-                                    </div>
+                        <?php if (empty($testimonials)) { ?>
+
+                            <!-- TAMPILKAN FALLBACK -->
+                            <div class="flex items-center justify-center h-full text-center opacity-70">
+                                <div>
+                                    <div class="text-lg font-semibold mb-2">Belum ada testimoni</div>
+                                    <p class="text-sm">Tambahkan testimoni untuk menampilkan pada bagian ini.</p>
                                 </div>
                             </div>
 
-                            <!-- 2 -->
-                            <div class="marquee-col h-full overflow-y-hidden">
-                                <div class="marquee-track px-2 py-4">
-                                    <div class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
-                                        <div class="flex items-center gap-3 mb-2">
-                                            <img src="https://placehold.co/40x40/60a5fa/ffffff?text=E"
-                                                class="w-10 h-10 rounded-full" />
-                                            <div>
-                                                <div class="font-medium">Emma W.</div>
-                                                <div class="text-xs">@emmaw</div>
-                                            </div>
-                                        </div>
-                                        <p class="text-sm">So intuitive and beautiful
-                                            UI. Love it!</p>
-                                    </div>
-                                    <div class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
-                                        <div class="flex items-center gap-3 mb-2">
-                                            <img src="https://placehold.co/40x40/fbbf24/ffffff?text=F"
-                                                class="w-10 h-10 rounded-full" />
-                                            <div>
-                                                <div class="font-medium">David H.</div>
-                                                <div class="text-xs">@davidh</div>
-                                            </div>
-                                        </div>
-                                        <p class="text-sm">Helped me lose 10kg in 3
-                                            months. Amazing!</p>
-                                    </div>
-                                    <div class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
-                                        <div class="flex items-center gap-3 mb-2">
-                                            <img src="https://placehold.co/40x40/ec4899/ffffff?text=G"
-                                                class="w-10 h-10 rounded-full" />
-                                            <div>
-                                                <div class="font-medium">Anna P.</div>
-                                                <div class="text-xs">@annap</div>
-                                            </div>
-                                        </div>
-                                        <p class="text-sm">The calorie tracker is spot
-                                            on. Great job!</p>
-                                    </div>
-                                    <div class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
-                                        <div class="flex items-center gap-3 mb-2">
-                                            <img src="https://placehold.co/40x40/8b5cf6/ffffff?text=H"
-                                                class="w-10 h-10 rounded-full" />
-                                            <div>
-                                                <div class="font-medium">Tom B.</div>
-                                                <div class="text-xs">@tomb</div>
-                                            </div>
-                                        </div>
-                                        <p class="text-sm">Worth every penny. Best
-                                            health app ever.</p>
-                                    </div>
-                                    <!-- Duplikat -->
-                                    <div class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
-                                        <div class="flex items-center gap-3 mb-2">
-                                            <img src="https://placehold.co/40x40/60a5fa/ffffff?text=E"
-                                                class="w-10 h-10 rounded-full" />
-                                            <div>
-                                                <div class="font-medium">Emma W.</div>
-                                                <div class="text-xs">@emmaw</div>
-                                            </div>
-                                        </div>
-                                        <p class="text-sm">So intuitive and beautiful
-                                            UI. Love it!</p>
-                                    </div>
-                                    <div class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
-                                        <div class="flex items-center gap-3 mb-2">
-                                            <img src="https://placehold.co/40x40/fbbf24/ffffff?text=F"
-                                                class="w-10 h-10 rounded-full" />
-                                            <div>
-                                                <div class="font-medium">David H.</div>
-                                                <div class="text-xs">@davidh</div>
-                                            </div>
-                                        </div>
-                                        <p class="text-sm">Helped me lose 10kg in 3
-                                            months. Amazing!</p>
-                                    </div>
-                                    <div class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
-                                        <div class="flex items-center gap-3 mb-2">
-                                            <img src="https://placehold.co/40x40/ec4899/ffffff?text=G"
-                                                class="w-10 h-10 rounded-full" />
-                                            <div>
-                                                <div class="font-medium">Anna P.</div>
-                                                <div class="text-xs">@annap</div>
-                                            </div>
-                                        </div>
-                                        <p class="text-sm">The calorie tracker is spot
-                                            on. Great job!</p>
-                                    </div>
-                                    <div class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
-                                        <div class="flex items-center gap-3 mb-2">
-                                            <img src="https://placehold.co/40x40/8b5cf6/ffffff?text=H"
-                                                class="w-10 h-10 rounded-full" />
-                                            <div>
-                                                <div class="font-medium">Tom B.</div>
-                                                <div class="text-xs">@tomb</div>
-                                            </div>
-                                        </div>
-                                        <p class="text-sm">Worth every penny. Best
-                                            health app ever.</p>
-                                    </div>
+                        <?php } else { ?>
+                            <div class="relative mt-12 max-w-6xl mx-auto overflow-hidden rounded-lg h-[550px]">
+                                <div class="absolute inset-x-0 top-0 h-16 pointer-events-none fade-top z-10">
                                 </div>
-                            </div>
+                                <div class="absolute inset-x-0 bottom-0 h-16 pointer-events-none fade-bottom z-10">
+                                </div>
+                                <div class="grid grid-cols-2 md:grid-cols-4 gap-3 h-full">
 
-                            <!-- 3 -->
-                            <div class="marquee-col h-full overflow-y-hidden hidden lg:block">
-                                <div class="marquee-track reverse px-2 py-4">
-                                    <div class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
-                                        <div class="flex items-center gap-3 mb-2">
-                                            <img src="https://placehold.co/40x40/10b981/ffffff?text=I"
-                                                class="w-10 h-10 rounded-full" />
-                                            <div>
-                                                <div class="font-medium">Chris M.</div>
-                                                <div class="text-xs">@chrism</div>
-                                            </div>
-                                        </div>
-                                        <p class="text-sm">Game changer for my diet.
-                                            Thank you!</p>
-                                    </div>
-                                    <div class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
-                                        <div class="flex items-center gap-3 mb-2">
-                                            <img src="https://placehold.co/40x40/f43f5e/ffffff?text=J"
-                                                class="w-10 h-10 rounded-full" />
-                                            <div>
-                                                <div class="font-medium">Nina S.</div>
-                                                <div class="text-xs">@ninas</div>
-                                            </div>
-                                        </div>
-                                        <p class="text-sm">So easy to use. I track
-                                            everything now.</p>
-                                    </div>
-                                    <div class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
-                                        <div class="flex items-center gap-3 mb-2">
-                                            <img src="https://placehold.co/40x40/10b981/ffffff?text=I"
-                                                class="w-10 h-10 rounded-full" />
-                                            <div>
-                                                <div class="font-medium">Chris M.</div>
-                                                <div class="text-xs">@chrism</div>
-                                            </div>
-                                        </div>
-                                        <p class="text-sm">Game changer for my diet.
-                                            Thank you!</p>
-                                    </div>
-                                    <div class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
-                                        <div class="flex items-center gap-3 mb-2">
-                                            <img src="https://placehold.co/40x40/f43f5e/ffffff?text=J"
-                                                class="w-10 h-10 rounded-full" />
-                                            <div>
-                                                <div class="font-medium">Nina S.</div>
-                                                <div class="text-xs">@ninas</div>
-                                            </div>
-                                        </div>
-                                        <p class="text-sm">So easy to use. I track
-                                            everything now.</p>
-                                    </div>
-                                    <!-- Duplikat -->
-                                    <div class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
-                                        <div class="flex items-center gap-3 mb-2">
-                                            <img src="https://placehold.co/40x40/34373b/ffffff?text=A"
-                                                class="w-10 h-10 rounded-full" />
-                                            <div>
-                                                <div class="font-medium">Sarah K.</div>
-                                                <div class="text-xs">@sarahk</div>
-                                            </div>
-                                        </div>
-                                        <p class="text-sm">NutriTrack changed my life!
-                                            So easy to track meals.</p>
-                                    </div>
-                                    <div class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
-                                        <div class="flex items-center gap-3 mb-2">
-                                            <img src="https://placehold.co/40x40/f87171/ffffff?text=B"
-                                                class="w-10 h-10 rounded-full" />
-                                            <div>
-                                                <div class="font-medium">Mike T.</div>
-                                                <div class="text-xs">@miket</div>
-                                            </div>
-                                        </div>
-                                        <p class="text-sm">Best nutrition app I've
-                                            ever used. Highly recommend!</p>
-                                    </div>
-                                    <div class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
-                                        <div class="flex items-center gap-3 mb-2">
-                                            <img src="https://placehold.co/40x40/34d399/ffffff?text=C"
-                                                class="w-10 h-10 rounded-full" />
-                                            <div>
-                                                <div class="font-medium">Lina R.</div>
-                                                <div class="text-xs">@linar</div>
-                                            </div>
-                                        </div>
-                                        <p class="text-sm">Love the personalized meal
-                                            plans. So accurate!</p>
-                                    </div>
-                                    <div class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
-                                        <div class="flex items-center gap-3 mb-2">
-                                            <img src="https://placehold.co/40x40/a78bfa/ffffff?text=D"
-                                                class="w-10 h-10 rounded-full" />
-                                            <div>
-                                                <div class="font-medium">James L.</div>
-                                                <div class="text-xs">@jamesl</div>
-                                            </div>
-                                        </div>
-                                        <p class="text-sm">Perfect for my fitness
-                                            journey. Thank you!</p>
-                                    </div>
-                                </div>
-                            </div>
+                                    <!-- 1 -->
+                                    <div class="marquee-col h-full overflow-y-hidden">
+                                        <div class="marquee-track reverse px-2 py-4">
+                                            <?php if (empty($testimonials)) { ?>
+                                                <!-- Fallback kalau belum ada data di tabel -->
+                                                <div class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
+                                                    <div class="flex items-center gap-3 mb-2">
+                                                        <img src="https://placehold.co/40x40/34373b/ffffff?text=?"
+                                                            class="w-10 h-10 rounded-full" />
+                                                        <div>
+                                                            <div class="font-medium">Guest User</div>
+                                                            <div class="text-xs">@guest</div>
+                                                        </div>
+                                                    </div>
+                                                    <p class="text-sm">Belum ada testimoni.</p>
+                                                </div>
+                                            <?php } else { ?>
 
-                            <!-- 4 -->
-                            <div class="marquee-col h-full overflow-y-hidden hidden lg:block">
-                                <div class="marquee-track px-2 py-4">
-                                    <div class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
-                                        <div class="flex items-center gap-3 mb-2">
-                                            <img src="https://placehold.co/40x40/0ea5e9/ffffff?text=K"
-                                                class="w-10 h-10 rounded-full" />
-                                            <div>
-                                                <div class="font-medium">Ali R.</div>
-                                                <div class="text-xs">@alir</div>
-                                            </div>
+                                                <?php foreach ($testimonials as $t) {
+
+                                                    // ambil huruf pertama untuk avatar
+                                                    $initial = strtoupper(substr($t['name'], 0, 1));
+
+                                                    // fallback avatar
+                                                    $avatar = $t['avatar_url']
+                                                        ? htmlspecialchars($t['avatar_url'])
+                                                        : "https://placehold.co/40x40/34373b/ffffff?text={$initial}";
+
+                                                    // fallback username
+                                                    $username = !empty($t['username'])
+                                                        ? '@' . htmlspecialchars($t['username'])
+                                                        : '@' . strtolower($initial . 'user');
+                                                    ?>
+                                                    <div class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
+                                                        <div class="flex items-center gap-3 mb-2">
+                                                            <img src="<?php echo $avatar; ?>" class="w-10 h-10 rounded-full" />
+                                                            <div>
+                                                                <div class="font-medium"><?php echo htmlspecialchars($t['name']); ?>
+                                                                </div>
+                                                                <div class="text-xs"><?php echo $username; ?></div>
+                                                            </div>
+                                                        </div>
+                                                        <p class="text-sm"><?php echo htmlspecialchars($t['message']); ?></p>
+                                                    </div>
+                                                <?php } ?>
+
+                                                <!-- Optional: duplikat lagi untuk efek infinite marquee -->
+                                                <?php foreach ($testimonials as $t) { ?>
+                                                    <div class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
+                                                        <div class="flex items-center gap-3 mb-2">
+                                                            <img src="<?php echo htmlspecialchars($t['avatar_url'] ?: 'https://placehold.co/40x40/34373b/ffffff?text=U'); ?>"
+                                                                class="w-10 h-10 rounded-full" />
+                                                            <div>
+                                                                <div class="font-medium">
+                                                                    <?php echo htmlspecialchars($t['name']); ?>
+                                                                </div>
+                                                                <div class="text-xs">
+                                                                    @<?php echo htmlspecialchars($t['username']); ?>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <p class="text-sm">
+                                                            <?php echo htmlspecialchars($t['message']); ?>
+                                                        </p>
+                                                    </div>
+                                                <?php } ?>
+
+                                            <?php } ?>
                                         </div>
-                                        <p class="text-sm">Perfect for busy people
-                                            like me!</p>
                                     </div>
-                                    <div class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
-                                        <div class="flex items-center gap-3 mb-2">
-                                            <img src="https://placehold.co/40x40/84cc16/ffffff?text=L"
-                                                class="w-10 h-10 rounded-full" />
-                                            <div>
-                                                <div class="font-medium">Maya T.</div>
-                                                <div class="text-xs">@mayat</div>
-                                            </div>
+
+                                    <!-- 2 -->
+                                    <div class="marquee-col h-full overflow-y-hidden">
+                                        <div class="marquee-track reverse px-2 py-4">
+                                            <?php if (empty($testimonials)) { ?>
+                                                <!-- Fallback kalau belum ada data di tabel -->
+                                                <div class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
+                                                    <div class="flex items-center gap-3 mb-2">
+                                                        <img src="https://placehold.co/40x40/34373b/ffffff?text=?"
+                                                            class="w-10 h-10 rounded-full" />
+                                                        <div>
+                                                            <div class="font-medium">Guest User</div>
+                                                            <div class="text-xs">@guest</div>
+                                                        </div>
+                                                    </div>
+                                                    <p class="text-sm">Belum ada testimoni.</p>
+                                                </div>
+                                            <?php } else { ?>
+
+                                                <?php foreach ($testimonials as $t) {
+
+                                                    // ambil huruf pertama untuk avatar
+                                                    $initial = strtoupper(substr($t['name'], 0, 1));
+
+                                                    // fallback avatar
+                                                    $avatar = $t['avatar_url']
+                                                        ? htmlspecialchars($t['avatar_url'])
+                                                        : "https://placehold.co/40x40/34373b/ffffff?text={$initial}";
+
+                                                    // fallback username
+                                                    $username = !empty($t['username'])
+                                                        ? '@' . htmlspecialchars($t['username'])
+                                                        : '@' . strtolower($initial . 'user');
+                                                    ?>
+                                                    <div class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
+                                                        <div class="flex items-center gap-3 mb-2">
+                                                            <img src="<?php echo $avatar; ?>" class="w-10 h-10 rounded-full" />
+                                                            <div>
+                                                                <div class="font-medium"><?php echo htmlspecialchars($t['name']); ?>
+                                                                </div>
+                                                                <div class="text-xs"><?php echo $username; ?></div>
+                                                            </div>
+                                                        </div>
+                                                        <p class="text-sm"><?php echo htmlspecialchars($t['message']); ?></p>
+                                                    </div>
+                                                <?php } ?>
+
+                                                <!-- Optional: duplikat lagi untuk efek infinite marquee -->
+                                                <?php foreach ($testimonials as $t) { ?>
+                                                    <div class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
+                                                        <div class="flex items-center gap-3 mb-2">
+                                                            <img src="<?php echo htmlspecialchars($t['avatar_url'] ?: 'https://placehold.co/40x40/34373b/ffffff?text=U'); ?>"
+                                                                class="w-10 h-10 rounded-full" />
+                                                            <div>
+                                                                <div class="font-medium">
+                                                                    <?php echo htmlspecialchars($t['name']); ?>
+                                                                </div>
+                                                                <div class="text-xs">
+                                                                    @<?php echo htmlspecialchars($t['username']); ?>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <p class="text-sm">
+                                                            <?php echo htmlspecialchars($t['message']); ?>
+                                                        </p>
+                                                    </div>
+                                                <?php } ?>
+
+                                            <?php } ?>
                                         </div>
-                                        <p class="text-sm">Love the clean design and
-                                            accuracy.</p>
                                     </div>
-                                    <div class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
-                                        <div class="flex items-center gap-3 mb-2">
-                                            <img src="https://placehold.co/40x40/0ea5e9/ffffff?text=K"
-                                                class="w-10 h-10 rounded-full" />
-                                            <div>
-                                                <div class="font-medium">Ali R.</div>
-                                                <div class="text-xs">@alir</div>
-                                            </div>
+
+
+                                    <!-- 3 -->
+                                    <div class="marquee-col h-full overflow-y-hidden">
+                                        <div class="marquee-track reverse px-2 py-4">
+                                            <?php if (empty($testimonials)) { ?>
+                                                <!-- Fallback kalau belum ada data di tabel -->
+                                                <div class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
+                                                    <div class="flex items-center gap-3 mb-2">
+                                                        <img src="https://placehold.co/40x40/34373b/ffffff?text=?"
+                                                            class="w-10 h-10 rounded-full" />
+                                                        <div>
+                                                            <div class="font-medium">Guest User</div>
+                                                            <div class="text-xs">@guest</div>
+                                                        </div>
+                                                    </div>
+                                                    <p class="text-sm">Belum ada testimoni.</p>
+                                                </div>
+                                            <?php } else { ?>
+
+                                                <?php foreach ($testimonials as $t) {
+
+                                                    // ambil huruf pertama untuk avatar
+                                                    $initial = strtoupper(substr($t['name'], 0, 1));
+
+                                                    // fallback avatar
+                                                    $avatar = $t['avatar_url']
+                                                        ? htmlspecialchars($t['avatar_url'])
+                                                        : "https://placehold.co/40x40/34373b/ffffff?text={$initial}";
+
+                                                    // fallback username
+                                                    $username = !empty($t['username'])
+                                                        ? '@' . htmlspecialchars($t['username'])
+                                                        : '@' . strtolower($initial . 'user');
+                                                    ?>
+                                                    <div class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
+                                                        <div class="flex items-center gap-3 mb-2">
+                                                            <img src="<?php echo $avatar; ?>" class="w-10 h-10 rounded-full" />
+                                                            <div>
+                                                                <div class="font-medium"><?php echo htmlspecialchars($t['name']); ?>
+                                                                </div>
+                                                                <div class="text-xs"><?php echo $username; ?></div>
+                                                            </div>
+                                                        </div>
+                                                        <p class="text-sm"><?php echo htmlspecialchars($t['message']); ?></p>
+                                                    </div>
+                                                <?php } ?>
+
+                                                <!-- Optional: duplikat lagi untuk efek infinite marquee -->
+                                                <?php foreach ($testimonials as $t) { ?>
+                                                    <div class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
+                                                        <div class="flex items-center gap-3 mb-2">
+                                                            <img src="<?php echo htmlspecialchars($t['avatar_url'] ?: 'https://placehold.co/40x40/34373b/ffffff?text=U'); ?>"
+                                                                class="w-10 h-10 rounded-full" />
+                                                            <div>
+                                                                <div class="font-medium">
+                                                                    <?php echo htmlspecialchars($t['name']); ?>
+                                                                </div>
+                                                                <div class="text-xs">
+                                                                    @<?php echo htmlspecialchars($t['username']); ?>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <p class="text-sm">
+                                                            <?php echo htmlspecialchars($t['message']); ?>
+                                                        </p>
+                                                    </div>
+                                                <?php } ?>
+
+                                            <?php } ?>
                                         </div>
-                                        <p class="text-sm">Perfect for busy people
-                                            like me!</p>
                                     </div>
-                                    <div class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
-                                        <div class="flex items-center gap-3 mb-2">
-                                            <img src="https://placehold.co/40x40/84cc16/ffffff?text=L"
-                                                class="w-10 h-10 rounded-full" />
-                                            <div>
-                                                <div class="font-medium">Maya T.</div>
-                                                <div class="text-xs">@mayat</div>
-                                            </div>
+
+                                    <!-- 4 -->
+                                    <div class="marquee-col h-full overflow-y-hidden">
+                                        <div class="marquee-track reverse px-2 py-4">
+                                            <?php if (empty($testimonials)) { ?>
+                                                <!-- Fallback kalau belum ada data di tabel -->
+                                                <div class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
+                                                    <div class="flex items-center gap-3 mb-2">
+                                                        <img src="https://placehold.co/40x40/34373b/ffffff?text=?"
+                                                            class="w-10 h-10 rounded-full" />
+                                                        <div>
+                                                            <div class="font-medium">Guest User</div>
+                                                            <div class="text-xs">@guest</div>
+                                                        </div>
+                                                    </div>
+                                                    <p class="text-sm">Belum ada testimoni.</p>
+                                                </div>
+                                            <?php } else { ?>
+
+                                                <?php foreach ($testimonials as $t) {
+
+                                                    // ambil huruf pertama untuk avatar
+                                                    $initial = strtoupper(substr($t['name'], 0, 1));
+
+                                                    // fallback avatar
+                                                    $avatar = $t['avatar_url']
+                                                        ? htmlspecialchars($t['avatar_url'])
+                                                        : "https://placehold.co/40x40/34373b/ffffff?text={$initial}";
+
+                                                    // fallback username
+                                                    $username = !empty($t['username'])
+                                                        ? '@' . htmlspecialchars($t['username'])
+                                                        : '@' . strtolower($initial . 'user');
+                                                    ?>
+                                                    <div class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
+                                                        <div class="flex items-center gap-3 mb-2">
+                                                            <img src="<?php echo $avatar; ?>" class="w-10 h-10 rounded-full" />
+                                                            <div>
+                                                                <div class="font-medium"><?php echo htmlspecialchars($t['name']); ?>
+                                                                </div>
+                                                                <div class="text-xs"><?php echo $username; ?></div>
+                                                            </div>
+                                                        </div>
+                                                        <p class="text-sm"><?php echo htmlspecialchars($t['message']); ?></p>
+                                                    </div>
+                                                <?php } ?>
+
+                                                <!-- Optional: duplikat lagi untuk efek infinite marquee -->
+                                                <?php foreach ($testimonials as $t) { ?>
+                                                    <div class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
+                                                        <div class="flex items-center gap-3 mb-2">
+                                                            <img src="<?php echo htmlspecialchars($t['avatar_url'] ?: 'https://placehold.co/40x40/34373b/ffffff?text=U'); ?>"
+                                                                class="w-10 h-10 rounded-full" />
+                                                            <div>
+                                                                <div class="font-medium">
+                                                                    <?php echo htmlspecialchars($t['name']); ?>
+                                                                </div>
+                                                                <div class="text-xs">
+                                                                    @<?php echo htmlspecialchars($t['username']); ?>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <p class="text-sm">
+                                                            <?php echo htmlspecialchars($t['message']); ?>
+                                                        </p>
+                                                    </div>
+                                                <?php } ?>
+
+                                            <?php } ?>
                                         </div>
-                                        <p class="text-sm">Love the clean design and
-                                            accuracy.</p>
-                                    </div>
-                                    <!-- Duplikat -->
-                                    <div class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
-                                        <div class="flex items-center gap-3 mb-2">
-                                            <img src="https://placehold.co/40x40/60a5fa/ffffff?text=E"
-                                                class="w-10 h-10 rounded-full" />
-                                            <div>
-                                                <div class="font-medium">Emma W.</div>
-                                                <div class="text-xs">@emmaw</div>
-                                            </div>
-                                        </div>
-                                        <p class="text-sm">So intuitive and beautiful
-                                            UI. Love it!</p>
-                                    </div>
-                                    <div class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
-                                        <div class="flex items-center gap-3 mb-2">
-                                            <img src="https://placehold.co/40x40/fbbf24/ffffff?text=F"
-                                                class="w-10 h-10 rounded-full" />
-                                            <div>
-                                                <div class="font-medium">David H.</div>
-                                                <div class="text-xs">@davidh</div>
-                                            </div>
-                                        </div>
-                                        <p class="text-sm">Helped me lose 10kg in 3
-                                            months. Amazing!</p>
-                                    </div>
-                                    <div class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
-                                        <div class="flex items-center gap-3 mb-2">
-                                            <img src="https://placehold.co/40x40/ec4899/ffffff?text=G"
-                                                class="w-10 h-10 rounded-full" />
-                                            <div>
-                                                <div class="font-medium">Anna P.</div>
-                                                <div class="text-xs">@annap</div>
-                                            </div>
-                                        </div>
-                                        <p class="text-sm">The calorie tracker is spot
-                                            on. Great job!</p>
-                                    </div>
-                                    <div class="p-4 rounded-lg shadow-md card hover:border-[#0F9E99]">
-                                        <div class="flex items-center gap-3 mb-2">
-                                            <img src="https://placehold.co/40x40/8b5cf6/ffffff?text=H"
-                                                class="w-10 h-10 rounded-full" />
-                                            <div>
-                                                <div class="font-medium">Tom B.</div>
-                                                <div class="text-xs">@tomb</div>
-                                            </div>
-                                        </div>
-                                        <p class="text-sm">Worth every penny. Best
-                                            health app ever.</p>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        <?php } ?>
                     </div>
-                </div>
             </section>
         </div>
     </main>
@@ -1127,47 +1080,53 @@
         <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-2 md:grid-cols-5 gap-8 items-start">
                 <div class="space-y-4">
-                    <a href="mailto:hi@nutritrack.com" class="text-lg hover:underline block">hi@nutritrack.com</a>
+                    <a href="https://www.instagram.com/nutritrack.plus/"
+                        class="text-lg hover:underline block">@nutritrack.plus</a>
+
                     <div class="flex space-x-4">
-                        <a href="#" class="">
+
+                        <!-- Instagram -->
+                        <a href="https://www.instagram.com/nutritrack.plus/" target="_blank"
+                            class="hover:text-[#E1306C] transition">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" class="size-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M7.5 3h9A4.5 4.5 0 0 1 21 7.5v9A4.5 4.5 0 0 1 16.5 21h-9A4.5 4.5 0 0 1 3 16.5v-9A4.5 4.5 0 0 1 7.5 3Z" />
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M12 15.75a3.75 3.75 0 1 0 0-7.5 3.75 3.75 0 0 0 0 7.5Z" />
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M17.25 6.75h.008v.008h-.008V6.75Z" />
                             </svg>
                         </a>
-                        <a href="#" class="">
+
+                        <!-- YouTube -->
+                        <a href="https://www.youtube.com/watch?v=7qhEhwEtS1Q" target="_blank"
+                            class="hover:text-red-600 transition">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" class="size-6">
                                 <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M6.827 6.175A2.31 2.31 0 0 1 5.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 0 0-1.134-.175 2.31 2.31 0 0 1-1.64-1.055l-.822-1.316a2.192 2.192 0 0 0-1.736-1.039 48.774 48.774 0 0 0-5.232 0 2.192 2.192 0 0 0-1.736 1.039l-.821 1.316Z" />
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M16.5 12.75a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0ZM18.75 10.5h.008v.008h-.008V10.5Z" />
-                            </svg>
-                        </a>
-                        <a href="#" class="">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                stroke="currentColor" class="size-6">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z" />
+                                    d="M2.25 12c0-2.485 0-3.727.637-4.662a4 4 0 0 1 1.101-1.101C4.923 5.6 6.165 5.6 8.65 5.6h6.7c2.485 0 3.727 0 4.662.637a4 4 0 0 1 1.101 1.101C21.75 8.273 21.75 9.515 21.75 12s0 3.727-.637 4.662a4 4 0 0 1-1.101 1.101c-.935.637-2.177.637-4.662.637H8.65c-2.485 0-3.727 0-4.662-.637a4 4 0 0 1-1.101-1.101C2.25 15.727 2.25 14.485 2.25 12Z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M10 9.75v4.5l4-2.25-4-2.25Z" />
                             </svg>
                         </a>
                     </div>
                 </div>
 
+
                 <div>
-                    <h4 class="font-medium">Product</h4>
+                    <h4 class="font-medium">Lebih Lanjut</h4>
                     <ul class="mt-4 space-y-4 text-sm">
-                        <li><a href="index.php" class="opacity-80">Home</a>
+                        <li><a href="index.php" class="opacity-80">Beranda</a>
                         </li>
-                        <li><a href="features.php" class="opacity-80">Features</a>
+                        <li><a href="features.php" class="opacity-80">Unggulan</a>
                         </li>
-                        <li><a href="#" class="opacity-80">Download</a>
+                        <li><a href="#" class="opacity-80">Unduh</a>
                         </li>
                     </ul>
                 </div>
 
                 <div>
-                    <h4 class="font-medium">Company</h4>
+                    <h4 class="font-medium">Dukungan</h4>
                     <ul class="mt-4 space-y-4 text-sm">
                         <li><a href="4ever-young.php" class="opacity-80">4Ever
                                 Young</a></li>
@@ -1177,9 +1136,9 @@
                 </div>
 
                 <div>
-                    <h4 class="font-medium">What Our Users Say</h4>
+                    <h4 class="font-medium">Apa Kata Mereka</h4>
                     <ul class="mt-4 space-y-4 text-sm">
-                        <li><a href="riviews.php" class="opacity-80">Riviews</a>
+                        <li><a href="reviews.php" class="opacity-80">Reviews</a>
                         </li>
                     </ul>
                 </div>

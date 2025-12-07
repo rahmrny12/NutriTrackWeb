@@ -1,5 +1,5 @@
 <?php
-include '../db.php';
+include '../config.php';
 
 header("Content-Type: application/json");
 
@@ -47,24 +47,16 @@ if ($action === "register") {
         error("Invalid method");
 
     if (
-        !isset($input['name']) ||
+        !isset($input['fullname']) ||
         !isset($input['email']) ||
-        !isset($input['password']) ||
-        !isset($input['gender'])
+        !isset($input['password'])
     ) {
-        error("Fields name, email, password, and gender are required");
+        error("Fields fullname, email, and password are required");
     }
 
-    $name = $input['name'];
+    $fullname = $input['fullname'];
     $email = $input['email'];
-    $gender = $input['gender'];
     $password = password_hash($input['password'], PASSWORD_DEFAULT);
-
-    // optional fields
-    $height = $input['height'] ?? 0;
-    $weight = $input['weight'] ?? 0;
-    $age = $input['age'] ?? 0;
-    $dailyCal = $input['daily_calories_target'] ?? 0;
 
     // check duplicate email
     $check = $conn->prepare("SELECT id FROM users WHERE email = ?");
@@ -78,22 +70,17 @@ if ($action === "register") {
     }
 
     $stmt = $conn->prepare("
-        INSERT INTO users (name, email, password, gender, height, weight, age, daily_calories_target)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        INSERT INTO users (fullname, email, password)
+        VALUES (?, ?, ?)
     ");
     if (!$stmt)
         error("SQL ERROR PREPARE: " . $conn->error);
 
     $stmt->bind_param(
-        "ssssddii",
-        $name,
+        "sss",
+        $fullname,
         $email,
         $password,
-        $gender,
-        $height,
-        $weight,
-        $age,
-        $dailyCal
     );
 
     if (!$stmt->execute())
@@ -136,7 +123,7 @@ if ($action === "login") {
     if (!$user)
         error("User not found");
 
-    if ($password != $user['password']) {
+    if (!password_verify($password, $user['password'])) {
         error("Invalid password");
     }
 
@@ -144,7 +131,7 @@ if ($action === "login") {
     success([
         "message" => "Login successful",
         "id" => $user['id'],
-        "name" => $user['name'],
+        "fullname" => $user['fullname'],
         "gender" => $user['gender'],
         "email" => $user['email']
     ]);
@@ -163,7 +150,7 @@ if ($action === "profile") {
     $id = $_GET['id'];
 
     $stmt = $conn->prepare("
-        SELECT id, name, email, gender, height, weight, age, daily_calories_target, created_at
+        SELECT id, fullname, email, gender, height, weight, age, daily_calories_target, created_at
         FROM users WHERE id = ?
     ");
     if (!$stmt)
@@ -183,80 +170,95 @@ if ($action === "profile") {
 
 
 // ===================================================================
-// 5. UPDATE USER PROFILE (required: name, email, password, gender)
+// 5. UPDATE USER PROFILE (required: fullname, email, password, gender)
 // ===================================================================
-if ($action === "update") {
+// if ($action === "update") {
 
-    if ($method !== 'PUT')
-        error("Invalid method");
-    if (!isset($_GET['id']))
-        error("User ID is required");
+//     if ($method !== 'PUT')
+//         error("Invalid method");
+//     if (!isset($_GET['id']))
+//         error("User ID is required");
 
-    $id = $_GET['id'];
+//     $id = $_GET['id'];
 
-    if (
-        !isset($input['name']) ||
-        !isset($input['email']) ||
-        !isset($input['password']) ||
-        !isset($input['gender'])
-    ) {
-        error("Fields name, email, password, and gender are required");
-    }
+//     $fullname = $input['fullname'];
+//     $email = $input['email'];
+//     $gender = $input['gender'];
+//     $password = password_hash($input['password'], PASSWORD_DEFAULT);
 
-    $name = $input['name'];
-    $email = $input['email'];
-    $gender = $input['gender'];
-    $password = password_hash($input['password'], PASSWORD_DEFAULT);
+//     $height = $input['height'] ?? null;
+//     $weight = $input['weight'] ?? null;
+//     $age = $input['age'] ?? null;
 
-    $height = $input['height'] ?? null;
-    $weight = $input['weight'] ?? null;
-    $age = $input['age'] ?? null;
-    $dailyCal = $input['daily_calories_target'] ?? null;
+//     $bmi = calculateBMI($weight, $height);
+//     $dailyCal = calculateDailyCalories($weight, $height, $age, $gender);
+//     $bmiCategory = getBMICategory($bmi);
 
-    // Get existing data
-    $check = $conn->prepare("SELECT * FROM users WHERE id=?");
-    if (!$check)
-        error("SQL ERROR PREPARE: " . $conn->error);
+//     // Get existing data
+//     $check = $conn->prepare("SELECT * FROM users WHERE id=?");
+//     if (!$check)
+//         error("SQL ERROR PREPARE: " . $conn->error);
 
-    $check->bind_param("i", $id);
-    $check->execute();
-    $old = $check->get_result()->fetch_assoc();
-    if (!$old)
-        error("User not found");
+//     $check->bind_param("i", $id);
+//     $check->execute();
+//     $old = $check->get_result()->fetch_assoc();
+//     if (!$old)
+//         error("User not found");
 
-    // fallback old data
-    $height = $height ?? $old['height'];
-    $weight = $weight ?? $old['weight'];
-    $age = $age ?? $old['age'];
-    $dailyCal = $dailyCal ?? $old['daily_calories_target'];
+//     // fallback old data
+//     $height = $height ?? $old['height'];
+//     $weight = $weight ?? $old['weight'];
+//     $age = $age ?? $old['age'];
+//     $dailyCal = $dailyCal ?? $old['daily_calories_target'];
 
-    // Update
-    $stmt = $conn->prepare("
-        UPDATE users SET
-            name=?, email=?, height=?, weight=?, age=?, gender=?, daily_calories_target=?, password=?
-        WHERE id=?
-    ");
-    if (!$stmt)
-        error("SQL ERROR PREPARE: " . $conn->error);
+//     // Update
+//     $stmt = $conn->prepare("
+//         UPDATE users 
+// SET fullname=?, 
+//     email=?, 
+//     height=?, 
+//     weight=?, 
+//     age=?, 
+//     gender=?, 
+//     bmi=?, 
+//     daily_calories_target=?, 
+//     bmi_category=?, 
+//     password=?
+//         WHERE id=?
+//     ");
+//     if (!$stmt)
+//         error("SQL ERROR PREPARE: " . $conn->error);
 
-    $stmt->bind_param(
-        "ssddisisi",
-        $name,
-        $email,
-        $height,
-        $weight,
-        $age,
-        $gender,
-        $dailyCal,
-        $password,
-        $id
-    );
+//     $stmt->bind_param(
+//         "ssddisdissi",
+//         $fullname,
+//         $email,
+//         $height,
+//         $weight,
+//         $age,
+//         $gender,
+//         $bmi,
+//         $dailyCal,
+//         $bmiCategory,
+//         $password,
+//         $id
+//     );
 
-    if (!$stmt->execute())
-        error($stmt->error);
+//     if (!$stmt->execute())
+//         error($stmt->error);
 
-    success("User updated successfully");
-}
+//     // Ambil ulang data user terbaru
+//     $stmt2 = $conn->prepare("SELECT id, fullname, email, gender, height, weight, age, bmi, daily_calories_target, bmi_category FROM users WHERE id = ?");
+//     $stmt2->bind_param("i", $id);
+//     $stmt2->execute();
+//     $updatedUser = $stmt2->get_result()->fetch_assoc();
+
+//     success([
+//         "message" => "User updated successfully",
+//         "user" => $updatedUser
+//     ]);
+
+// }
 
 // =================================================================
 // 3. LOGOUT USER
@@ -326,7 +328,7 @@ if ($method === 'GET' && $action === "get_health") {
 
 
 /* ============================================================
-   2. INSERT OR UPDATE HEALTH DATA
+   2. INSERT OR UPDATE HEALTH DATA (ALL FIELDS OPTIONAL)
    ============================================================ */
 if ($method === 'POST' && $action === "update_health") {
 
@@ -334,86 +336,188 @@ if ($method === 'POST' && $action === "update_health") {
         error("id is required");
 
     $id = $input['id'];
-    $height = $input['height'] ?? null;
-    $weight = $input['weight'] ?? null;
-    $age = $input['age'] ?? null;
-    $gender = $input['gender'] ?? null;
-    $waist = $input['waist_size'] ?? null;
+
+    // Ambil data lama dulu
+    $stmt = $conn->prepare("SELECT * FROM users WHERE id = ?");
+    if (!$stmt)
+        error("SQL ERROR PREPARE: " . $conn->error);
+
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $old = $stmt->get_result()->fetch_assoc();
+
+    if (!$old)
+        error("User not found");
+
+    // Gunakan nilai baru jika dikirim, jika tidak pakai nilai lama
+    $height = $input['height'] ?? $old['height'] ?? null;
+    $weight = $input['weight'] ?? $old['weight'] ?? null;
+    $age = $input['age'] ?? $old['age'] ?? null;
+    $gender = $input['gender'] ?? $old['gender'] ?? null;
+    $waist = $input['waist_size'] ?? $old['waist_size'] ?? null;
+
+    // Hitung ulang BMI & Daily Calories
     $bmi = calculateBMI($weight, $height);
     $dailyCal = calculateDailyCalories($weight, $height, $age, $gender);
     $bmiCategory = getBMICategory($bmi);
 
-    // CEK APAKAH SUDAH ADA
-    $check = $conn->prepare("SELECT id FROM users WHERE id = ?");
-    if (!$check)
-        error("SQL ERROR PREPARE: " . $conn->error);
 
-    $check->bind_param("i", $id);
-    $check->execute();
-    $exists = $check->get_result()->num_rows > 0;
+    /* ============================================================
+    A) SIMPAN HISTORI SEBELUM UPDATE (only once per day)
+   ============================================================ */
+    date_default_timezone_set("Asia/Jakarta");
+    $today = date("Y-m-d");
 
-    // INSERT
-    if (!$exists) {
+    $checkHist = $conn->prepare("
+    SELECT id FROM health_history 
+    WHERE user_id = ? AND DATE(created_at) = ?
+");
+    $checkHist->bind_param("is", $id, $today);
+    $checkHist->execute();
 
-        $stmt = $conn->prepare("
-            INSERT INTO users 
-            (id, height, weight, age, gender, waist_size, bmi, daily_calories_target, bmi_category)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-        ");
+    $result = $checkHist->get_result(); // <-- Panggil sekali
 
-        if (!$stmt)
-            error("SQL ERROR: " . $conn->error);
+    $alreadyExists = $result->num_rows > 0;
 
-        $stmt->bind_param(
-            "iddiisdii",
+
+    // Insert hanya jika belum ada histori hari ini
+    if (!$alreadyExists) {
+
+        $history = $conn->prepare("
+        INSERT INTO health_history 
+        (user_id, height, weight, age, gender, waist_size, bmi, daily_calories_target, bmi_category)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+    ");
+
+        if (!$history)
+            error("SQL ERROR PREPARE HIST: " . $conn->error);
+
+        $history->bind_param(
+            "iddisddds",
             $id,
-            $height,
-            $weight,
-            $age,
-            $gender,
-            $waist,
-            $bmi,
-            $dailyCal,
-            $bmiCategory
+            $old['height'],
+            $old['weight'],
+            $old['age'],
+            $old['gender'],
+            $old['waist_size'],
+            $old['bmi'],
+            $old['daily_calories_target'],
+            $old['bmi_category']
         );
 
-        if (!$stmt->execute())
-            error($stmt->error);
-
-        success("Health data inserted successfully");
+        $history->execute();
     }
 
-    // UPDATE
-    else {
+
+    /* ============================================================
+        B) UPDATE DATA USER SAAT INI
+       ============================================================ */
+    $stmt2 = $conn->prepare("
+        UPDATE users
+        SET height=?, weight=?, age=?, gender=?, waist_size=?, 
+            bmi=?, daily_calories_target=?, bmi_category=?
+        WHERE id=?
+    ");
+
+    if (!$stmt2)
+        error("SQL ERROR PREPARE UPDATE: " . $conn->error);
+
+    $stmt2->bind_param(
+        "ddisddisi",
+        $height,
+        $weight,
+        $age,
+        $gender,
+        $waist,
+        $bmi,
+        $dailyCal,
+        $bmiCategory,
+        $id
+    );
+
+    $stmt2->execute();
+
+
+    /* ============================================================
+        C) KIRIM DATA TERBARU KE FRONTEND
+       ============================================================ */
+    $stmt3 = $conn->prepare("SELECT * FROM users WHERE id=?");
+    $stmt3->bind_param("i", $id);
+    $stmt3->execute();
+    $updated = $stmt3->get_result()->fetch_assoc();
+
+    success([
+        "message" => "Health data updated successfully",
+        "user" => $updated,
+        "history_saved" => true
+    ]);
+}
+
+/* ============================================================
+   3. GET USER PROGRESS HISTORY (OPTIONAL DATE RANGE)
+   ============================================================ */
+if ($method === 'GET' && $action === "get_progress") {
+
+    if (!isset($_GET['id']))
+        error("id is required");
+
+    $user_id = $_GET['id'];
+
+    // Ambil rentang tanggal opsional
+    $start = $_GET['start_date'] ?? null;
+    $end = $_GET['end_date'] ?? null;
+
+    /* ---------------------------
+       Jika ada rentang tanggal
+    ---------------------------- */
+    if ($start && $end) {
 
         $stmt = $conn->prepare("
-            UPDATE users
-            SET height=?, weight=?, age=?, gender=?, waist_size=?, bmi=?, daily_calories_target=?, bmi_category=?
-            WHERE id=?
+            SELECT * FROM health_history
+            WHERE user_id = ?
+              AND DATE(created_at) BETWEEN ? AND ?
+            ORDER BY created_at ASC
         ");
 
         if (!$stmt)
-            error("SQL ERROR: " . $conn->error);
+            error("SQL ERROR PROGRESS: " . $conn->error);
 
-        $stmt->bind_param(
-            "ddisddisi",
-            $height,
-            $weight,
-            $age,
-            $gender,
-            $waist,
-            $bmi,
-            $dailyCal,
-            $bmiCategory,
-            $id
-        );
-
-        if (!$stmt->execute())
-            error($stmt->error);
-
-        success("Health data updated successfully");
+        $stmt->bind_param("iss", $user_id, $start, $end);
     }
+
+    /* ---------------------------
+       Jika tanpa rentang tanggal
+       → ambil semua histori
+    ---------------------------- */ else {
+
+        $stmt = $conn->prepare("
+            SELECT * FROM health_history
+            WHERE user_id = ?
+            ORDER BY created_at ASC
+        ");
+
+        if (!$stmt)
+            error("SQL ERROR PROGRESS: " . $conn->error);
+
+        $stmt->bind_param("i", $user_id);
+    }
+
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    $history = [];
+    while ($row = $result->fetch_assoc()) {
+        $history[] = $row;
+    }
+
+    success([
+        "message" => "Progress history loaded",
+        "count" => count($history),
+        "history" => $history
+    ]);
 }
+
+
 
 // =================================================================
 // INVALID ACTION

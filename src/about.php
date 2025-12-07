@@ -95,12 +95,11 @@
                 </div>
                 <ul class="hidden md:flex items-center space-x-8">
                     <li><a href="index.php" class="transition duration-200 transform">Home</a></li>
-                    <li><a href="about.php" class="transition duration-200 transform">About Us</a></li>
-                    <li><a href="features.php"
-                            class="transition duration-200 transform">Features</a>
+                    <li><a href="about.php" class="transition duration-200 transform">Tentang Kami</a></li>
+                    <li><a href="features.php" class="transition duration-200 transform">Unggulan</a>
                     </li>
-                    <li><a href="riviews.php" class="transition duration-200 transform">Riviews</a></li>
-                    <li><a href="#" class="transition duration-200 transform">Download</a></li>
+                    <li><a href="reviews.php" class="transition duration-200 transform">Reviews</a></li>
+                    <li><a href="#" class="transition duration-200 transform">Unduh</a></li>
                 </ul>
                 <div class="hidden md:flex items-center space-x-3">
                     <a href="signin.php"
@@ -114,7 +113,8 @@
                 </div>
                 <div class="md:hidden">
                     <button id="menu-toggle-btn" type="button" aria-expanded="false" aria-controls="mobile-menu"
-                        aria-label="Toggle navigation" class="p-2 rounded-lg transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#3dccc7]">
+                        aria-label="Toggle navigation"
+                        class="p-2 rounded-lg transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#3dccc7]">
                         <svg id="menu-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                             xmlns="http://www.w3.org/2000/svg">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -126,11 +126,17 @@
             <div id="mobile-menu" class="md:hidden hidden mt-3">
                 <div class="mobile-menu-panel card shadow-lg rounded-xl p-6 space-y-4">
                     <div class="flex flex-col space-y-3">
-                        <a href="index.php" class="block text-base font-medium transition-colors duration-200 hover:text-[#3dccc7]">Home</a>
-                        <a href="about.php" class="block text-base font-medium transition-colors duration-200 hover:text-[#3dccc7]">About Us</a>
-                        <a href="features.php" class="block text-base font-medium transition-colors duration-200 hover:text-[#3dccc7]">Features</a>
-                        <a href="riviews.php" class="block text-base font-medium transition-colors duration-200 hover:text-[#3dccc7]">Riviews</a>
-                        <a href="#" class="block text-base font-medium transition-colors duration-200 hover:text-[#3dccc7]">Download</a>
+                        <a href="index.php"
+                            class="block text-base font-medium transition-colors duration-200 hover:text-[#3dccc7]">Home</a>
+                        <a href="about.php"
+                            class="block text-base font-medium transition-colors duration-200 hover:text-[#3dccc7]">About
+                            Us</a>
+                        <a href="features.php"
+                            class="block text-base font-medium transition-colors duration-200 hover:text-[#3dccc7]">Features</a>
+                        <a href="reviews.php"
+                            class="block text-base font-medium transition-colors duration-200 hover:text-[#3dccc7]">Reviews</a>
+                        <a href="#"
+                            class="block text-base font-medium transition-colors duration-200 hover:text-[#3dccc7]">Download</a>
                     </div>
                     <div class="flex flex-col gap-3 py-3 border-t border-neutral-200 dark:border-neutral-700">
                         <a href="signin.php"
@@ -155,60 +161,79 @@
                 bg-[size:24px_24px] 
                 [mask-image:linear-gradient(to_bottom,white_10%,transparent_90%)]">
             </div>
-            <div class="absolute top-0 left-0 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[120px] pointer-events-none"></div>
+            <div
+                class="absolute top-0 left-0 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[120px] pointer-events-none">
+            </div>
 
-            <div class="relative z-10 max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
+            <div class="relative z-10 max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center py-20">
 
                 <div>
                     <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full card text-sm text-primary mb-6">
                         <i class="fas fa-leaf"></i>
-                        <span>Our Philosophy</span>
+                        <span>Pendekatan Kami</span>
                     </div>
 
                     <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-                        Bridging <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#3dccc7] to-green-400">Technology</span> <br> with Biology.
+                        Mengurai <span
+                            class="text-transparent bg-clip-text bg-gradient-to-r from-[#3dccc7] to-green-400">Emosi,
+                            Stres,</span>
+                        <br> dan Pola Makan Anda.
                     </h1>
 
                     <p class="text-lg opacity-70 mb-8 leading-relaxed">
-                        Kami adalah tim nutrisionis dan engineer yang percaya bahwa kesehatan tidak harus rumit. Misi kami adalah mendemokratisasi akses ke gizi personal melalui kecerdasan buatan.
+                        NutriTrack+ tidak hanya mencatat kalori. Kami membantu Anda memahami bagaimana emosi,
+                        kecemasan, dan stres dapat memengaruhi keputusan makan—mulai dari overeating,
+                        craving emosional, hingga pola makan yang tidak sadar. Dengan pendekatan berbasis psikologi,
+                        kami mendukung Anda membangun hubungan yang lebih sehat dengan makanan.
                     </p>
 
                     <div class="flex items-center gap-8 border-t border-white/10 pt-8">
                         <div>
                             <h4 class="text-3xl font-bold">3+</h4>
-                            <p class="text-sm opacity-60">Years Journey</p>
+                            <p class="text-sm opacity-60">Tahun Riset</p>
                         </div>
                         <div class="w-px h-10 border-r border-white/10"></div>
                         <div>
                             <h4 class="text-3xl font-bold">50+</h4>
-                            <p class="text-sm opacity-60">Team Members</p>
+                            <p class="text-sm opacity-60">Ahli & Kontributor</p>
                         </div>
                         <div class="w-px h-10 border-l border-white/10"></div>
                         <div>
                             <h4 class="text-3xl font-bold">1M+</h4>
-                            <p class="text-sm opacity-60">Meals Tracked</p>
+                            <p class="text-sm opacity-60">Pola Makan Dianalisis</p>
                         </div>
                     </div>
+
                 </div>
 
                 <div class="grid grid-cols-2 gap-4 relative">
-                    <div class="absolute -inset-4 bg-gradient-to-tr from-primary/20 to-transparent rounded-full blur-2xl -z-10"></div>
+                    <div
+                        class="absolute -inset-4 bg-gradient-to-tr from-primary/20 to-transparent rounded-full blur-2xl -z-10">
+                    </div>
 
                     <div class="space-y-4 mt-8">
-                        <div class="h-40 bg-gray-800 rounded-2xl overflow-hidden border border-white/10 shadow-lg transform hover:scale-105 transition duration-500">
-                            <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover opacity-80 hover:opacity-100 transition">
+                        <div
+                            class="h-40 bg-gray-800 rounded-2xl overflow-hidden border border-white/10 shadow-lg transform hover:scale-105 transition duration-500">
+                            <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80"
+                                class="w-full h-full object-cover opacity-80 hover:opacity-100 transition">
                         </div>
-                        <div class="h-56 bg-gray-800 rounded-2xl overflow-hidden border border-white/10 shadow-lg transform hover:scale-105 transition duration-500">
-                            <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover opacity-80 hover:opacity-100 transition">
+                        <div
+                            class="h-56 bg-gray-800 rounded-2xl overflow-hidden border border-white/10 shadow-lg transform hover:scale-105 transition duration-500">
+                            <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=800&q=80"
+                                class="w-full h-full object-cover opacity-80 hover:opacity-100 transition">
                         </div>
                     </div>
 
                     <div class="space-y-4">
-                        <div class="h-56 bg-gray-800 rounded-2xl overflow-hidden border border-white/10 shadow-lg transform hover:scale-105 transition duration-500">
-                            <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover opacity-80 hover:opacity-100 transition">
+                        <div
+                            class="h-56 bg-gray-800 rounded-2xl overflow-hidden border border-white/10 shadow-lg transform hover:scale-105 transition duration-500">
+                            <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&w=800&q=80"
+                                class="w-full h-full object-cover opacity-80 hover:opacity-100 transition">
                         </div>
-                        <div class="h-40 bg-gray-800 rounded-2xl overflow-hidden border border-white/10 shadow-lg transform hover:scale-105 transition duration-500">
-                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover opacity-80 hover:opacity-100 transition">
+                        <div
+                            class="h-40 bg-gray-800 rounded-2xl overflow-hidden border border-white/10 shadow-lg transform hover:scale-105 transition duration-500">
+                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80"
+                                class="w-full h-full object-cover opacity-80 hover:opacity-100 transition">
                         </div>
                     </div>
                 </div>
@@ -218,64 +243,97 @@
 
         <!-- About Us Section -->
         <section id="values" class="py-24 px-[5%] relative">
-            <div class="absolute bottom-0 right-0 w-[500px] h-[500px] bg-[#3dccc7]/5 rounded-full blur-[100px] pointer-events-none"></div>
+            <div
+                class="absolute bottom-0 right-0 w-[500px] h-[500px] bg-[#3dccc7]/5 rounded-full blur-[100px] pointer-events-none">
+            </div>
 
             <div class="relative z-10 max-w-7xl mx-auto">
                 <div class="text-center max-w-3xl mx-auto mb-16">
-                    <h2 class="text-[#3dccc7] font-bold tracking-wide uppercase text-sm mb-3">Who We Are</h2>
+                    <h2 class="text-[#3dccc7] font-bold tracking-wide uppercase text-sm mb-3">Siapa Kami</h2>
+
                     <h1 class="text-3xl md:text-5xl font-bold mb-6">
-                        We don't just track calories. <br>
-                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#3dccc7] to-green-400">We decode lifestyle.</span>
+                        Bukan hanya melacak nutrisi. <br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#3dccc7] to-green-400">
+                            Kami memahami Anda.
+                        </span>
                     </h1>
+
                     <p class="opacity-80 text-lg">
-                        Menggabungkan ilmu gizi klinis dengan kecerdasan buatan untuk membantu Anda hidup lebih lama dan lebih baik.
+                        NutriTrack+ membantu Anda mengenali bagaimana emosi, stres, dan kebiasaan sehari-hari
+                        mempengaruhi pola makan. Dengan memadukan psikologi perilaku dan ilmu gizi, kami membantu
+                        Anda membangun hubungan yang lebih sadar dan sehat dengan makanan.
                     </p>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 
-                    <div class="md:col-span-2 card rounded-3xl p-8 hover:border-[#3dccc7]/30 shadow-sm hover:shadow-lg transition duration-300 group">
-                        <div class="w-12 h-12 bg-[#3dccc7]/10 dark:bg-[#3dccc7]/20 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition duration-300">
+                    <!-- Mission -->
+                    <div
+                        class="md:col-span-2 card rounded-3xl p-8 hover:border-[#3dccc7]/30 shadow-sm hover:shadow-lg transition duration-300 group">
+                        <div
+                            class="w-12 h-12 bg-[#3dccc7]/10 dark:bg-[#3dccc7]/20 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition duration-300">
                             <i class="fas fa-bullseye text-[#3dccc7] text-xl"></i>
                         </div>
-                        <h3 class="text-2xl font-bold mb-4">Our Mission</h3>
+
+                        <h3 class="text-2xl font-bold mb-4">Misi Kami</h3>
                         <p class="opacity-80 leading-relaxed">
-                            Misi kami adalah mendemokratisasi akses ke ahli gizi pribadi. Kami percaya bahwa setiap orang berhak mendapatkan panduan kesehatan yang akurat, terjangkau, dan dipersonalisasi—bukan sekadar saran umum dari internet.
+                            Misi kami adalah membantu setiap orang memahami faktor emosional dan psikologis
+                            yang memengaruhi pola makan mereka. Kami ingin menghadirkan panduan kesehatan yang
+                            akurat, personal, dan mudah diakses—bukan sekadar angka kalori, tetapi wawasan
+                            mendalam tentang diri Anda.
                         </p>
                     </div>
 
-                    <div class="card rounded-3xl p-8 hover:border-[#3dccc7]/30 shadow-sm hover:shadow-lg transition duration-300 group">
-                        <div class="w-12 h-12 bg-purple-500/10 dark:bg-purple-500/20 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition duration-300">
+                    <!-- Backed by Science -->
+                    <div
+                        class="card rounded-3xl p-8 hover:border-[#3dccc7]/30 shadow-sm hover:shadow-lg transition duration-300 group">
+                        <div
+                            class="w-12 h-12 bg-purple-500/10 dark:bg-purple-500/20 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition duration-300">
                             <i class="fas fa-flask text-purple-500 dark:text-purple-400 text-xl"></i>
                         </div>
-                        <h3 class="text-xl font-bold mb-4">Backed by Science</h3>
+
+                        <h3 class="text-xl font-bold mb-4">Didukung Ilmu Perilaku</h3>
                         <p class="opacity-80 text-sm">
-                            Setiap algoritma di NutriTrack divalidasi oleh jurnal medis terkemuka dan tim nutrisionis bersertifikat.
+                            Teknologi NutriTrack+ menggabungkan riset nutrisi, neuroscience,
+                            dan behavioral psychology untuk membantu Anda memahami pemicu emosional
+                            di balik craving, stress eating, dan overeating.
                         </p>
                     </div>
 
-                    <div class="card rounded-3xl p-8 hover:border-[#3dccc7]/30 shadow-sm hover:shadow-lg transition duration-300 group">
-                        <div class="w-12 h-12 bg-green-500/10 dark:bg-green-500/20 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition duration-300">
+                    <!-- Privacy -->
+                    <div
+                        class="card rounded-3xl p-8 hover:border-[#3dccc7]/30 shadow-sm hover:shadow-lg transition duration-300 group">
+                        <div
+                            class="w-12 h-12 bg-green-500/10 dark:bg-green-500/20 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition duration-300">
                             <i class="fas fa-shield-alt text-green-500 dark:text-green-400 text-xl"></i>
                         </div>
-                        <h3 class="text-xl font-bold mb-4">Privacy First</h3>
+
+                        <h3 class="text-xl font-bold mb-4">Privasi Adalah Prioritas</h3>
                         <p class="opacity-80 text-sm">
-                            Data kesehatan Anda adalah milik Anda. Kami menggunakan enkripsi end-to-end dan tidak pernah menjual data ke pihak ketiga.
+                            Data kesehatan dan perjalanan emosional Anda bersifat personal.
+                            Kami melindunginya dengan enkripsi penuh dan tidak pernah membagikannya kepada pihak ketiga.
                         </p>
                     </div>
 
-                    <div class="md:col-span-2 relative overflow-hidden bg-gradient card rounded-3xl p-8 flex flex-col md:flex-row items-center justify-between gap-6 group cursor-pointer">
-                        <div class="absolute top-0 right-0 w-64 h-64 bg-[#3dccc7]/10 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/2 group-hover:bg-[#3dccc7]/20 transition duration-500"></div>
+                    <!-- Built by Dreamers -->
+                    <div
+                        class="md:col-span-2 relative overflow-hidden bg-gradient card rounded-3xl p-8 flex flex-col md:flex-row items-center justify-between gap-6 group cursor-pointer">
+                        <div
+                            class="absolute top-0 right-0 w-64 h-64 bg-[#3dccc7]/10 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/2 group-hover:bg-[#3dccc7]/20 transition duration-500">
+                        </div>
 
                         <div class="relative z-10 text-center md:text-left">
-                            <h3 class="text-2xl font-bold mb-2">Built by Dreamers</h3>
+                            <h3 class="text-2xl font-bold mb-2">Dibangun oleh Para Pemimpi</h3>
                             <p class="opacity-80 text-sm md:text-base max-w-md">
-                                Kenalan dengan tim "4Ever Young" dibalik baris kode NutriTrack. Lihat bagaimana kami membangun ini dari nol.
+                                Temui tim "4Ever Young" di balik NutriTrack+. Kami percaya bahwa memahami diri
+                                sendiri adalah langkah pertama menuju hidup yang lebih sehat—dan kami membangun
+                                NutriTrack+ dengan visi itu.
                             </p>
                         </div>
 
-                        <a href="4ever-young.php" class="relative z-10 px-6 py-3 bg-white text-black font-bold rounded-full hover:bg-[#3dccc7] hover:text-white transition duration-300 flex items-center gap-2 shadow-lg">
-                            Meet the Creators
+                        <a href="4ever-young.php"
+                            class="relative z-10 px-6 py-3 bg-white text-black font-bold rounded-full hover:bg-[#3dccc7] hover:text-white transition duration-300 flex items-center gap-2 shadow-lg">
+                            Kenali Tim Kami
                             <i class="fas fa-arrow-right"></i>
                         </a>
                     </div>
@@ -290,48 +348,51 @@
         <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-2 md:grid-cols-5 gap-8 items-start">
                 <div class="space-y-4">
-                    <a href="mailto:hi@nutritrack.com"
-                        class="text-lg hover:underline block">hi@nutritrack.com</a>
+                    <a href="https://www.instagram.com/nutritrack.plus/" class="text-lg hover:underline block">@nutritrack.plus</a>
+
                     <div class="flex space-x-4">
-                        <a href="#" class="">
+
+                        <!-- Instagram -->
+                        <a href="https://www.instagram.com/nutritrack.plus/" target="_blank"
+                            class="hover:text-[#E1306C] transition">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" class="size-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M7.5 3h9A4.5 4.5 0 0 1 21 7.5v9A4.5 4.5 0 0 1 16.5 21h-9A4.5 4.5 0 0 1 3 16.5v-9A4.5 4.5 0 0 1 7.5 3Z" />
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M12 15.75a3.75 3.75 0 1 0 0-7.5 3.75 3.75 0 0 0 0 7.5Z" />
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M17.25 6.75h.008v.008h-.008V6.75Z" />
                             </svg>
                         </a>
-                        <a href="#" class="">
+
+                        <!-- YouTube -->
+                        <a href="https://www.youtube.com/watch?v=7qhEhwEtS1Q" target="_blank" class="hover:text-red-600 transition">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" class="size-6">
                                 <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M6.827 6.175A2.31 2.31 0 0 1 5.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 0 0-1.134-.175 2.31 2.31 0 0 1-1.64-1.055l-.822-1.316a2.192 2.192 0 0 0-1.736-1.039 48.774 48.774 0 0 0-5.232 0 2.192 2.192 0 0 0-1.736 1.039l-.821 1.316Z" />
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M16.5 12.75a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0ZM18.75 10.5h.008v.008h-.008V10.5Z" />
-                            </svg>
-                        </a>
-                        <a href="#" class="">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                stroke="currentColor" class="size-6">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z" />
+                                    d="M2.25 12c0-2.485 0-3.727.637-4.662a4 4 0 0 1 1.101-1.101C4.923 5.6 6.165 5.6 8.65 5.6h6.7c2.485 0 3.727 0 4.662.637a4 4 0 0 1 1.101 1.101C21.75 8.273 21.75 9.515 21.75 12s0 3.727-.637 4.662a4 4 0 0 1-1.101 1.101c-.935.637-2.177.637-4.662.637H8.65c-2.485 0-3.727 0-4.662-.637a4 4 0 0 1-1.101-1.101C2.25 15.727 2.25 14.485 2.25 12Z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M10 9.75v4.5l4-2.25-4-2.25Z" />
                             </svg>
                         </a>
                     </div>
                 </div>
 
+
                 <div>
-                    <h4 class="font-medium">Product</h4>
+                    <h4 class="font-medium">Lebih Lanjut</h4>
                     <ul class="mt-4 space-y-4 text-sm">
-                        <li><a href="index.php" class="opacity-80">Home</a>
+                        <li><a href="index.php" class="opacity-80">Beranda</a>
                         </li>
-                        <li><a href="features.php" class="opacity-80">Features</a>
+                        <li><a href="features.php" class="opacity-80">Unggulan</a>
                         </li>
-                        <li><a href="#" class="opacity-80">Download</a>
+                        <li><a href="#" class="opacity-80">Unduh</a>
                         </li>
                     </ul>
                 </div>
 
                 <div>
-                    <h4 class="font-medium">Company</h4>
+                    <h4 class="font-medium">Dukungan</h4>
                     <ul class="mt-4 space-y-4 text-sm">
                         <li><a href="4ever-young.php" class="opacity-80">4Ever
                                 Young</a></li>
@@ -341,9 +402,9 @@
                 </div>
 
                 <div>
-                    <h4 class="font-medium">What Our Users Say</h4>
+                    <h4 class="font-medium">Apa Kata Mereka</h4>
                     <ul class="mt-4 space-y-4 text-sm">
-                        <li><a href="riviews.php" class="opacity-80">Riviews</a>
+                        <li><a href="reviews.php" class="opacity-80">Reviews</a>
                         </li>
                     </ul>
                 </div>

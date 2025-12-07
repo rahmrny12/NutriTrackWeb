@@ -1,5 +1,5 @@
 <?php
-include '../db.php'; // includes camelCase helpers
+include '../config.php'; // includes camelCase helpers
 
 header("Content-Type: application/json");
 

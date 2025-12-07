@@ -14,7 +14,7 @@ if (isset($_POST['login'])) {
 
     if ($user !== null) {
         
-        if ($password === $user['password']) {
+        if (password_verify($password, $user['password'])) {
 
             $_SESSION['id'] = $user['id'];
             $_SESSION['username'] = $user['username'];
@@ -45,7 +45,7 @@ if (isset($_POST['login'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="./output.css" rel="stylesheet">
-    <title>NutriTrack - Sign In</title>
+    <title>NutriTrack - Masuk</title>
     <style>
         body {
             /* font-family: 'Inter', sans-serif; */
@@ -79,10 +79,10 @@ if (isset($_POST['login'])) {
                 </svg>
             </div>
             <h2 class="mt-6 text-3xl font-extrabold">
-                Sign in to your account
+                Masuk ke NutriTrack
             </h2>
             <p class="mt-2 text-sm opacity-60">
-                Welcome back! Please enter your details.
+                Selamat Datang! Masukkan detail akunmu.
             </p>
         </div>
 
@@ -101,7 +101,7 @@ if (isset($_POST['login'])) {
                         </div>
                         <input id="username" name="username" type="text" required
                             class="block w-full pl-10 pr-3 py-3 card rounded-lg focus:outline-none focus:ring-2 transition duration-200"
-                            placeholder="Enter your username" value="<?php echo htmlspecialchars($username ?? ''); ?>">
+                            placeholder="Masukkan username" value="<?php echo htmlspecialchars($username ?? ''); ?>">
                     </div>
                 </div>
 
@@ -119,7 +119,7 @@ if (isset($_POST['login'])) {
                         </div>
                         <input id="password" name="password" type="password" required
                             class="block w-full pl-10 pr-3 py-3 card rounded-lg focus:outline-none focus:ring-2 transition duration-200"
-                            placeholder="Enter your password">
+                            placeholder="Masukkan password">
                     </div>
                 </div>
 
@@ -128,7 +128,7 @@ if (isset($_POST['login'])) {
                         <input id="remember-me" name="remember-me" type="checkbox"
                             class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
                         <label for="remember-me" class="ml-2 block text-sm">
-                            Remember me
+                            Ingat Saya
                         </label>
                     </div>
 
@@ -150,7 +150,7 @@ if (isset($_POST['login'])) {
                                     clip-rule="evenodd"></path>
                             </svg>
                         </span>
-                        Sign in
+                        Masuk
                     </button>
                 </div>
 
@@ -169,9 +169,9 @@ if (isset($_POST['login'])) {
 
                 <div class="text-center">
                     <span class="text-sm">
-                        Don't have an account?
+                        Belum Punya Akun?
                         <a href="signup.php" class="font-medium">
-                            Sign up here
+                            Daftar Disini
                         </a>
                     </span>
                 </div>
@@ -180,7 +180,7 @@ if (isset($_POST['login'])) {
 
         <div class="text-center">
             <p class="text-sm text-gray-400">
-                © 2025 NutriTrack. All rights reserved.
+                © 2025 NutriTrack. Oleh Tim 4EVER YOUNG JTI POLIJE
             </p>
         </div>
     </div>

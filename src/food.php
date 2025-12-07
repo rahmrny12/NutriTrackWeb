@@ -448,56 +448,6 @@ $foods = getFoodsByUser();
         </div>
     </div>
 
-    <!-- Edit Food Modal -->
-    <div id="edit-food-modal" class="fixed inset-0 z-50 hidden items-center justify-center px-4">
-        <div class="absolute inset-0 bg-black/40 backdrop-blur-sm"></div>
-        <div class="relative w-full max-w-lg mx-auto card rounded-xl shadow-2xl p-6 fade-in">
-            <div class="flex items-center justify-between mb-4">
-                <h3 class="text-xl font-semibold">Edit Food</h3>
-                <button type="button" id="close-edit-modal" class="opacity-80">✕</button>
-            </div>
-            <form id="edit-food-form" class="space-y-4" method="POST" action="food.php">
-                <input type="hidden" name="edit_food" value="1">
-                <input type="hidden" name="food_id" id="edit-food-id">
-                <div>
-                    <label for="edit-name" class="block text-sm font-medium mb-2">Name</label>
-                    <input id="edit-name" name="edit_name" type="text" required
-                        class="block w-full px-3 py-2 card rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-500">
-                </div>
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <div>
-                        <label for="edit-calories" class="block text-sm font-medium mb-2">Calories</label>
-                        <input id="edit-calories" name="edit_calories" type="number" step="0.01" min="0"
-                            class="block w-full px-3 py-2 card rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-500">
-                    </div>
-                    <div>
-                        <label for="edit-protein" class="block text-sm font-medium mb-2">Protein (g)</label>
-                        <input id="edit-protein" name="edit_protein" type="number" step="0.01" min="0"
-                            class="block w-full px-3 py-2 card rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-500">
-                    </div>
-                    <div>
-                        <label for="edit-carbs" class="block text-sm font-medium mb-2">Carbs (g)</label>
-                        <input id="edit-carbs" name="edit_carbs" type="number" step="0.01" min="0"
-                            class="block w-full px-3 py-2 card rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-500">
-                    </div>
-                    <div>
-                        <label for="edit-fat" class="block text-sm font-medium mb-2">Fat (g)</label>
-                        <input id="edit-fat" name="edit_fat" type="number" step="0.01" min="0"
-                            class="block w-full px-3 py-2 card rounded-md focus:outline-none focus:ring-2 focus:ring-cyan-500">
-                    </div>
-                </div>
-                <div class="flex justify-end gap-3">
-                    <button type="button" id="cancel-edit-modal"
-                        class="px-4 py-2 rounded-md border border-gray-300 hover:bg-white/10">Cancel</button>
-                    <button type="submit"
-                        class="inline-flex justify-center gap-2 text-white bg-[#3dccc7] hover:bg-[#68d8d6] px-4 py-3 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2">
-                        Save Changes
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-
     <!-- Theme Switcher -->
     <div class="fixed bottom-6 right-6 z-50 flex flex-col items-center space-y-4">
         <div class="p-1 rounded-full card shadow-md transition-all duration-300">

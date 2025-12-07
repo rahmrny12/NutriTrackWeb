@@ -126,10 +126,10 @@ if (isset($_POST['signup'])) {
                 </svg>
             </div>
             <h2 class="mt-6 text-3xl font-extrabold">
-                Create your account
+                Buat Akun NutriTrack
             </h2>
             <p class="mt-2 text-sm opacity-60">
-                Join us today! Fill in your details to get started.
+                Bergabung Sekarang! Lengkapi data di bawah untuk lanjut.
             </p>
         </div>
 
@@ -140,7 +140,7 @@ if (isset($_POST['signup'])) {
                 <!-- Full Name -->
                 <div>
                     <label for="fullname" class="block text-sm font-medium mb-2">
-                        Full Name
+                        Nama Lengkap
                     </label>
                     <div class="relative">
                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -151,14 +151,14 @@ if (isset($_POST['signup'])) {
                         </div>
                         <input id="fullname" name="fullname" type="text" required
                             class="block w-full pl-10 pr-3 py-3 card rounded-lg focus:outline-none focus:ring-2 transition duration-200"
-                            placeholder="Enter your full name">
+                            placeholder="Masukkan nama lengkap">
                     </div>
                 </div>
 
                 <!-- Email -->
                 <div>
                     <label for="email" class="block text-sm font-medium mb-2">
-                        Email Address
+                        Alamat Email
                     </label>
                     <div class="relative">
                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -170,7 +170,7 @@ if (isset($_POST['signup'])) {
                         </div>
                         <input id="email" name="email" type="email" required
                             class="block w-full pl-10 pr-3 py-3 card rounded-lg focus:outline-none focus:ring-2 transition duration-200"
-                            placeholder="Enter your email address">
+                            placeholder="Masukkan email address">
                     </div>
                 </div>
 
@@ -188,14 +188,14 @@ if (isset($_POST['signup'])) {
                         </div>
                         <input id="username" name="username" type="text" required
                             class="block w-full pl-10 pr-3 py-3 card rounded-lg focus:outline-none focus:ring-2 transition duration-200"
-                            placeholder="Choose a username">
+                            placeholder="Pilih username">
                     </div>
                 </div>
 
                 <!-- Password -->
                 <div>
                     <label for="password" class="block text-sm font-medium mb-2">
-                        Password
+                        Kata Sandi
                     </label>
                     <div class="relative">
                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -207,14 +207,14 @@ if (isset($_POST['signup'])) {
                         </div>
                         <input id="password" name="password" type="password" required
                             class="block w-full pl-10 pr-3 py-3 card rounded-lg focus:outline-none focus:ring-2 transition duration-200"
-                            placeholder="Create a password">
+                            placeholder="Buat Kata Sandi">
                     </div>
                 </div>
 
                 <!-- Confirm Password -->
                 <div>
                     <label for="confirm-password" class="block text-sm font-medium mb-2">
-                        Confirm Password
+                        Konfirmasi Kata Sandi
                     </label>
                     <div class="relative">
                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -225,14 +225,14 @@ if (isset($_POST['signup'])) {
                         </div>
                         <input id="confirm-password" name="confirm_password" type="password" required
                             class="block w-full pl-10 pr-3 py-3 card rounded-lg focus:outline-none focus:ring-2 transition duration-200"
-                            placeholder="Confirm your password">
+                            placeholder="Konfirmasi Kata Sandi">
                     </div>
                 </div>
 
                 <!-- Phone Number -->
                 <div>
                     <label for="phone" class="block text-sm font-medium mb-2">
-                        Phone Number (Optional)
+                        Nomor Telepon (Opsional)
                     </label>
                     <div class="relative">
                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -244,7 +244,7 @@ if (isset($_POST['signup'])) {
                         </div>
                         <input id="phone" name="phone" type="tel"
                             class="block w-full pl-10 pr-3 py-3 card rounded-lg focus:outline-none focus:ring-2 transition duration-200"
-                            placeholder="Enter your phone number">
+                            placeholder="Masukkan nomor telepon">
                     </div>
                 </div>
 
@@ -255,24 +255,16 @@ if (isset($_POST['signup'])) {
                     </div>
                     <div class="ml-3 text-sm">
                         <label for="terms" class="">
-                            I agree to the
+                            Saya Menyetujui
                             <a href="#" class="font-medium">
-                                Terms and Conditions
+                                Syarat Kondisi
                             </a>
-                            and
+                            dan
                             <a href="#" class="font-medium">
-                                Privacy Policy
+                                Kebijakan Privasi
                             </a>
                         </label>
                     </div>
-                </div>
-
-                <!-- Newsletter Subscription -->
-                <div class="flex items-center">
-                    <input id="newsletter" name="newsletter" type="checkbox" class="h-4 w-4 rounded">
-                    <label for="newsletter" class="ml-2 block text-sm">
-                        Subscribe to our newsletter for updates and offers
-                    </label>
                 </div>
 
                 <!-- Submit Button -->
@@ -287,7 +279,7 @@ if (isset($_POST['signup'])) {
                                     clip-rule="evenodd"></path>
                             </svg>
                         </span>
-                        Create Account
+                        Buat Akun
                     </button>
                 </div>
 
@@ -300,9 +292,9 @@ if (isset($_POST['signup'])) {
                 <!-- Login Link -->
                 <div class="text-center">
                     <span class="text-sm">
-                        Already have an account?
+                        Sudah Punya Akun?
                         <a href="signin.php" class="font-medium">
-                            Sign in here
+                            Masuk
                         </a>
                     </span>
                 </div>

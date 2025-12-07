@@ -119,12 +119,11 @@
                 </div>
                 <ul class="hidden md:flex items-center space-x-8">
                     <li><a href="index.php" class="transition duration-200 transform">Home</a></li>
-                    <li><a href="about.php" class="transition duration-200 transform">About Us</a></li>
-                    <li><a href="features.php"
-                            class="transition duration-200 transform">Features</a>
+                    <li><a href="about.php" class="transition duration-200 transform">Tentang Kami</a></li>
+                    <li><a href="features.php" class="transition duration-200 transform">Unggulan</a>
                     </li>
-                    <li><a href="riviews.php" class="transition duration-200 transform">Riviews</a></li>
-                    <li><a href="#" class="transition duration-200 transform">Download</a></li>
+                    <li><a href="reviews.php" class="transition duration-200 transform">Reviews</a></li>
+                    <li><a href="#" class="transition duration-200 transform">Unduh</a></li>
                 </ul>
                 <div class="hidden md:flex items-center space-x-3">
                     <a href="signin.php"
@@ -138,7 +137,8 @@
                 </div>
                 <div class="md:hidden">
                     <button id="menu-toggle-btn" type="button" aria-expanded="false" aria-controls="mobile-menu"
-                        aria-label="Toggle navigation" class="p-2 rounded-lg transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#3dccc7]">
+                        aria-label="Toggle navigation"
+                        class="p-2 rounded-lg transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#3dccc7]">
                         <svg id="menu-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                             xmlns="http://www.w3.org/2000/svg">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -150,11 +150,17 @@
             <div id="mobile-menu" class="md:hidden hidden mt-3">
                 <div class="mobile-menu-panel card shadow-lg rounded-xl p-6 space-y-4">
                     <div class="flex flex-col space-y-3">
-                        <a href="index.php" class="block text-base font-medium transition-colors duration-200 hover:text-[#3dccc7]">Home</a>
-                        <a href="about.php" class="block text-base font-medium transition-colors duration-200 hover:text-[#3dccc7]">About Us</a>
-                        <a href="features.php" class="block text-base font-medium transition-colors duration-200 hover:text-[#3dccc7]">Features</a>
-                        <a href="riviews.php" class="block text-base font-medium transition-colors duration-200 hover:text-[#3dccc7]">Riviews</a>
-                        <a href="#" class="block text-base font-medium transition-colors duration-200 hover:text-[#3dccc7]">Download</a>
+                        <a href="index.php"
+                            class="block text-base font-medium transition-colors duration-200 hover:text-[#3dccc7]">Home</a>
+                        <a href="about.php"
+                            class="block text-base font-medium transition-colors duration-200 hover:text-[#3dccc7]">About
+                            Us</a>
+                        <a href="features.php"
+                            class="block text-base font-medium transition-colors duration-200 hover:text-[#3dccc7]">Features</a>
+                        <a href="reviews.php"
+                            class="block text-base font-medium transition-colors duration-200 hover:text-[#3dccc7]">Reviews</a>
+                        <a href="#"
+                            class="block text-base font-medium transition-colors duration-200 hover:text-[#3dccc7]">Download</a>
                     </div>
                     <div class="flex flex-col gap-3 py-3 border-t border-neutral-200 dark:border-neutral-700">
                         <a href="signin.php"
@@ -174,61 +180,77 @@
         <!-- Hero Section -->
         <section class="w-full min-h-screen flex items-center relative overflow-hidden">
 
-            <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[100px] translate-x-1/3 -translate-y-1/4 pointer-events-none"></div>
-            <div class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-secondary/5 rounded-full blur-[100px] -translate-x-1/3 translate-y-1/4 pointer-events-none"></div>
+            <div
+                class="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[100px] translate-x-1/3 -translate-y-1/4 pointer-events-none">
+            </div>
+            <div
+                class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-secondary/5 rounded-full blur-[100px] -translate-x-1/3 translate-y-1/4 pointer-events-none">
+            </div>
 
             <div class="max-w-7xl mx-auto px-6 relative z-10 w-full">
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
 
                     <div class="max-w-2xl">
                         <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6 leading-tight">
-                            Powerful Features for Your <span class="text-primary bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/60">Health Journey</span>
+                            Fitur Canggih untuk <span
+                                class="text-primary bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/60">
+                                Perjalanan Kesehatan Anda</span>
                         </h1>
+
                         <p class="mt-4 text-lg md:text-xl opacity-80 leading-relaxed mb-8">
-                            Everything you need to track, understand, and improve your diet. Discover tools that make healthy living effortless and enjoyable.
+                            Semua yang Anda butuhkan untuk melacak, memahami, dan meningkatkan pola makan.
+                            Temukan fitur-fitur yang membuat hidup sehat lebih mudah dan menyenangkan.
                         </p>
 
                         <div class="flex flex-wrap gap-4">
-                            <a href="#features" class="inline-flex items-center justify-center gap-2 bg-primary text-white px-8 py-3.5 rounded-full font-semibold transition-all duration-300 hover:bg-primary/90 hover:-translate-y-1 hover:shadow-[0_10px_20px_rgba(61,204,199,0.3)]">
-                                Explore Features
+                            <a href="#features"
+                                class="inline-flex items-center justify-center gap-2 bg-primary text-white px-8 py-3.5 rounded-full font-semibold transition-all duration-300 hover:bg-primary/90 hover:-translate-y-1 hover:shadow-[0_10px_20px_rgba(61,204,199,0.3)]">
+                                Jelajahi Fitur
                             </a>
-                            <a href="#how" class="inline-flex items-center justify-center gap-2 card opacity-80 px-6 py-3 rounded-full font-semibold backdrop-blur-sm transition duration-300 hover:bg-white/5">
-                                How It Works
+
+                            <a href="#how"
+                                class="inline-flex items-center justify-center gap-2 card opacity-80 px-6 py-3 rounded-full font-semibold backdrop-blur-sm transition duration-300 hover:bg-white/5">
+                                Cara Kerjanya
                             </a>
                         </div>
                     </div>
 
                     <div class="relative flex justify-center lg:justify-end group perspective-1000">
 
-                        <div class="absolute inset-0 bg-primary/20 blur-[60px] rounded-full scale-75 z-0 animate-pulse"></div>
+                        <div class="absolute inset-0 bg-primary/20 blur-[60px] rounded-full scale-75 z-0 animate-pulse">
+                        </div>
 
-                        <div class="relative z-10 w-72 h-72 md:w-96 md:h-96 lg:w-[450px] lg:h-[450px] transition-transform duration-500 hover:scale-105">
-                            <img
-                                src="assets/img/food.png"
-                                alt="Healthy Food Bowl"
+                        <div
+                            class="relative z-10 w-72 h-72 md:w-96 md:h-96 lg:w-[450px] lg:h-[450px] transition-transform duration-500 hover:scale-105">
+                            <img src="assets/img/food.png" alt="Healthy Food Bowl"
                                 class="w-full h-full object-cover rounded-full shadow-2xl relative z-10">
 
-                            <div class="absolute top-10 -left-4 md:top-16 md:-left-10 z-20 backdrop-blur-md card p-3 pr-5 rounded-2xl shadow-xl flex items-center gap-3 animate-[bounce_3s_infinite]">
-                                <div class="w-10 h-10 bg-orange-500/20 rounded-full flex items-center justify-center text-orange-500">
+                            <div
+                                class="absolute top-10 -left-4 md:top-16 md:-left-10 z-20 backdrop-blur-md card p-3 pr-5 rounded-2xl shadow-xl flex items-center gap-3 animate-[bounce_3s_infinite]">
+                                <div
+                                    class="w-10 h-10 bg-orange-500/20 rounded-full flex items-center justify-center text-orange-500">
                                     <i class="fas fa-fire"></i>
                                 </div>
                                 <div>
-                                    <p class="text-xs opacity-70 uppercase tracking-wider font-semibold">Calories</p>
+                                    <p class="text-xs opacity-70 uppercase tracking-wider font-semibold">Kalori</p>
                                     <p class="text-sm font-bold">320 Kcal</p>
                                 </div>
                             </div>
 
-                            <div class="absolute bottom-10 -right-4 md:bottom-16 md:-right-8 z-20 backdrop-blur-md card p-3 pr-5 rounded-2xl shadow-xl flex items-center gap-3 animate-[bounce_3s_infinite] delay-700">
-                                <div class="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center text-primary">
+                            <div
+                                class="absolute bottom-10 -right-4 md:bottom-16 md:-right-8 z-20 backdrop-blur-md card p-3 pr-5 rounded-2xl shadow-xl flex items-center gap-3 animate-[bounce_3s_infinite] delay-700">
+                                <div
+                                    class="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center text-primary">
                                     <i class="fas fa-drumstick-bite"></i>
                                 </div>
                                 <div>
                                     <p class="text-xs opacity-70 uppercase tracking-wider font-semibold">Protein</p>
-                                    <p class="text-sm font-bold">24g High</p>
+                                    <p class="text-sm font-bold">24g Tinggi</p>
                                 </div>
                             </div>
 
-                            <div class="absolute top-0 right-10 z-20 bg-green-500 text-white w-8 h-8 rounded-full flex items-center justify-center shadow-lg">
+                            <div
+                                class="absolute top-0 right-10 z-20 bg-green-500 text-white w-8 h-8 rounded-full flex items-center justify-center shadow-lg">
                                 <i class="fas fa-check text-xs"></i>
                             </div>
 
@@ -239,355 +261,407 @@
             </div>
         </section>
 
+
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <!-- Features Section -->
-            <section id="features" class="py-16 sm:py-24">
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="text-center mb-16">
-                        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
-                            Fitur Unggulan NutriTrack
-                        </h2>
-                        <p class="mt-4 max-w-2xl mx-auto text-lg opacity-80">
-                            Jelajahi kemampuan inti NutriTrack yang dirancang untuk membantu mencapai target kesehatan Anda dengan mudah dan efektif.
-                        </p>
-                    </div>
-
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                        <div class="feature-card card p-8 rounded-xl shadow-sm hover:border-[#0F9E99] transition-all duration-300 hover:shadow-lg flex flex-col h-full">
-                            <div class="feature-icon w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-6">
-                                <i class="fas fa-utensils text-primary text-2xl"></i>
-                            </div>
-                            <h3 class="text-xl font-semibold mb-3">Smart Food Tracking</h3>
-                            <p class="opacity-80 mb-4">Catat makanan, minuman, dan aktivitas dengan mudah. Database lengkap dengan ribuan makanan lokal dan internasional.</p>
-
-                            <ul class="space-y-2 text-sm opacity-70 mt-auto">
-                                <li class="flex items-center gap-2">
-                                    <i class="fas fa-check text-primary"></i>
-                                    <span>Barcode scanner</span>
-                                </li>
-                                <li class="flex items-center gap-2">
-                                    <i class="fas fa-check text-primary"></i>
-                                    <span>Quick add favorites</span>
-                                </li>
-                                <li class="flex items-center gap-2">
-                                    <i class="fas fa-check text-primary"></i>
-                                    <span>Meal photos</span>
-                                </li>
-                            </ul>
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <!-- Features Section -->
+                <section id="features" class="py-16 sm:py-24">
+                    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div class="text-center mb-16">
+                            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
+                                Fitur Unggulan NutriTrack
+                            </h2>
+                            <p class="mt-4 max-w-2xl mx-auto text-lg opacity-80">
+                                Nikmati fitur-fitur inti NutriTrack yang dirancang untuk membantu Anda mencapai tujuan
+                                kesehatan dengan lebih mudah, cepat, dan terarah.
+                            </p>
                         </div>
 
-                        <div class="feature-card card p-8 rounded-xl shadow-sm hover:border-[#0F9E99] transition-all duration-300 hover:shadow-lg flex flex-col h-full">
-                            <div class="feature-icon w-16 h-16 bg-secondary/10 rounded-2xl flex items-center justify-center mb-6">
-                                <i class="fas fa-chart-line text-secondary text-2xl"></i>
-                            </div>
-                            <h3 class="text-xl font-semibold mb-3">Advanced Analytics</h3>
-                            <p class="opacity-80 mb-4">Pahami tren nutrisi dan capai tujuan dengan visualisasi data yang komprehensif dan mudah dipahami.</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
 
-                            <ul class="space-y-2 text-sm opacity-70 mt-auto">
-                                <li class="flex items-center gap-2">
-                                    <i class="fas fa-check text-secondary"></i>
-                                    <span>Weekly/Monthly reports</span>
-                                </li>
-                                <li class="flex items-center gap-2">
-                                    <i class="fas fa-check text-secondary"></i>
-                                    <span>Macro breakdown</span>
-                                </li>
-                                <li class="flex items-center gap-2">
-                                    <i class="fas fa-check text-secondary"></i>
-                                    <span>Progress charts</span>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <div class="feature-card card p-8 rounded-xl shadow-sm hover:border-[#0F9E99] transition-all duration-300 hover:shadow-lg flex flex-col h-full">
-                            <div class="feature-icon w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center mb-6">
-                                <i class="fas fa-user-cog text-accent text-2xl"></i>
-                            </div>
-                            <h3 class="text-xl font-semibold mb-3">AI Personalization</h3>
-                            <p class="opacity-80 mb-4">Dapatkan insight dan rekomendasi yang disesuaikan dengan kebutuhan, preferensi, dan tujuan kesehatan pribadi Anda.</p>
-
-                            <ul class="space-y-2 text-sm opacity-70 mt-auto">
-                                <li class="flex items-center gap-2">
-                                    <i class="fas fa-check text-accent"></i>
-                                    <span>Custom meal plans</span>
-                                </li>
-                                <li class="flex items-center gap-2">
-                                    <i class="fas fa-check text-accent"></i>
-                                    <span>Goal recommendations</span>
-                                </li>
-                                <li class="flex items-center gap-2">
-                                    <i class="fas fa-check text-accent"></i>
-                                    <span>Dietary preferences</span>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <div class="feature-card card p-8 rounded-xl shadow-sm hover:border-[#0F9E99] transition-all duration-300 hover:shadow-lg flex flex-col h-full">
-                            <div class="feature-icon w-16 h-16 bg-[#FFC107]/10 rounded-2xl flex items-center justify-center mb-6">
-                                <i class="fas fa-book-open text-[#FFC107] text-2xl"></i>
-                            </div>
-                            <h3 class="text-xl font-semibold mb-3">Healthy Recipes</h3>
-                            <p class="opacity-80 mb-4">Temukan ribuan resep sehat dengan nutrisi yang sudah dihitung. Filter berdasarkan kalori, waktu masak, dan preferensi diet.</p>
-
-                            <ul class="space-y-2 text-sm opacity-70 mt-auto">
-                                <li class="flex items-center gap-2">
-                                    <i class="fas fa-check text-[#FFC107]"></i>
-                                    <span>5000+ recipes</span>
-                                </li>
-                                <li class="flex items-center gap-2">
-                                    <i class="fas fa-check text-[#FFC107]"></i>
-                                    <span>Step-by-step guides</span>
-                                </li>
-                                <li class="flex items-center gap-2">
-                                    <i class="fas fa-check text-[#FFC107]"></i>
-                                    <span>Save favorites</span>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <div class="feature-card card p-8 rounded-xl shadow-sm hover:border-[#0F9E99] transition-all duration-300 hover:shadow-lg flex flex-col h-full">
-                            <div class="feature-icon w-16 h-16 bg-[#E91E63]/10 rounded-2xl flex items-center justify-center mb-6">
-                                <i class="fas fa-bell text-[#E91E63] text-2xl"></i>
-                            </div>
-                            <h3 class="text-xl font-semibold mb-3">Smart Reminders</h3>
-                            <p class="opacity-80 mb-4">Tetap on-track dengan pengingat cerdas untuk makan, minum air, dan olahraga yang disesuaikan dengan rutinitas harian Anda.</p>
-
-                            <ul class="space-y-2 text-sm opacity-70 mt-auto">
-                                <li class="flex items-center gap-2">
-                                    <i class="fas fa-check text-[#E91E63]"></i>
-                                    <span>Meal reminders</span>
-                                </li>
-                                <li class="flex items-center gap-2">
-                                    <i class="fas fa-check text-[#E91E63]"></i>
-                                    <span>Water intake alerts</span>
-                                </li>
-                                <li class="flex items-center gap-2">
-                                    <i class="fas fa-check text-[#E91E63]"></i>
-                                    <span>Custom schedules</span>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <div class="feature-card card p-8 rounded-xl shadow-sm hover:border-[#0F9E99] transition-all duration-300 hover:shadow-lg flex flex-col h-full">
-                            <div class="feature-icon w-16 h-16 bg-[#9C27B0]/10 rounded-2xl flex items-center justify-center mb-6">
-                                <i class="fas fa-sync-alt text-[#9C27B0] text-2xl"></i>
-                            </div>
-                            <h3 class="text-xl font-semibold mb-3">Device Sync</h3>
-                            <p class="opacity-80 mb-4">Integrasikan dengan wearables dan aplikasi kesehatan favorit Anda untuk tracking yang lebih akurat dan komprehensif.</p>
-
-                            <ul class="space-y-2 text-sm opacity-70 mt-auto">
-                                <li class="flex items-center gap-2">
-                                    <i class="fas fa-check text-[#9C27B0]"></i>
-                                    <span>Fitness trackers</span>
-                                </li>
-                                <li class="flex items-center gap-2">
-                                    <i class="fas fa-check text-[#9C27B0]"></i>
-                                    <span>Health apps</span>
-                                </li>
-                                <li class="flex items-center gap-2">
-                                    <i class="fas fa-check text-[#9C27B0]"></i>
-                                    <span>Cloud backup</span>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- How It Works -->
-            <section id="how" class="py-16 sm:py-24">
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="text-center mb-12">
-                        <h3 class="text-3xl sm:text-4xl font-bold mb-4">Bagaimana Cara Kerjanya?</h3>
-                        <p class="mt-3 text-lg opacity-80 max-w-2xl mx-auto">
-                            Mulai perjalanan kesehatan Anda hanya dalam tiga langkah sederhana
-                        </p>
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        <div class="card p-8 rounded-xl shadow-sm hover:border-[#0F9E99] transition-all duration-300 flex flex-col h-full">
-                            <div class="flex items-center gap-4 mb-6">
-                                <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
-                                    <span class="text-xl font-bold text-primary">1</span>
+                            <!-- Smart Food Tracking -->
+                            <div
+                                class="feature-card card p-8 rounded-xl shadow-sm hover:border-[#0F9E99] transition-all duration-300 hover:shadow-lg flex flex-col h-full">
+                                <div
+                                    class="feature-icon w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-6">
+                                    <i class="fas fa-utensils text-primary text-2xl"></i>
                                 </div>
-                                <h4 class="text-xl font-semibold">Set Your Goals</h4>
+                                <h3 class="text-xl font-semibold mb-3">Pelacakan Makanan Cerdas</h3>
+                                <p class="opacity-80 mb-4">Catat makanan, minuman, dan aktivitas dengan cepat. Didukung
+                                    database ribuan makanan lokal & internasional.</p>
+
+                                <ul class="space-y-2 text-sm opacity-70 mt-auto">
+                                    <li class="flex items-center gap-2"><i class="fas fa-check text-primary"></i>
+                                        <span>Pindai barcode</span>
+                                    </li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-check text-primary"></i>
+                                        <span>Tambah favorit dengan cepat</span>
+                                    </li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-check text-primary"></i>
+                                        <span>Unggah foto makanan</span>
+                                    </li>
+                                </ul>
                             </div>
-                            <div class="mb-6">
-                                <p class="opacity-80 mb-4">
-                                    Tentukan target kesehatan Anda - apakah ingin menurunkan berat badan, menambah massa otot, atau sekadar menjaga pola makan sehat.
+
+                            <!-- Advanced Analytics -->
+                            <div
+                                class="feature-card card p-8 rounded-xl shadow-sm hover:border-[#0F9E99] transition-all duration-300 hover:shadow-lg flex flex-col h-full">
+                                <div
+                                    class="feature-icon w-16 h-16 bg-secondary/10 rounded-2xl flex items-center justify-center mb-6">
+                                    <i class="fas fa-chart-line text-secondary text-2xl"></i>
+                                </div>
+                                <h3 class="text-xl font-semibold mb-3">Analisis Nutrisi Mendalam</h3>
+                                <p class="opacity-80 mb-4">Pantau tren pola makan Anda melalui grafik, ringkasan
+                                    mingguan/bulanan, dan insight visual yang mudah dipahami.</p>
+
+                                <ul class="space-y-2 text-sm opacity-70 mt-auto">
+                                    <li class="flex items-center gap-2"><i class="fas fa-check text-secondary"></i>
+                                        <span>Laporan mingguan/bulanan</span>
+                                    </li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-check text-secondary"></i>
+                                        <span>Rincian makronutrien</span>
+                                    </li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-check text-secondary"></i>
+                                        <span>Grafik perkembangan</span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <!-- AI Personalization -->
+                            <div
+                                class="feature-card card p-8 rounded-xl shadow-sm hover:border-[#0F9E99] transition-all duration-300 hover:shadow-lg flex flex-col h-full">
+                                <div
+                                    class="feature-icon w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center mb-6">
+                                    <i class="fas fa-user-cog text-accent text-2xl"></i>
+                                </div>
+                                <h3 class="text-xl font-semibold mb-3">Personalisasi Berbasis AI</h3>
+                                <p class="opacity-80 mb-4">AI NutriTrack menganalisis kebutuhan Anda dan memberi
+                                    rekomendasi yang disesuaikan dengan gaya hidup & target kesehatan Anda.</p>
+
+                                <ul class="space-y-2 text-sm opacity-70 mt-auto">
+                                    <li class="flex items-center gap-2"><i class="fas fa-check text-accent"></i>
+                                        <span>Rencana makan personal</span>
+                                    </li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-check text-accent"></i>
+                                        <span>Rekomendasi tujuan</span>
+                                    </li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-check text-accent"></i>
+                                        <span>Preferensi diet fleksibel</span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <!-- Healthy Recipes -->
+                            <div
+                                class="feature-card card p-8 rounded-xl shadow-sm hover:border-[#0F9E99] transition-all duration-300 hover:shadow-lg flex flex-col h-full">
+                                <div
+                                    class="feature-icon w-16 h-16 bg-[#FFC107]/10 rounded-2xl flex items-center justify-center mb-6">
+                                    <i class="fas fa-book-open text-[#FFC107] text-2xl"></i>
+                                </div>
+                                <h3 class="text-xl font-semibold mb-3">Resep Sehat Siap Pakai</h3>
+                                <p class="opacity-80 mb-4">Akses ribuan resep sehat dengan informasi nutrisi lengkap.
+                                    Filter mudah berdasarkan diet, kalori, atau waktu memasak.</p>
+
+                                <ul class="space-y-2 text-sm opacity-70 mt-auto">
+                                    <li class="flex items-center gap-2"><i class="fas fa-check text-[#FFC107]"></i>
+                                        <span>5000+ resep</span>
+                                    </li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-check text-[#FFC107]"></i>
+                                        <span>Panduan langkah demi langkah</span>
+                                    </li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-check text-[#FFC107]"></i>
+                                        <span>Simpan resep favorit</span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <!-- Smart Reminders -->
+                            <div
+                                class="feature-card card p-8 rounded-xl shadow-sm hover:border-[#0F9E99] transition-all duration-300 hover:shadow-lg flex flex-col h-full">
+                                <div
+                                    class="feature-icon w-16 h-16 bg-[#E91E63]/10 rounded-2xl flex items-center justify-center mb-6">
+                                    <i class="fas fa-bell text-[#E91E63] text-2xl"></i>
+                                </div>
+                                <h3 class="text-xl font-semibold mb-3">Pengingat Cerdas</h3>
+                                <p class="opacity-80 mb-4">Tetap konsisten dengan notifikasi yang disesuaikan untuk
+                                    makan, minum, dan aktivitas fisik sesuai rutinitas Anda.</p>
+
+                                <ul class="space-y-2 text-sm opacity-70 mt-auto">
+                                    <li class="flex items-center gap-2"><i class="fas fa-check text-[#E91E63]"></i>
+                                        <span>Pengingat makan</span>
+                                    </li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-check text-[#E91E63]"></i>
+                                        <span>Notifikasi hidrasi</span>
+                                    </li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-check text-[#E91E63]"></i>
+                                        <span>Jadwal kustom</span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <!-- Device Sync -->
+                            <div
+                                class="feature-card card p-8 rounded-xl shadow-sm hover:border-[#0F9E99] transition-all duration-300 hover:shadow-lg flex flex-col h-full">
+                                <div
+                                    class="feature-icon w-16 h-16 bg-[#9C27B0]/10 rounded-2xl flex items-center justify-center mb-6">
+                                    <i class="fas fa-sync-alt text-[#9C27B0] text-2xl"></i>
+                                </div>
+                                <h3 class="text-xl font-semibold mb-3">Sinkronisasi Perangkat</h3>
+                                <p class="opacity-80 mb-4">Hubungkan NutriTrack dengan perangkat fitness dan aplikasi
+                                    kesehatan favorit Anda untuk pengalaman tracking yang lebih akurat.</p>
+
+                                <ul class="space-y-2 text-sm opacity-70 mt-auto">
+                                    <li class="flex items-center gap-2"><i class="fas fa-check text-[#9C27B0]"></i>
+                                        <span>Integrasi fitness tracker</span>
+                                    </li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-check text-[#9C27B0]"></i>
+                                        <span>Sinkronisasi aplikasi kesehatan</span>
+                                    </li>
+                                    <li class="flex items-center gap-2"><i class="fas fa-check text-[#9C27B0]"></i>
+                                        <span>Backup cloud otomatis</span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                </section>
+
+
+                <!-- How It Works -->
+                <section id="how" class="py-16 sm:py-24">
+                    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div class="text-center mb-12">
+                            <h3 class="text-3xl sm:text-4xl font-bold mb-4">Bagaimana Cara Kerjanya?</h3>
+                            <p class="mt-3 text-lg opacity-80 max-w-2xl mx-auto">
+                                Mulai perjalanan kesehatan Anda hanya dalam tiga langkah sederhana.
+                            </p>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+                            <!-- Step 1 -->
+                            <div
+                                class="card p-8 rounded-xl shadow-sm hover:border-[#0F9E99] transition-all duration-300 flex flex-col h-full">
+                                <div class="flex items-center gap-4 mb-6">
+                                    <div
+                                        class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
+                                        <span class="text-xl font-bold text-primary">1</span>
+                                    </div>
+                                    <h4 class="text-xl font-semibold">Target Anda Ditentukan</h4>
+                                </div>
+                                <p class="opacity-80 mb-6">
+                                    Tujuan kesehatan Anda—turun berat badan, naik massa otot, atau sekadar hidup
+                                    lebih sehat.
                                 </p>
-                            </div>
-                            <div class="card rounded-lg p-4 bg-gradient-to-br from-primary/5 to-transparent mt-auto">
-                                <div class="space-y-3">
-                                    <div class="flex items-center justify-between text-sm">
-                                        <span class="opacity-70">Target Weight</span>
-                                        <span class="font-semibold text-primary">70 kg</span>
-                                    </div>
-                                    <div class="h-2 bg-primary/10 rounded-full overflow-hidden">
-                                        <div class="h-full bg-primary w-3/4 rounded-full"></div>
-                                    </div>
-                                    <div class="flex items-center justify-between text-sm">
-                                        <span class="opacity-70">Daily Calories</span>
-                                        <span class="font-semibold text-primary">2000 kcal</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="card p-8 rounded-xl shadow-sm hover:border-[#0F9E99] transition-all duration-300 flex flex-col h-full">
-                            <div class="flex items-center gap-4 mb-6">
-                                <div class="w-12 h-12 bg-secondary/10 rounded-full flex items-center justify-center flex-shrink-0">
-                                    <span class="text-xl font-bold text-secondary">2</span>
-                                </div>
-                                <h4 class="text-xl font-semibold">Track Daily Intake</h4>
-                            </div>
-                            <div class="mb-6">
-                                <p class="opacity-80 mb-4">
-                                    Catat semua makanan dan minuman yang Anda konsumsi. Gunakan barcode scanner atau foto makanan untuk tracking yang lebih cepat dan mudah.
-                                </p>
-                            </div>
-                            <div class="card rounded-lg p-4 bg-gradient-to-br from-secondary/5 to-transparent mt-auto">
-                                <div class="space-y-3">
-                                    <div class="flex items-center gap-3">
-                                        <div class="w-10 h-10 bg-secondary/20 rounded-lg"></div>
-                                        <div class="flex-1">
-                                            <div class="h-2 bg-secondary/30 rounded w-3/4 mb-1"></div>
-                                            <div class="h-2 bg-secondary/20 rounded w-1/2"></div>
+                                <div
+                                    class="card rounded-lg p-4 bg-gradient-to-br from-primary/5 to-transparent mt-auto">
+                                    <div class="space-y-3">
+                                        <div class="flex items-center justify-between text-sm">
+                                            <span class="opacity-70">Berat Target</span>
+                                            <span class="font-semibold text-primary">70 kg</span>
                                         </div>
-                                        <span class="text-xs font-semibold text-secondary">450 kcal</span>
-                                    </div>
-                                    <div class="flex items-center gap-3">
-                                        <div class="w-10 h-10 bg-secondary/20 rounded-lg"></div>
-                                        <div class="flex-1">
-                                            <div class="h-2 bg-secondary/30 rounded w-3/4 mb-1"></div>
-                                            <div class="h-2 bg-secondary/20 rounded w-1/2"></div>
+                                        <div class="h-2 bg-primary/10 rounded-full overflow-hidden">
+                                            <div class="h-full bg-primary w-3/4 rounded-full"></div>
                                         </div>
-                                        <span class="text-xs font-semibold text-secondary">320 kcal</span>
+                                        <div class="flex items-center justify-between text-sm">
+                                            <span class="opacity-70">Kalori Harian</span>
+                                            <span class="font-semibold text-primary">2000 kcal</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="card p-8 rounded-xl shadow-sm hover:border-[#0F9E99] transition-all duration-300 flex flex-col h-full">
-                            <div class="flex items-center gap-4 mb-6">
-                                <div class="w-12 h-12 bg-accent/10 rounded-full flex items-center justify-center flex-shrink-0">
-                                    <span class="text-xl font-bold text-accent">3</span>
+                            <!-- Step 2 -->
+                            <div
+                                class="card p-8 rounded-xl shadow-sm hover:border-[#0F9E99] transition-all duration-300 flex flex-col h-full">
+                                <div class="flex items-center gap-4 mb-6">
+                                    <div
+                                        class="w-12 h-12 bg-secondary/10 rounded-full flex items-center justify-center flex-shrink-0">
+                                        <span class="text-xl font-bold text-secondary">2</span>
+                                    </div>
+                                    <h4 class="text-xl font-semibold">Catat Konsumsi Harian</h4>
                                 </div>
-                                <h4 class="text-xl font-semibold">Achieve Your Goals</h4>
-                            </div>
-                            <div class="mb-6">
-                                <p class="opacity-80 mb-4">
-                                    Lihat progress Anda, dapatkan insight personal, dan ikuti rekomendasi untuk konsistensi. Rayakan setiap milestone yang dicapai!
+                                <p class="opacity-80 mb-6">
+                                    Rekam semua makanan & minuman Anda. Catat atau foto makanan untuk
+                                    pencatatan yang lebih cepat.
                                 </p>
-                            </div>
-                            <div class="card rounded-lg p-4 bg-gradient-to-br from-accent/5 to-transparent mt-auto">
-                                <div class="text-center mb-3">
-                                    <div class="inline-flex items-center justify-center w-16 h-16 bg-accent/20 rounded-full mb-2">
-                                        <i class="fas fa-trophy text-accent text-2xl"></i>
-                                    </div>
-                                    <div class="font-bold text-xl mb-1">Week 4</div>
-                                    <div class="text-sm opacity-70">Progress Milestone</div>
-                                </div>
-                                <div class="flex justify-around text-center text-sm">
-                                    <div>
-                                        <div class="font-semibold text-accent">-3 kg</div>
-                                        <div class="opacity-70 text-xs">Weight</div>
-                                    </div>
-                                    <div>
-                                        <div class="font-semibold text-accent">92%</div>
-                                        <div class="opacity-70 text-xs">Consistency</div>
-                                    </div>
-                                    <div>
-                                        <div class="font-semibold text-accent">28</div>
-                                        <div class="opacity-70 text-xs">Days</div>
+                                <div
+                                    class="card rounded-lg p-4 bg-gradient-to-br from-secondary/5 to-transparent mt-auto">
+                                    <div class="space-y-3">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-10 h-10 bg-secondary/20 rounded-lg"></div>
+                                            <div class="flex-1">
+                                                <div class="h-2 bg-secondary/30 rounded w-3/4 mb-1"></div>
+                                                <div class="h-2 bg-secondary/20 rounded w-1/2"></div>
+                                            </div>
+                                            <span class="text-xs font-semibold text-secondary">450 kcal</span>
+                                        </div>
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-10 h-10 bg-secondary/20 rounded-lg"></div>
+                                            <div class="flex-1">
+                                                <div class="h-2 bg-secondary/30 rounded w-3/4 mb-1"></div>
+                                                <div class="h-2 bg-secondary/20 rounded w-1/2"></div>
+                                            </div>
+                                            <span class="text-xs font-semibold text-secondary">320 kcal</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+
+                            <!-- Step 3 -->
+                            <div
+                                class="card p-8 rounded-xl shadow-sm hover:border-[#0F9E99] transition-all duration-300 flex flex-col h-full">
+                                <div class="flex items-center gap-4 mb-6">
+                                    <div
+                                        class="w-12 h-12 bg-accent/10 rounded-full flex items-center justify-center flex-shrink-0">
+                                        <span class="text-xl font-bold text-accent">3</span>
+                                    </div>
+                                    <h4 class="text-xl font-semibold">Capai Target Anda</h4>
+                                </div>
+                                <p class="opacity-80 mb-6">
+                                    Pantau perkembangan Anda, dapatkan insight pribadi, dan tetap konsisten dengan
+                                    rekomendasi dari NutriTrack.
+                                </p>
+                                <div class="card rounded-lg p-4 bg-gradient-to-br from-accent/5 to-transparent mt-auto">
+                                    <div class="text-center mb-3">
+                                        <div
+                                            class="inline-flex items-center justify-center w-16 h-16 bg-accent/20 rounded-full mb-2">
+                                            <i class="fas fa-trophy text-accent text-2xl"></i>
+                                        </div>
+                                        <div class="font-bold text-xl mb-1">Minggu ke-4</div>
+                                        <div class="text-sm opacity-70">Tonggak Perkembangan</div>
+                                    </div>
+                                    <div class="flex justify-around text-center text-sm">
+                                        <div>
+                                            <div class="font-semibold text-accent">-3 kg</div>
+                                            <div class="opacity-70 text-xs">Berat</div>
+                                        </div>
+                                        <div>
+                                            <div class="font-semibold text-accent">92%</div>
+                                            <div class="opacity-70 text-xs">Konsistensi</div>
+                                        </div>
+                                        <div>
+                                            <div class="font-semibold text-accent">28</div>
+                                            <div class="opacity-70 text-xs">Hari</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
-                </div>
-            </section>
+                </section>
 
-            <!-- FAQ -->
-            <section class="py-16 sm:py-24">
-                <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <h3 class="text-3xl sm:text-4xl font-bold text-center mb-4">Frequently Asked Questions</h3>
-                    <p class="text-center opacity-80 mb-12 max-w-2xl mx-auto">
-                        Punya pertanyaan? Kami punya jawabannya! Temukan informasi yang Anda butuhkan di sini.
-                    </p>
-                    <div class="space-y-4">
-                        <div class="card p-6 rounded-xl shadow-sm hover:border-[#0F9E99] transition-all duration-300">
-                            <div class="flex items-start gap-4">
-                                <div class="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
-                                    <i class="fas fa-question text-primary text-sm"></i>
-                                </div>
-                                <div class="flex-1">
-                                    <h4 class="font-semibold text-lg mb-2">Apakah NutriTrack gratis?</h4>
-                                    <p class="opacity-80">
-                                        Ya! NutriTrack menawarkan versi gratis dengan fitur-fitur inti yang lengkap. Untuk fitur advanced seperti analisis mendalam, meal planning personalized, dan sinkronisasi dengan lebih banyak device, tersedia versi Pro dengan harga terjangkau.
-                                    </p>
+
+                <!-- FAQ -->
+                <section class="py-16 sm:py-24">
+                    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <h3 class="text-3xl sm:text-4xl font-bold text-center mb-4">Pertanyaan yang Sering Diajukan</h3>
+                        <p class="text-center opacity-80 mb-12 max-w-2xl mx-auto">
+                            Punya pertanyaan? Kami punya jawabannya. Temukan informasi yang Anda butuhkan di sini.
+                        </p>
+
+                        <div class="space-y-4">
+
+                            <!-- FAQ 1 -->
+                            <div
+                                class="card p-6 rounded-xl shadow-sm hover:border-[#0F9E99] transition-all duration-300">
+                                <div class="flex items-start gap-4">
+                                    <div class="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center mt-1">
+                                        <i class="fas fa-question text-primary text-sm"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <h4 class="font-semibold text-lg mb-2">Apakah NutriTrack gratis?</h4>
+                                        <p class="opacity-80">
+                                            Ya, NutriTrack menyediakan versi gratis dengan fitur-fitur dasar yang
+                                            lengkap.
+                                            Untuk fitur premium seperti analisis mendalam dan personalisasi AI lanjutan,
+                                            tersedia NutriTrack Pro dengan biaya yang terjangkau.
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="card p-6 rounded-xl shadow-sm hover:border-[#0F9E99] transition-all duration-300">
-                            <div class="flex items-start gap-4">
-                                <div class="w-8 h-8 bg-secondary/10 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
-                                    <i class="fas fa-question text-secondary text-sm"></i>
-                                </div>
-                                <div class="flex-1">
-                                    <h4 class="font-semibold text-lg mb-2">Apakah data saya aman?</h4>
-                                    <p class="opacity-80">
-                                        Keamanan dan privasi Anda adalah prioritas kami. Semua data kesehatan Anda dienkripsi dengan standar tinggi dan kami tidak pernah menjual data pengguna kepada pihak ketiga. Data Anda hanya milik Anda.
-                                    </p>
+                            <!-- FAQ 2 -->
+                            <div
+                                class="card p-6 rounded-xl shadow-sm hover:border-[#0F9E99] transition-all duration-300">
+                                <div class="flex items-start gap-4">
+                                    <div
+                                        class="w-8 h-8 bg-secondary/10 rounded-lg flex items-center justify-center mt-1">
+                                        <i class="fas fa-question text-secondary text-sm"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <h4 class="font-semibold text-lg mb-2">Apakah data saya aman?</h4>
+                                        <p class="opacity-80">
+                                            Sangat aman. Semua data pengguna dilindungi dengan enkripsi,
+                                            dan NutriTrack tidak menjual data pribadi ke pihak mana pun.
+                                            Privasi Anda adalah prioritas utama kami.
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="card p-6 rounded-xl shadow-sm hover:border-[#0F9E99] transition-all duration-300">
-                            <div class="flex items-start gap-4">
-                                <div class="w-8 h-8 bg-accent/10 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
-                                    <i class="fas fa-question text-accent text-sm"></i>
-                                </div>
-                                <div class="flex-1">
-                                    <h4 class="font-semibold text-lg mb-2">Apakah tersedia database makanan Indonesia?</h4>
-                                    <p class="opacity-80">
-                                        Tentu saja! NutriTrack memiliki database lengkap makanan lokal Indonesia, mulai dari nasi goreng, rendang, gado-gado, hingga jajanan pasar. Kami terus menambah dan update database untuk memastikan akurasi informasi nutrisi.
-                                    </p>
+                            <!-- FAQ 3 -->
+                            <div
+                                class="card p-6 rounded-xl shadow-sm hover:border-[#0F9E99] transition-all duration-300">
+                                <div class="flex items-start gap-4">
+                                    <div class="w-8 h-8 bg-accent/10 rounded-lg flex items-center justify-center mt-1">
+                                        <i class="fas fa-question text-accent text-sm"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <h4 class="font-semibold text-lg mb-2">Apakah NutriTrack punya database makanan
+                                            Indonesia?</h4>
+                                        <p class="opacity-80">
+                                            Tentu! NutriTrack memiliki database makanan Indonesia yang sangat lengkap,
+                                            mulai dari lauk rumahan, street food, hingga jajanan pasar.
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="card p-6 rounded-xl shadow-sm hover:border-[#0F9E99] transition-all duration-300">
-                            <div class="flex items-start gap-4">
-                                <div class="w-8 h-8 bg-[#FFC107]/10 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
-                                    <i class="fas fa-question text-[#FFC107] text-sm"></i>
-                                </div>
-                                <div class="flex-1">
-                                    <h4 class="font-semibold text-lg mb-2">Bisakah saya menggunakan NutriTrack offline?</h4>
-                                    <p class="opacity-80">
-                                        Ya, sebagian besar fitur NutriTrack dapat digunakan secara offline. Data akan otomatis tersinkronisasi saat Anda terhubung kembali dengan internet. Ini sangat berguna saat Anda bepergian atau berada di area dengan koneksi terbatas.
-                                    </p>
+                            <!-- FAQ 4 -->
+                            <div
+                                class="card p-6 rounded-xl shadow-sm hover:border-[#0F9E99] transition-all duration-300">
+                                <div class="flex items-start gap-4">
+                                    <div
+                                        class="w-8 h-8 bg-[#FFC107]/10 rounded-lg flex items-center justify-center mt-1">
+                                        <i class="fas fa-question text-[#FFC107] text-sm"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <h4 class="font-semibold text-lg mb-2">Bisakah digunakan secara offline?</h4>
+                                        <p class="opacity-80">
+                                            Ya, sebagian besar fitur NutriTrack tetap dapat digunakan tanpa internet.
+                                            Data Anda akan tersinkron otomatis saat online kembali.
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="card p-6 rounded-xl shadow-sm hover:border-[#0F9E99] transition-all duration-300">
-                            <div class="flex items-start gap-4">
-                                <div class="w-8 h-8 bg-[#E91E63]/10 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
-                                    <i class="fas fa-question text-[#E91E63] text-sm"></i>
-                                </div>
-                                <div class="flex-1">
-                                    <h4 class="font-semibold text-lg mb-2">Apakah cocok untuk semua jenis diet?</h4>
-                                    <p class="opacity-80">
-                                        Absolutely! NutriTrack mendukung berbagai jenis diet seperti keto, vegetarian, vegan, paleo, Mediterranean, dan lainnya. Anda bisa customize preferensi diet dan mendapatkan rekomendasi yang sesuai dengan gaya hidup Anda.
-                                    </p>
+                            <!-- FAQ 5 -->
+                            <div
+                                class="card p-6 rounded-xl shadow-sm hover:border-[#0F9E99] transition-all duration-300">
+                                <div class="flex items-start gap-4">
+                                    <div
+                                        class="w-8 h-8 bg-[#E91E63]/10 rounded-lg flex items-center justify-center mt-1">
+                                        <i class="fas fa-question text-[#E91E63] text-sm"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <h4 class="font-semibold text-lg mb-2">Apakah cocok untuk semua jenis diet?</h4>
+                                        <p class="opacity-80">
+                                            Ya! NutriTrack mendukung berbagai jenis diet seperti keto, vegan, paleo,
+                                            Mediterranean, dan banyak lainnya. Anda bisa mengatur preferensi diet sesuai
+                                            kebutuhan.
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
+
                         </div>
                     </div>
-                </div>
-            </section>
-        </div>
+                </section>
+
+            </div>
     </main>
 
     <!-- Footer -->
@@ -595,48 +669,51 @@
         <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-2 md:grid-cols-5 gap-8 items-start">
                 <div class="space-y-4">
-                    <a href="mailto:hi@nutritrack.com"
-                        class="text-lg hover:underline block">hi@nutritrack.com</a>
+                    <a href="https://www.instagram.com/nutritrack.plus/" class="text-lg hover:underline block">@nutritrack.plus</a>
+
                     <div class="flex space-x-4">
-                        <a href="#" class="">
+
+                        <!-- Instagram -->
+                        <a href="https://www.instagram.com/nutritrack.plus/" target="_blank"
+                            class="hover:text-[#E1306C] transition">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" class="size-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M7.5 3h9A4.5 4.5 0 0 1 21 7.5v9A4.5 4.5 0 0 1 16.5 21h-9A4.5 4.5 0 0 1 3 16.5v-9A4.5 4.5 0 0 1 7.5 3Z" />
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M12 15.75a3.75 3.75 0 1 0 0-7.5 3.75 3.75 0 0 0 0 7.5Z" />
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M17.25 6.75h.008v.008h-.008V6.75Z" />
                             </svg>
                         </a>
-                        <a href="#" class="">
+
+                        <!-- YouTube -->
+                        <a href="https://www.youtube.com/watch?v=7qhEhwEtS1Q" target="_blank" class="hover:text-red-600 transition">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" class="size-6">
                                 <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M6.827 6.175A2.31 2.31 0 0 1 5.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 0 0-1.134-.175 2.31 2.31 0 0 1-1.64-1.055l-.822-1.316a2.192 2.192 0 0 0-1.736-1.039 48.774 48.774 0 0 0-5.232 0 2.192 2.192 0 0 0-1.736 1.039l-.821 1.316Z" />
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M16.5 12.75a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0ZM18.75 10.5h.008v.008h-.008V10.5Z" />
-                            </svg>
-                        </a>
-                        <a href="#" class="">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                stroke="currentColor" class="size-6">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z" />
+                                    d="M2.25 12c0-2.485 0-3.727.637-4.662a4 4 0 0 1 1.101-1.101C4.923 5.6 6.165 5.6 8.65 5.6h6.7c2.485 0 3.727 0 4.662.637a4 4 0 0 1 1.101 1.101C21.75 8.273 21.75 9.515 21.75 12s0 3.727-.637 4.662a4 4 0 0 1-1.101 1.101c-.935.637-2.177.637-4.662.637H8.65c-2.485 0-3.727 0-4.662-.637a4 4 0 0 1-1.101-1.101C2.25 15.727 2.25 14.485 2.25 12Z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M10 9.75v4.5l4-2.25-4-2.25Z" />
                             </svg>
                         </a>
                     </div>
                 </div>
 
+
                 <div>
-                    <h4 class="font-medium">Product</h4>
+                    <h4 class="font-medium">Lebih Lanjut</h4>
                     <ul class="mt-4 space-y-4 text-sm">
-                        <li><a href="index.php" class="opacity-80">Home</a>
+                        <li><a href="index.php" class="opacity-80">Beranda</a>
                         </li>
-                        <li><a href="features.php" class="opacity-80">Features</a>
+                        <li><a href="features.php" class="opacity-80">Unggulan</a>
                         </li>
-                        <li><a href="#" class="opacity-80">Download</a>
+                        <li><a href="#" class="opacity-80">Unduh</a>
                         </li>
                     </ul>
                 </div>
 
                 <div>
-                    <h4 class="font-medium">Company</h4>
+                    <h4 class="font-medium">Dukungan</h4>
                     <ul class="mt-4 space-y-4 text-sm">
                         <li><a href="4ever-young.php" class="opacity-80">4Ever
                                 Young</a></li>
@@ -646,9 +723,9 @@
                 </div>
 
                 <div>
-                    <h4 class="font-medium">What Our Users Say</h4>
+                    <h4 class="font-medium">Apa Kata Mereka</h4>
                     <ul class="mt-4 space-y-4 text-sm">
-                        <li><a href="riviews.php" class="opacity-80">Riviews</a>
+                        <li><a href="reviews.php" class="opacity-80">Reviews</a>
                         </li>
                     </ul>
                 </div>
@@ -892,7 +969,7 @@
 
         // === Smooth Scroll ===
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
+            anchor.addEventListener('click', function (e) {
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {

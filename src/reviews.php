@@ -1,10 +1,19 @@
+<?php
+session_start();
+include 'config.php';
+include 'db-functions.php';
+
+// contoh kalau tidak perlu cek admin:
+$testimonials = getLatestTestimonials();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NutriTrack - Riviews</title>
+    <title>NutriTrack - reviews</title>
     <link href="./output.css" rel="stylesheet">
     <style>
         body {
@@ -94,12 +103,11 @@
                 </div>
                 <ul class="hidden md:flex items-center space-x-8">
                     <li><a href="index.php" class="transition duration-200 transform">Home</a></li>
-                    <li><a href="about.php" class="transition duration-200 transform">About Us</a></li>
-                    <li><a href="features.php"
-                            class="transition duration-200 transform">Features</a>
+                    <li><a href="about.php" class="transition duration-200 transform">Tentang Kami</a></li>
+                    <li><a href="features.php" class="transition duration-200 transform">Unggulan</a>
                     </li>
-                    <li><a href="riviews.php" class="transition duration-200 transform">Riviews</a></li>
-                    <li><a href="#" class="transition duration-200 transform">Download</a></li>
+                    <li><a href="reviews.php" class="transition duration-200 transform">Reviews</a></li>
+                    <li><a href="#" class="transition duration-200 transform">Unduh</a></li>
                 </ul>
                 <div class="hidden md:flex items-center space-x-3">
                     <a href="signin.php"
@@ -113,7 +121,8 @@
                 </div>
                 <div class="md:hidden">
                     <button id="menu-toggle-btn" type="button" aria-expanded="false" aria-controls="mobile-menu"
-                        aria-label="Toggle navigation" class="p-2 rounded-lg transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#3dccc7]">
+                        aria-label="Toggle navigation"
+                        class="p-2 rounded-lg transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#3dccc7]">
                         <svg id="menu-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                             xmlns="http://www.w3.org/2000/svg">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -125,11 +134,17 @@
             <div id="mobile-menu" class="md:hidden hidden mt-3">
                 <div class="mobile-menu-panel card shadow-lg rounded-xl p-6 space-y-4">
                     <div class="flex flex-col space-y-3">
-                        <a href="index.php" class="block text-base font-medium transition-colors duration-200 hover:text-[#3dccc7]">Home</a>
-                        <a href="about.php" class="block text-base font-medium transition-colors duration-200 hover:text-[#3dccc7]">About Us</a>
-                        <a href="features.php" class="block text-base font-medium transition-colors duration-200 hover:text-[#3dccc7]">Features</a>
-                        <a href="riviews.php" class="block text-base font-medium transition-colors duration-200 hover:text-[#3dccc7]">Riviews</a>
-                        <a href="#" class="block text-base font-medium transition-colors duration-200 hover:text-[#3dccc7]">Download</a>
+                        <a href="index.php"
+                            class="block text-base font-medium transition-colors duration-200 hover:text-[#3dccc7]">Home</a>
+                        <a href="about.php"
+                            class="block text-base font-medium transition-colors duration-200 hover:text-[#3dccc7]">About
+                            Us</a>
+                        <a href="features.php"
+                            class="block text-base font-medium transition-colors duration-200 hover:text-[#3dccc7]">Features</a>
+                        <a href="reviews.php"
+                            class="block text-base font-medium transition-colors duration-200 hover:text-[#3dccc7]">Reviews</a>
+                        <a href="#"
+                            class="block text-base font-medium transition-colors duration-200 hover:text-[#3dccc7]">Download</a>
                     </div>
                     <div class="flex flex-col gap-3 py-3 border-t border-neutral-200 dark:border-neutral-700">
                         <a href="signin.php"
@@ -149,33 +164,39 @@
         <!-- Hero / Intro -->
         <section class="relative w-full min-h-screen flex items-center overflow-hidden px-[5%] py-20">
 
-            <div class="absolute top-1/2 right-0 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[100px] -translate-y-1/2 pointer-events-none"></div>
+            <div
+                class="absolute top-1/2 right-0 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[100px] -translate-y-1/2 pointer-events-none">
+            </div>
 
             <div class="relative z-10 max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
 
                 <div>
                     <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-                        Loved by <span class="text-primary">10,000+</span> <br> Healthy People.
+                        Disukai oleh <span class="text-primary">10.000+</span> <br> Pengguna Sehat.
                     </h1>
                     <p class="text-lg opacity-80 mb-8 leading-relaxed max-w-md">
-                        Baca cerita inspiratif dari pengguna yang telah berhasil mencapai target kesehatan mereka bersama NutriTrack.
+                        Lihat <i>review</i> dari pengguna NutriTrack yang berhasil mencapai tujuan kesehatan mereka
+                        melalui kebiasaan yang lebih baik dan tracking nutrisi yang cerdas.
                     </p>
 
                     <div class="flex items-center gap-4">
-                        <button class="inline-flex items-center justify-center gap-2 bg-primary text-white px-8 py-3.5 rounded-full font-semibold transition-all duration-300 hover:bg-primary/90 hover:-translate-y-1 hover:shadow-[0_10px_20px_rgba(61,204,199,0.3)]">
-                            Read Success Stories
+                        <button
+                            class="inline-flex items-center justify-center gap-2 bg-primary text-white px-8 py-3.5 rounded-full font-semibold transition-all duration-300 hover:bg-primary/90 hover:-translate-y-1 hover:shadow-[0_10px_20px_rgba(61,204,199,0.3)]">
+                            Lihat
                         </button>
-                        <button class="inline-flex items-center justify-center gap-2 card opacity-80 px-6 py-3 rounded-full font-semibold backdrop-blur-sm transition duration-300 hover:bg-white/5">
-                            Share Yours
+                        <button
+                            class="inline-flex items-center justify-center gap-2 card opacity-80 px-6 py-3 rounded-full font-semibold backdrop-blur-sm transition duration-300 hover:bg-white/5">
+                            Ceritakan Pengalamanmu
                         </button>
                     </div>
 
                     <div class="mt-10 flex items-center gap-3">
                         <div class="flex text-yellow-400 text-xl">
-                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i>
                         </div>
                         <span class="font-semibold">4.9/5</span>
-                        <span class="opacity-70 text-sm border-l border-gray-700 pl-3">Based on App Store & Play Store</span>
+                        <span class="opacity-70 text-sm border-l border-gray-700 pl-3"><i>Rating</i> Pengguna</span>
                     </div>
                 </div>
 
@@ -187,36 +208,52 @@
                     <div class="relative z-20 backdrop-blur-xl card p-8 rounded-3xl shadow-2xl max-w-md">
                         <div class="flex justify-between items-start mb-6">
                             <div class="flex items-center gap-4">
-                                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah" class="w-12 h-12 rounded-full bg-gray-700">
+                                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah"
+                                    class="w-12 h-12 rounded-full bg-gray-700">
                                 <div>
-                                    <h4 class="font-bold">Sarah Jenkins</h4>
-                                    <p class="text-primary text-sm">Lost 15kg in 3 months</p>
+                                    <h4 class="font-bold">Budi Utomo</h4>
+                                    <p class="text-primary text-sm">Berhasil turun 15kg dalam 3 bulan</p>
                                 </div>
                             </div>
                             <i class="fas fa-quote-right text-4xl text-white/10"></i>
                         </div>
                         <p class="opacity-60 leading-relaxed mb-4">
-                            "Aplikasi ini benar-benar mengubah cara saya melihat makanan. Fitur AI-nya sangat akurat dan resepnya enak-enak!"
+                            "Aplikasi ini benar-benar mengubah cara saya memahami makanan. Fitur AI-nya sangat akurat
+                            dan
+                            pilihan resepnya enak-enak!"
                         </p>
                         <div class="flex gap-1 text-yellow-400 text-sm">
-                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i>
                         </div>
                     </div>
 
-                    <div class="absolute top-10 right-10 z-10 card p-4 rounded-2xl shadow-xl w-64 transform rotate-6 opacity-60 hover:opacity-100 transition duration-300">
+                    <div
+                        class="absolute top-10 right-10 z-10 card p-4 rounded-2xl shadow-xl w-64 transform rotate-6 opacity-60 hover:opacity-100 transition duration-300">
                         <div class="flex items-center gap-2 mb-2">
-                            <div class="w-8 h-8 rounded-full bg-purple-500/20 flex items-center justify-center text-purple-500 text-xs font-bold">BJ</div>
-                            <div class="flex text-yellow-400 text-xs"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                            <div
+                                class="w-8 h-8 rounded-full bg-purple-500/20 flex items-center justify-center text-purple-500 text-xs font-bold">
+                                BJ</div>
+                            <div class="flex text-yellow-400 text-xs">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
                         </div>
                         <p class="opacity-60 text-xs">"Tracking makro jadi super gampang."</p>
                     </div>
 
-                    <div class="absolute bottom-10 left-0 z-10 card p-4 rounded-2xl shadow-xl w-64 transform -rotate-6 opacity-60 hover:opacity-100 transition duration-300">
+                    <div
+                        class="absolute bottom-10 left-0 z-10 card p-4 rounded-2xl shadow-xl w-64 transform -rotate-6 opacity-60 hover:opacity-100 transition duration-300">
                         <div class="flex items-center gap-2 mb-2">
-                            <div class="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-500 text-xs font-bold">AD</div>
-                            <div class="flex text-yellow-400 text-xs"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                            <div
+                                class="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-500 text-xs font-bold">
+                                AD</div>
+                            <div class="flex text-yellow-400 text-xs">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
                         </div>
-                        <p class="opacity-60 text-xs">"UI-nya sangat bersih dan modern!"</p>
+                        <p class="opacity-60 text-xs">"UI-nya bersih dan modern banget!"</p>
                     </div>
 
                 </div>
@@ -224,165 +261,133 @@
         </section>
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <!-- Riviews List -->
+
+            <!-- Reviews List -->
             <section id="list" class="py-16 sm:py-24">
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="text-center mb-12">
-                        <h2 class="text-3xl sm:text-4xl font-bold">What Our Users Say</h2>
-                    </div>
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl sm:text-4xl font-bold">Apa Kata Pengguna Kami</h2>
+                </div>
 
-                    <!-- Reviews Grid -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        <!-- Review Card 1 -->
-                        <div class="p-8 rounded-md card transition-all duration-300 hover:border-[#0F9E99] flex flex-col">
-                            <p class="text-base leading-relaxed mb-8 flex-grow">
-                                NutriTrack has completely transformed my life! I lost 15 kg in 3 months with easy tracking and clear insights. This app really helped me understand my eating patterns and make better decisions for my health.
-                            </p>
-                            <div class="flex items-center gap-3 mt-auto">
-                                <div class="h-12 w-12 rounded-full bg-gradient-to-br from-orange-400 to-orange-600 flex-shrink-0"></div>
-                                <div>
-                                    <div class="font-medium">Sari Dewanti</div>
-                                    <div class="text-sm opacity-80">Fitness Enthusiast, Jakarta</div>
-                                </div>
-                            </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                    <?php if (empty($testimonials)) { ?>
+
+                        <!-- Jika tidak ada data -->
+                        <div class="col-span-3 text-center opacity-70">
+                            Belum ada testimoni.
                         </div>
 
-                        <!-- Review Card 2 -->
-                        <div class="p-8 rounded-md card transition-all duration-300 hover:border-[#0F9E99] flex flex-col">
-                            <p class="text-base leading-relaxed mb-8 flex-grow">
-                                The best nutrition app I've ever used! The food tracking features are comprehensive, the nutrition database is accurate, and the interface is very user-friendly. It helps me reach my daily protein goals and manage calories effortlessly.
-                            </p>
-                            <div class="flex items-center gap-3 mt-auto">
-                                <div class="h-12 w-12 rounded-full bg-gradient-to-br from-purple-400 to-purple-600 flex-shrink-0"></div>
-                                <div>
-                                    <div class="font-medium">Budi Santoso</div>
-                                    <div class="text-sm opacity-80">Personal Trainer, Bandung</div>
-                                </div>
-                            </div>
-                        </div>
+                    <?php } else { ?>
 
-                        <!-- Review Card 3 -->
-                        <div class="p-8 rounded-md card transition-all duration-300 hover:border-[#0F9E99] flex flex-col">
-                            <p class="text-base leading-relaxed mb-8 flex-grow">
-                                As a nutritionist, I'm very impressed with the accuracy of nutrition data in NutriTrack. The macro and micronutrient analysis features are extremely helpful in providing recommendations to clients. The Indonesian food database is also very comprehensive!
-                            </p>
-                            <div class="flex items-center gap-3 mt-auto">
-                                <div class="h-12 w-12 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 flex-shrink-0"></div>
-                                <div>
-                                    <div class="font-medium">Dr. Maya Kartika</div>
-                                    <div class="text-sm opacity-80">Certified Nutritionist, Surabaya</div>
-                                </div>
-                            </div>
-                        </div>
+                        <?php foreach ($testimonials as $r): ?>
 
-                        <!-- Review Card 4 -->
-                        <div class="p-8 rounded-md card transition-all duration-300 hover:border-[#0F9E99] flex flex-col">
-                            <p class="text-base leading-relaxed mb-8 flex-grow">
-                                NutriTrack helps me manage my diabetes much better. The carbohydrate and blood sugar tracking features are very helpful in maintaining a healthy diet. The daily graphs and reports are very informative for consultations with my doctor.
-                            </p>
-                            <div class="flex items-center gap-3 mt-auto">
-                                <div class="h-12 w-12 rounded-full bg-gradient-to-br from-gray-300 to-gray-500 flex-shrink-0"></div>
-                                <div>
-                                    <div class="font-medium">Ahmad Rizki</div>
-                                    <div class="text-sm opacity-80">Business Owner, Medan</div>
-                                </div>
-                            </div>
-                        </div>
+                            <?php
+                            // Tentukan avatar
+                            $initial = strtoupper(substr($r['name'], 0, 1));
+                            $avatar = $r['avatar_url']
+                                ? htmlspecialchars($r['avatar_url'])
+                                : "https://placehold.co/80x80/34373b/ffffff?text={$initial}";
 
-                        <!-- Review Card 5 -->
-                        <div class="p-8 rounded-md card transition-all duration-300 hover:border-[#0F9E99] flex flex-col">
-                            <div class="space-y-3 mb-8 flex-grow">
-                                <p class="text-base leading-relaxed">Such a practical app!</p>
-                                <p class="text-base leading-relaxed">Food tracking has become so much easier.</p>
-                                <p class="text-base leading-relaxed">The meal reminder feature is very helpful.</p>
-                                <p class="text-base leading-relaxed">Highly recommended!</p>
-                            </div>
-                            <div class="flex items-center gap-3 mt-auto">
-                                <div class="h-12 w-12 rounded-full bg-gradient-to-br from-red-400 to-red-600 flex-shrink-0"></div>
-                                <div>
-                                    <div class="font-medium">Rina Wijaya</div>
-                                    <div class="text-sm opacity-80">Content Creator, Yogyakarta</div>
-                                </div>
-                            </div>
-                        </div>
+                            // Username fallback
+                            $username = !empty($r['username'])
+                                ? htmlspecialchars($r['username'])
+                                : strtolower($initial . "user");
+                            ?>
 
-                        <!-- Review Card 6 -->
-                        <div class="p-8 rounded-md card transition-all duration-300 hover:border-[#0F9E99] flex flex-col">
-                            <p class="text-base leading-relaxed mb-8 flex-grow">
-                                NutriTrack makes healthy living so much more enjoyable! The meal planning and healthy recipe features are very helpful in preparing nutritious meals. I can see my health progress over time and feel more motivated to maintain a good eating pattern.
-                            </p>
-                            <div class="flex items-center gap-3 mt-auto">
-                                <div class="h-12 w-12 rounded-full bg-gradient-to-br from-gray-400 to-gray-600 flex-shrink-0"></div>
-                                <div>
-                                    <div class="font-medium">Dedi Prasetyo</div>
-                                    <div class="text-sm opacity-80">Software Engineer, Bali</div>
+                            <div class="p-8 rounded-md card transition-all duration-300 hover:border-[#0F9E99] flex flex-col">
+
+                                <!-- Message -->
+                                <p class="text-base leading-relaxed mb-8 flex-grow">
+                                    <?= htmlspecialchars($r['message']); ?>
+                                </p>
+
+                                <!-- User Info -->
+                                <div class="flex items-center gap-3 mt-auto">
+                                    <img src="<?= $avatar; ?>" class="h-12 w-12 rounded-full object-cover" />
+                                    <div>
+                                        <div class="font-medium"><?= htmlspecialchars($r['name']); ?></div>
+                                        <div class="text-sm opacity-80">@<?= $username; ?></div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
+
+                        <?php endforeach; ?>
+
+                    <?php } ?>
+
+                </div>
             </section>
 
             <!-- Call to Action -->
             <section class="py-16">
                 <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                    <h3 class="text-2xl sm:text-3xl font-bold">Ready to start?</h3>
-                    <p class="mt-3 opacity-80">Download NutriTrack and start your healthy journey today.</p>
+                    <h3 class="text-2xl sm:text-3xl font-bold">Siap Memulai?</h3>
+                    <p class="mt-3 opacity-80">Unduh NutriTrack dan mulai perjalanan hidup sehatmu hari ini.</p>
                     <div class="mt-6 flex justify-center gap-3">
-                        <a href="#" class="px-5 py-3 rounded-md text-sm font-medium text-white bg-[#3dccc7] hover:bg-[#68d8d6]">Download App</a>
-                        <a href="features.php" class="px-5 py-3 rounded-md text-sm font-medium card">See Features</a>
+                        <a href="#"
+                            class="px-5 py-3 rounded-md text-sm font-medium text-white bg-[#3dccc7] hover:bg-[#68d8d6]">Unduh
+                            Aplikasi</a>
+                        <a href="features.php" class="px-5 py-3 rounded-md text-sm font-medium card">Lihat Fitur</a>
                     </div>
                 </div>
             </section>
+
         </div>
     </main>
 
+
     <!-- Footer -->
-    <footer class="sm:py-24">
+    <footer class="my-24 sm:py-24">
         <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-2 md:grid-cols-5 gap-8 items-start">
                 <div class="space-y-4">
-                    <a href="mailto:hi@nutritrack.com"
-                        class="text-lg hover:underline block">hi@nutritrack.com</a>
+                    <a href="https://www.instagram.com/nutritrack.plus/"
+                        class="text-lg hover:underline block">@nutritrack.plus</a>
+
                     <div class="flex space-x-4">
-                        <a href="#" class="">
+
+                        <!-- Instagram -->
+                        <a href="https://www.instagram.com/nutritrack.plus/" target="_blank"
+                            class="hover:text-[#E1306C] transition">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" class="size-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M7.5 3h9A4.5 4.5 0 0 1 21 7.5v9A4.5 4.5 0 0 1 16.5 21h-9A4.5 4.5 0 0 1 3 16.5v-9A4.5 4.5 0 0 1 7.5 3Z" />
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M12 15.75a3.75 3.75 0 1 0 0-7.5 3.75 3.75 0 0 0 0 7.5Z" />
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M17.25 6.75h.008v.008h-.008V6.75Z" />
                             </svg>
                         </a>
-                        <a href="#" class="">
+
+                        <!-- YouTube -->
+                        <a href="https://www.youtube.com/watch?v=7qhEhwEtS1Q" target="_blank"
+                            class="hover:text-red-600 transition">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" class="size-6">
                                 <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M6.827 6.175A2.31 2.31 0 0 1 5.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 0 0-1.134-.175 2.31 2.31 0 0 1-1.64-1.055l-.822-1.316a2.192 2.192 0 0 0-1.736-1.039 48.774 48.774 0 0 0-5.232 0 2.192 2.192 0 0 0-1.736 1.039l-.821 1.316Z" />
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M16.5 12.75a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0ZM18.75 10.5h.008v.008h-.008V10.5Z" />
-                            </svg>
-                        </a>
-                        <a href="#" class="">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                stroke="currentColor" class="size-6">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z" />
+                                    d="M2.25 12c0-2.485 0-3.727.637-4.662a4 4 0 0 1 1.101-1.101C4.923 5.6 6.165 5.6 8.65 5.6h6.7c2.485 0 3.727 0 4.662.637a4 4 0 0 1 1.101 1.101C21.75 8.273 21.75 9.515 21.75 12s0 3.727-.637 4.662a4 4 0 0 1-1.101 1.101c-.935.637-2.177.637-4.662.637H8.65c-2.485 0-3.727 0-4.662-.637a4 4 0 0 1-1.101-1.101C2.25 15.727 2.25 14.485 2.25 12Z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M10 9.75v4.5l4-2.25-4-2.25Z" />
                             </svg>
                         </a>
                     </div>
                 </div>
 
+
                 <div>
-                    <h4 class="font-medium">Product</h4>
+                    <h4 class="font-medium">Lebih Lanjut</h4>
                     <ul class="mt-4 space-y-4 text-sm">
-                        <li><a href="index.php" class="opacity-80">Home</a>
+                        <li><a href="index.php" class="opacity-80">Beranda</a>
                         </li>
-                        <li><a href="features.php" class="opacity-80">Features</a>
+                        <li><a href="features.php" class="opacity-80">Unggulan</a>
                         </li>
-                        <li><a href="#" class="opacity-80">Download</a>
+                        <li><a href="#" class="opacity-80">Unduh</a>
                         </li>
                     </ul>
                 </div>
 
                 <div>
-                    <h4 class="font-medium">Company</h4>
+                    <h4 class="font-medium">Dukungan</h4>
                     <ul class="mt-4 space-y-4 text-sm">
                         <li><a href="4ever-young.php" class="opacity-80">4Ever
                                 Young</a></li>
@@ -392,9 +397,9 @@
                 </div>
 
                 <div>
-                    <h4 class="font-medium">What Our Users Say</h4>
+                    <h4 class="font-medium">Apa Kata Mereka</h4>
                     <ul class="mt-4 space-y-4 text-sm">
-                        <li><a href="riviews.php" class="opacity-80">Riviews</a>
+                        <li><a href="reviews.php" class="opacity-80">Reviews</a>
                         </li>
                     </ul>
                 </div>

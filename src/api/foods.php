@@ -1,5 +1,5 @@
 <?php
-include '../db.php'; // already includes mapToCamelCase + mapArrayToCamelCase
+include '../config.php'; // already includes mapToCamelCase + mapArrayToCamelCase
 
 header("Content-Type: application/json");
 

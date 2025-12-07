@@ -78,11 +78,11 @@ function createUser($userData)
     $username = escape($userData['username']);
     $fullname = escape($userData['fullname'] ?? '');
     $email = escape($userData['email']);
-    $height = isset($userData['height']) ? (int)$userData['height'] : 0;
-    $weight = isset($userData['weight']) ? (int)$userData['weight'] : 0;
-    $age = isset($userData['age']) ? (int)$userData['age'] : 0;
+    $height = isset($userData['height']) ? (int) $userData['height'] : 0;
+    $weight = isset($userData['weight']) ? (int) $userData['weight'] : 0;
+    $age = isset($userData['age']) ? (int) $userData['age'] : 0;
     $gender = escape($userData['gender']);
-    $daily_target = isset($userData['daily_calories_target']) ? (int)$userData['daily_calories_target'] : 2000;
+    $daily_target = isset($userData['daily_calories_target']) ? (int) $userData['daily_calories_target'] : 2000;
     $level = 'user';
 
     $sql = "INSERT INTO users (username, fullname, email, password, height, weight, age, gender, daily_calories_target, level) 
@@ -110,7 +110,8 @@ function updateUser($username, $userData)
         $updates[] = "$key = '$val'";
     }
 
-    if (empty($updates)) return ['status' => 400, 'data' => ['error' => 'No data to update']];
+    if (empty($updates))
+        return ['status' => 400, 'data' => ['error' => 'No data to update']];
 
     $sql = "UPDATE users SET " . implode(', ', $updates) . " WHERE username = '$safe_username'";
 
@@ -190,10 +191,10 @@ function createFood($data)
     global $conn;
 
     $name = escape($data['name']);
-    $cal  = intval($data['calories']);
+    $cal = intval($data['calories']);
     $prot = intval($data['protein']);
     $carb = intval($data['carbs']);
-    $fat  = intval($data['fat']);
+    $fat = intval($data['fat']);
 
     $sql = "
         INSERT INTO foods (foods_name, calories_per_unit, protein_per_unit, carbs_per_unit, fat_per_unit)
@@ -215,10 +216,10 @@ function updateFood($foodId, $username, $data)
     $foodId = intval($foodId);
 
     $name = escape($data['name']);
-    $cal  = intval($data['calories']);
+    $cal = intval($data['calories']);
     $prot = intval($data['protein']);
     $carb = intval($data['carbs']);
-    $fat  = intval($data['fat']);
+    $fat = intval($data['fat']);
 
     $sql = "
         UPDATE foods SET 
@@ -242,7 +243,7 @@ function updateFood($foodId, $username, $data)
  */
 function deleteFood($foodId)
 {
-    $id = (int)$foodId;
+    $id = (int) $foodId;
     $sql = "DELETE FROM foods WHERE id = $id";
 
     if (dbQuery($sql)) {
@@ -259,7 +260,7 @@ function deleteFood($foodId)
  */
 function getMealsByUser($userId)
 {
-    $user_id = (int)$userId;
+    $user_id = (int) $userId;
 
     $sql = "SELECT * FROM meals WHERE id_user = $user_id ORDER BY meals_name ASC";
     $result = dbQuery($sql);
@@ -279,14 +280,14 @@ function getMealsByUser($userId)
 function createMeal($mealData, $userId)
 {
     global $conn;
-    $user_id = (int)$userId;
+    $user_id = (int) $userId;
 
     $name = escape($mealData['meals_name']);
     $desc = escape($mealData['description'] ?? '');
-    $cal = (int)$mealData['calories'];
-    $prot = (int)$mealData['protein'];
-    $carbs = (int)$mealData['carbs'];
-    $fat = (int)$mealData['fat'];
+    $cal = (int) $mealData['calories'];
+    $prot = (int) $mealData['protein'];
+    $carbs = (int) $mealData['carbs'];
+    $fat = (int) $mealData['fat'];
 
     $sql = "INSERT INTO meals (id_user, meals_name, description, calories, protein, carbs, fat) 
              VALUES ($user_id, '$name', '$desc', $cal, $prot, $carbs, $fat)";
@@ -323,8 +324,8 @@ function updateMealItem($mealId, $data, $userId)
  */
 function deleteMeal($mealId, $userId)
 {
-    $id = (int)$mealId;
-    $user_id = (int)$userId;
+    $id = (int) $mealId;
+    $user_id = (int) $userId;
 
     $sql = "DELETE FROM meals WHERE id = $id AND id_user = $user_id";
 
@@ -364,11 +365,11 @@ function createSeasoning($seasonData)
 {
     global $conn;
     $name = escape($seasonData['seasoning_name']);
-    $cal = (int)$seasonData['calories'];
-    $prot = (int)$seasonData['protein'];
-    $carbs = (int)$seasonData['carbs'];
-    $fat = (int)$seasonData['fat'];
-    $sodium = (int)$seasonData['sodium_mg'];
+    $cal = (int) $seasonData['calories'];
+    $prot = (int) $seasonData['protein'];
+    $carbs = (int) $seasonData['carbs'];
+    $fat = (int) $seasonData['fat'];
+    $sodium = (int) $seasonData['sodium_mg'];
 
     $sql = "INSERT INTO seasoning (seasoning_name, calories, protein, carbs, fat, sodium_mg) 
              VALUES ('$name', $cal, $prot, $carbs, $fat, $sodium)";
@@ -414,7 +415,7 @@ function updateSeasoning($id, $data)
  */
 function getDailyLog($userId, $date)
 {
-    $user_id = (int)$userId;
+    $user_id = (int) $userId;
     $safe_date = escape($date); // Format: YYYY-MM-DD
 
     $sql = "SELECT * FROM daily_calories_history 
@@ -432,11 +433,11 @@ function getDailyLog($userId, $date)
  */
 function logDailyCalories($userId, $date, $consumedCalories, $waterLog, $targetMet)
 {
-    $user_id = (int)$userId;
+    $user_id = (int) $userId;
     $safe_date = escape($date);
-    $cal = (int)$consumedCalories;
-    $water = (int)$waterLog;
-    $target = (int)$targetMet;
+    $cal = (int) $consumedCalories;
+    $water = (int) $waterLog;
+    $target = (int) $targetMet;
 
     $existing_log = getDailyLog($user_id, $safe_date);
 
@@ -455,4 +456,305 @@ function logDailyCalories($userId, $date, $consumedCalories, $waterLog, $targetM
         return ['status' => 200, 'message' => 'Daily log updated successfully'];
     }
     return ['status' => 500, 'message' => 'Failed to update daily log'];
+}
+
+function getArticlesByUser($userId = null)
+{
+    $userId = (int) $userId;
+
+    if ($userId > 0) {
+        $sql = "SELECT a.*, u.username 
+                FROM articles a
+                JOIN users u ON a.user_id = u.id
+                WHERE a.user_id = $userId
+                ORDER BY a.created_at DESC";
+    } else {
+        // fallback: semua artikel
+        $sql = "SELECT a.*, u.username 
+                FROM articles a
+                JOIN users u ON a.user_id = u.id
+                ORDER BY a.created_at DESC";
+    }
+
+    $result = dbQuery($sql);
+    $data = [];
+    if ($result) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            $data[] = $row;
+        }
+    }
+    return $data;
+}
+
+/**
+ * Create Article
+ */
+function createArticle($articleData, $userId)
+{
+    global $conn;
+
+    $userId = (int) $userId;
+    $title = escape($articleData['title']);
+    $slug = escape($articleData['slug'] ?? strtolower(preg_replace('/[^a-z0-9]+/i', '-', $articleData['title'])));
+    $content = escape($articleData['content']);
+    $status = escape($articleData['status'] ?? 'draft');
+
+    $sql = "INSERT INTO articles (user_id, title, slug, content, status)
+            VALUES ($userId, '$title', '$slug', '$content', '$status')";
+
+    if (dbQuery($sql)) {
+        return ['status' => 201, 'data' => ['id' => mysqli_insert_id($conn)]];
+    }
+    return ['status' => 500, 'data' => ['error' => mysqli_error($conn)]];
+}
+
+/**
+ * Update Article
+ */
+function updateArticle($articleId, $userId, $data)
+{
+    $articleId = (int) $articleId;
+    $userId = (int) $userId;
+
+    $fields = [];
+    foreach ($data as $key => $value) {
+        $val = escape($value);
+        $fields[] = "$key = '$val'";
+    }
+
+    if (empty($fields)) {
+        return ['status' => 400, 'data' => ['error' => 'No data to update']];
+    }
+
+    $sql = "UPDATE articles SET " . implode(', ', $fields) . " 
+            WHERE id = $articleId AND user_id = $userId";
+
+    if (dbQuery($sql)) {
+        return ['status' => 200, 'data' => 'Updated'];
+    }
+    return ['status' => 500, 'data' => ['error' => 'Update failed']];
+}
+
+/**
+ * Delete Article
+ */
+function deleteArticle($articleId, $userId)
+{
+    $articleId = (int) $articleId;
+    $userId = (int) $userId;
+
+    $sql = "DELETE FROM articles WHERE id = $articleId AND user_id = $userId";
+
+    if (dbQuery($sql)) {
+        return ['status' => 200, 'data' => 'Deleted'];
+    }
+    return ['status' => 500, 'data' => ['error' => 'Delete failed']];
+}
+
+// =======================================================
+// ===============  DAILY REPORT =========================
+// =======================================================
+
+function getDailyReport($userId, $date)
+{
+    $userId = (int) $userId;
+    $date = escape($date);
+
+    $sql = "
+        SELECT d.*, 
+               m.meals_name AS meal_name,
+               m.calories AS meal_calories,
+               f.foods_name AS food_name,
+               f.calories_per_unit AS food_calories
+        FROM diary d
+        LEFT JOIN meals m ON d.id_meals = m.id
+        LEFT JOIN foods f ON d.id_foods = f.id
+        WHERE d.id_user = $userId
+        AND d.date = '$date'
+    ";
+
+    $result = dbQuery($sql);
+
+    // FIX: Jika query gagal
+    if (!$result) {
+        return [
+            'total_calories' => 0,
+            'total_items' => 0,
+            'meals_logged' => 0,
+            'foods_logged' => 0,
+            'details' => []
+        ];
+    }
+
+    $total = 0;
+    $details = [];
+    $meals = 0;
+    $foods = 0;
+
+    while ($row = mysqli_fetch_assoc($result)) {
+        $details[] = $row;
+
+        if (!empty($row['meal_calories'])) {
+            $total += (int) $row['meal_calories'];
+            $meals++;
+        }
+        if (!empty($row['food_calories'])) {
+            $total += (int) $row['food_calories'];
+            $foods++;
+        }
+    }
+
+    return [
+        'total_calories' => $total,
+        'total_items' => $meals + $foods,
+        'meals_logged' => $meals,
+        'foods_logged' => $foods,
+        'details' => $details
+    ];
+}
+
+
+
+// =======================================================
+// ===============  WEEKLY REPORT ========================
+// =======================================================
+
+function getWeeklyCalories($userId)
+{
+    $userId = (int) $userId;
+
+    $sql = "
+        SELECT d.date,
+               SUM(
+                    COALESCE(m.calories,0) + 
+                    COALESCE(f.calories_per_unit,0)
+               ) AS total
+        FROM diary d
+        LEFT JOIN meals m ON d.id_meals = m.id
+        LEFT JOIN foods f ON d.id_foods = f.id
+        WHERE d.id_user = $userId
+        AND d.date >= DATE_SUB(CURDATE(), INTERVAL 7 DAY)
+        GROUP BY d.date
+        ORDER BY d.date
+    ";
+
+    $res = dbQuery($sql);
+
+    $labels = [];
+    $values = [];
+
+    while ($row = mysqli_fetch_assoc($res)) {
+        $labels[] = $row['date'];
+        $values[] = (int) $row['total'];
+    }
+
+    return [
+        'labels' => $labels,
+        'values' => $values
+    ];
+}
+
+
+// =======================================================
+// ===============  MONTHLY REPORT =======================
+// =======================================================
+
+function getMonthlyReport($userId)
+{
+    $userId = (int) $userId;
+
+    $sql = "
+        SELECT d.date,
+               SUM(
+                    COALESCE(m.calories,0) +
+                    COALESCE(f.calories_per_unit,0)
+               ) AS total
+        FROM diary d
+        LEFT JOIN meals m ON d.id_meals = m.id
+        LEFT JOIN foods f ON d.id_foods = f.id
+        WHERE d.id_user = $userId
+        AND d.date >= DATE_SUB(CURDATE(), INTERVAL 30 DAY)
+        GROUP BY d.date
+    ";
+
+    $res = dbQuery($sql);
+
+    $days = [];
+    $total = 0;
+
+    while ($row = mysqli_fetch_assoc($res)) {
+        $days[$row['date']] = (int) $row['total'];
+        $total += (int) $row['total'];
+    }
+
+    if (empty($days)) {
+        return [
+            'days' => [],
+            'total_calories' => 0,
+            'average_per_day' => 0,
+            'highest_day' => "-",
+            'highest_value' => 0
+        ];
+    }
+
+    $avg = round($total / count($days));
+
+    $highestValue = max($days);
+    $highestDay = array_search($highestValue, $days);
+
+    return [
+        'days' => $days,
+        'total_calories' => $total,
+        'average_per_day' => $avg,
+        'highest_day' => $highestDay,
+        'highest_value' => $highestValue
+    ];
+}
+
+function getAllNonAdminUsers()
+{
+    $sql = "SELECT id, username, fullname 
+            FROM users 
+            WHERE level != 'admin' 
+            ORDER BY fullname ASC";
+
+    $res = dbQuery($sql);
+
+    $data = [];
+    if ($res) {
+        while ($row = mysqli_fetch_assoc($res)) {
+            $data[] = $row;
+        }
+    }
+    return $data;
+}
+
+function getTestimonials()
+{
+    $sql = "SELECT id, name, username, avatar_url, message FROM testimonials ORDER BY id DESC";
+
+    $res = dbQuery($sql);
+
+    $data = [];
+    if ($res) {
+        while ($row = mysqli_fetch_assoc($res)) {
+            $data[] = $row;
+        }
+    }
+    return $data;
+}
+
+function getLatestTestimonials()
+{
+    $sql = "SELECT id, name, username, avatar_url, message FROM testimonials ORDER BY id DESC LIMIT 6";
+
+    $res = dbQuery($sql);
+
+    $data = [];
+    if ($res) {
+        while ($row = mysqli_fetch_assoc($res)) {
+            $data[] = $row;
+        }
+    }
+    return $data;
 }

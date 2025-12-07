@@ -1,0 +1,5 @@
+[05-Dec-2025 13:44:18 Asia/Jakarta] PHP Fatal error:  Uncaught DivisionByZeroError: Division by zero in /home/desx7782/public_html/nutritrack.web.id/api/auth.php:537
+Stack trace:
+#0 /home/desx7782/public_html/nutritrack.web.id/api/auth.php(360): calculateBMI()
+#1 {main}
+  thrown in /home/desx7782/public_html/nutritrack.web.id/api/auth.php on line 537
