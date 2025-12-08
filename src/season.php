@@ -225,6 +225,8 @@ $foods = getSeasonings();
                     <li><a href="meal.php" class="transition duration-200 hover:scale-105">Meal</a></li>
                     <li><a href="food.php" class="transition duration-200 hover:scale-105">Food</a></li>
                     <li><a href="daily.php" class="transition duration-200 hover:scale-105">Daily</a></li>
+                    <li><a href="article.php">Article</a></li>
+                    <li><a href="report.php">Report</a></li>
                 </ul>
                 <div class="hidden md:flex items-center space-x-3">
                     <span class="dark:text-dark-text whitespace-nowrap">Hello,

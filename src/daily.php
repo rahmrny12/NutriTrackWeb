@@ -187,10 +187,13 @@ if ($result_logs) {
                 <ul class="hidden md:flex items-center space-x-8">
                     <li><a href="dashboard.php" class="transition duration-200 hover:scale-105">Dashboard</a></li>
                     <li><a href="user.php" class="transition duration-200 hover:scale-105">User</a></li>
-                    <li><a href="season.php" class="transition duration-200 hover:scale-105">Season</a></li>
+                    <!-- <li><a href="season.php" class="transition duration-200 hover:scale-105">Season</a></li> -->
                     <li><a href="meal.php" class="transition duration-200 hover:scale-105">Meal</a></li>
                     <li><a href="food.php" class="transition duration-200 hover:scale-105">Food</a></li>
                     <li><a href="daily.php" class="font-semibold text-[#3dccc7]">Daily</a></li>
+                    <li><a href="article.php">Article</a></li>
+                    <li><a href="report.php">Report</a></li>
+                </ul>
                 </ul>
                 <div class="hidden md:flex items-center space-x-3">
                     <span class="whitespace-nowrap">Hello, <?php echo htmlspecialchars($_SESSION['username']); ?></span>

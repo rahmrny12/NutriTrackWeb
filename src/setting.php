@@ -258,7 +258,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				<ul class="hidden md:flex items-center space-x-8">
 					<li><a href="dashboard.php" class="transition duration-200 hover:scale-105">Dashboard</a></li>
 					<li><a href="user.php" class="transition duration-200 hover:scale-105">User</a></li>
-					<li><a href="season.php" class="transition duration-200 hover:scale-105">Season</a></li>
+					<!-- <li><a href="season.php" class="transition duration-200 hover:scale-105">Season</a></li> -->
 					<li><a href="meal.php" class="transition duration-200 hover:scale-105">Meal</a></li>
 					<li><a href="food.php" class="transition duration-200 hover:scale-105">Food</a></li>
 					<li><a href="daily.php" class="transition duration-200 hover:scale-105">Daily</a></li>
@@ -370,7 +370,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 						</div>
 
 						<div>
-							<label for="gender" class="block text-sm font-medium mb-2">Gender</label>
+							<label for="" class="block text-sm font-medium mb-2">Gender</label>
 							<select id="gender" name="gender"
 								class="w-full card px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3dccc7]">
 								<option value="">Select Gender</option>

@@ -362,10 +362,12 @@ if ($result_users) {
                 <ul class="hidden md:flex items-center space-x-8">
                     <li><a href="dashboard.php" class="transition duration-200 hover:scale-105">Dashboard</a></li>
                     <li><a href="user.php" class="font-semibold text-[#3dccc7]">User</a></li>
-                    <li><a href="season.php" class="transition duration-200 hover:scale-105">Season</a></li>
+                    <!-- <li><a href="season.php" class="transition duration-200 hover:scale-105">Season</a></li> -->
                     <li><a href="meal.php" class="transition duration-200 hover:scale-105">Meal</a></li>
                     <li><a href="food.php" class="transition duration-200 hover:scale-105">Food</a></li>
                     <li><a href="daily.php" class="transition duration-200 hover:scale-105">Daily</a></li>
+                    <li><a href="article.php">Article</a></li>
+                    <li><a href="report.php">Report</a></li>
                 </ul>
                 <div class="hidden md:flex items-center space-x-3">
                     <span class="whitespace-nowrap">Hello, <?php echo htmlspecialchars($authUsername); ?></span>
@@ -419,8 +421,8 @@ if ($result_users) {
             <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
                 <div>
                     <p class="text-sm uppercase tracking-widest opacity-60">Users</p>
-                    <h1 class="text-3xl sm:text-4xl font-bold tracking-tight">Manage your community</h1>
-                    <p class="mt-2 text-base opacity-80">Invite, update, or remove accounts directly from this panel.
+                    <h1 class="text-3xl sm:text-4xl font-bold tracking-tight">Kelola Pengguna & Komunitas</h1>
+                    <p class="mt-2 text-base opacity-80">Kelola pengguna dengan mudah — perbarui, atau hapus akun langsung dari panel ini.
                     </p>
                 </div>
                 <div class="w-full md:w-auto">
@@ -452,8 +454,8 @@ if ($result_users) {
                 <div class="space-y-8 xl:col-span-1">
                     <section class="card rounded-2xl shadow-lg p-6 space-y-6">
                         <div>
-                            <h2 class="text-2xl font-semibold">Add new user</h2>
-                            <p class="text-sm opacity-70 mt-1">Create an account manually for a teammate.</p>
+                            <h2 class="text-2xl font-semibold">Tambah Pengguna Baru</h2>
+                            <p class="text-sm opacity-70 mt-1">Masukkan informasi pengguna untuk menambahkan akun baru.</p>
                         </div>
                         <?php if ($createError) { ?>
                             <div class="rounded-lg bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-600 fade-in">
@@ -463,7 +465,7 @@ if ($result_users) {
                         <form method="POST" action="user.php" class="space-y-4">
                             <input type="hidden" name="action" value="create_user" />
                             <div>
-                                <label for="create_fullname" class="block text-sm font-medium mb-2">Full name</label>
+                                <label for="create_fullname" class="block text-sm font-medium mb-2">Nama Lengkap</label>
                                 <input type="text" id="create_fullname" name="fullname"
                                     value="<?php echo htmlspecialchars($createFormData['fullname']); ?>" required
                                     class="w-full card px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3dccc7]" />
@@ -481,20 +483,20 @@ if ($result_users) {
                                     class="w-full card px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3dccc7]" />
                             </div>
                             <div>
-                                <label for="create_password" class="block text-sm font-medium mb-2">Password</label>
+                                <label for="create_password" class="block text-sm font-medium mb-2">Kata Sandi</label>
                                 <input type="password" id="create_password" name="password" required
                                     value="<?php echo htmlspecialchars($createFormData['password']); ?>"
                                     class="w-full card px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3dccc7]" />
                             </div>
                             <div>
-                                <label for="create_phone" class="block text-sm font-medium mb-2">Phone
+                                <label for="create_phone" class="block text-sm font-medium mb-2">Nomor Telepon
                                     (optional)</label>
                                 <input type="tel" id="create_phone" name="phone"
                                     value="<?php echo htmlspecialchars($createFormData['phone']); ?>"
                                     class="w-full card px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3dccc7]" />
                             </div>
                             <div>
-                                <label for="create_level" class="block text-sm font-medium mb-2">Level</label>
+                                <label for="create_level" class="block text-sm font-medium mb-2">Hak Akses</label>
                                 <input type="hidden" id="create_level" name="level" value="<?php echo htmlspecialchars($createFormData['level']); ?>" required>
                                 <div class="relative w-full font-sans text-sm">
                                     <button type="button" id="create_level_btn" class="group w-full flex justify-between items-center 
@@ -502,7 +504,7 @@ if ($result_users) {
                                         cursor-pointer transition-all duration-300 ease-in-out
                                         hover:border-[#3dccc7]">
                                         <span id="create_level_display" class="text-sm font-medium">
-                                            <?php echo $createFormData['level'] ? ucfirst($createFormData['level']) : 'Select level'; ?>
+                                            <?php echo $createFormData['level'] ? ucfirst($createFormData['level']) : 'Pilih Hak Akses'; ?>
                                         </span>
                                         <svg id="create_level_icon" class="w-4 h-4 text-gray-500 dark:text-gray-400 transition-transform duration-300"
                                             fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -535,8 +537,8 @@ if ($result_users) {
                 <section class="card rounded-2xl shadow-lg p-6 space-y-6 xl:col-span-2">
                     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                         <div>
-                            <h2 class="text-2xl font-semibold">All users</h2>
-                            <p class="text-sm opacity-70 mt-1">Showing <?php echo count($users); ?> record(s).</p>
+                            <h2 class="text-2xl font-semibold">Semua Pengguna</h2>
+                            <p class="text-sm opacity-70 mt-1">Semua <?php echo count($users); ?> data.</p>
                         </div>
                     </div>
 
@@ -585,15 +587,15 @@ if ($result_users) {
                                                 $levelBadgeClass = 'border-1 border-primary bg-primary/10 backdrop-blur-sm text-primary';
                                                 break;
                                             case 'user':
-                                                $levelBadgeClass = 'border-1 border-accent bg-accent/10 backdrop-blur-sm text-accent';
+                                                $levelBadgeClass = 'border-1 border-neutral bg-neutral/10 backdrop-blur-sm text-neutral';
                                                 break;
                                             default:
                                                 $levelBadgeClass = 'bg-neutral-500';
                                         }
                                     ?>
-                                        <tr class="border-b border-neutral-200 transition-colors">
+                                        <tr class=" transition-colors">
                                             <td class="py-3 px-4">
-                                                <span class="font-medium">@<?php echo htmlspecialchars($user['username']); ?></span>
+                                                <span class="font-medium"><?php echo htmlspecialchars($user['fullname']); ?></span>
                                             </td>
                                             <td class="py-3 px-4">
                                                 <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium <?php echo $levelBadgeClass; ?>">
@@ -606,7 +608,8 @@ if ($result_users) {
                                             <td class="py-3 px-4">
                                                 <div class="flex items-center justify-center gap-2">
                                                     <button type="button"
-                                                        class="edit-btn px-3 py-1.5 rounded-lg card text-xs font-semibold hover:border-[#3dccc7]"
+                                                        class="edit-btn px-3 py-1.5 rounded-lg text-xs font-semibold text-[#3dccc7] border border-[#3dccc7]
+                                                                hover:bg-[#3dccc7] hover:text-white hover:border-[#3dccc7] transition-all duration-150 cursor-pointer"
                                                         data-username="<?php echo htmlspecialchars($user['username'] ?? '', ENT_QUOTES); ?>"
                                                         data-fullname="<?php echo htmlspecialchars($user['fullname'] ?? '', ENT_QUOTES); ?>"
                                                         data-email="<?php echo htmlspecialchars($user['email'] ?? '', ENT_QUOTES); ?>"
@@ -621,7 +624,11 @@ if ($result_users) {
                                                         <input type="hidden" name="username"
                                                             value="<?php echo htmlspecialchars($user['username']); ?>" />
                                                         <button type="submit"
-                                                            class="px-3 py-1.5 rounded-lg text-xs font-semibold text-red-600 border border-red-400 hover:bg-red-50">Delete</button>
+                                                            class="px-3 py-1.5 rounded-lg text-xs font-semibold text-red-600 border border-red-400
+                                                                hover:bg-red-600 hover:text-white hover:border-red-600 transition-all duration-150 cursor-pointer">
+                                                            Delete
+                                                        </button>
+
                                                     </form>
                                                 </div>
                                             </td>

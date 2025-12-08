@@ -116,7 +116,7 @@ if ($result_total_foods && mysqli_num_rows($result_total_foods) > 0) {
             <ul class="hidden md:flex items-center space-x-8">
                 <li><a href="dashboard.php" class="font-semibold text-[#3dccc7]">Dashboard</a></li>
                 <li><a href="user.php">User</a></li>
-                <li><a href="season.php">Season</a></li>
+                <!-- <li><a href="season.php">Season</a></li> -->
                 <li><a href="meal.php">Meal</a></li>
                 <li><a href="food.php">Food</a></li>
                 <li><a href="daily.php">Daily</a></li>
@@ -188,6 +188,49 @@ if ($result_total_foods && mysqli_num_rows($result_total_foods) > 0) {
         </div>
     </section>
 </main>
+
+<!-- Theme Switcher -->
+    <div class="fixed bottom-6 right-6 z-50 flex flex-col items-center space-y-4">
+        <div class="p-1 rounded-full card shadow-md transition-all duration-300">
+            <a href="setting.php" id="settings-btn"
+                class="flex items-center justify-center p-2 rounded-full transition-colors duration-200">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.591 1.042c1.523-.878 3.25.848 2.372 2.372a1.724 1.724 0 001.042 2.591c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.042 2.591c.878 1.523-.849 3.25-2.372 2.372a1.724 1.724 0 00-2.591 1.042c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.591-1.042c-1.523.878-3.25-.849-2.372-2.372a1.724 1.724 0 00-1.042-2.591c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.042-2.591c-.878-1.524.849-3.25 2.372-2.372a1.724 1.724 0 002.591-1.042z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+            </a>
+        </div>
+
+        <div id="theme-switcher"
+            class="flex flex-col p-1 rounded-full card transition-all duration-300">
+            <button id="system-btn"
+                class="flex items-center justify-center p-2 rounded-full transition-colors duration-200">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M9 17.25v1.007a3 3 0 0 1-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0 1 15 18.257V17.25m6-12V15a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 15V5.25m18 0A2.25 2.25 0 0 0 18.75 3H5.25A2.25 2.25 0 0 0 3 5.25m18 0V12a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 12V5.25" />
+                </svg>
+            </button>
+            <button id="light-btn"
+                class="flex items-center justify-center p-2 rounded-full transition-colors duration-200">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
+                </svg>
+            </button>
+            <button id="dark-btn"
+                class="flex items-center justify-center p-2 rounded-full transition-colors duration-200">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                </svg>
+            </button>
+        </div>
+    </div>
 
 <!-- === CHART SCRIPT === -->
 <script>
